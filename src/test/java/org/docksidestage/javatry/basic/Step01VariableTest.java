@@ -47,7 +47,8 @@ public class Step01VariableTest extends PlainTestCase {
         String piari = null;
         String dstore = "mai";
         sea = sea + land + piari + ":" + dstore;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => mystic8null:mai
+//        piariにnullという文字列が入るか、何も入っていないか迷った。合ってた
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -56,7 +57,8 @@ public class Step01VariableTest extends PlainTestCase {
         String land = "oneman";
         sea = land;
         land = land + "'s dreams";
-        log(sea); // your answer? => 
+        log(sea); // your answer? => oneman
+//        合ってた。変数seaに変数landの値が代入されているため、seaの値はlandの値になる。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -65,7 +67,8 @@ public class Step01VariableTest extends PlainTestCase {
         int land = 415;
         sea = land;
         land++;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 415
+//        合ってた。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -75,7 +78,9 @@ public class Step01VariableTest extends PlainTestCase {
         sea = land;
         sea = land.add(new BigDecimal(1));
         sea.add(new BigDecimal(1));
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 416
+//        this + augendが返される。BigDecimalはimmutable（内部で情報が変わらない）なので、seaには416が代入されるが、sea.add(new BigDecimal(1));はseaには影響しない。
+//        合ってた。
     }
 
     // ===================================================================================
@@ -89,19 +94,23 @@ public class Step01VariableTest extends PlainTestCase {
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_instance_variable_default_String() {
         String sea = instanceBroadway;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => ””
+//        空文字列と思ったが、nullだった
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_instance_variable_default_int() {
         int sea = instanceDockside;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => null
+//        nullと思ったが、0だった
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_instance_variable_default_Integer() {
         Integer sea = instanceHangar;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 0
+//        0と思ったが、nullだった。問題作成者の思う壺になってて腹立つ。
+//        intとIntegerの違いを理解していなかった。intはプリミティブ型で、初期値は0。Integerはクラス型で、初期値はnull。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -110,7 +119,9 @@ public class Step01VariableTest extends PlainTestCase {
         instanceMagiclamp = "magician";
         helpInstanceVariableViaMethod(instanceMagiclamp);
         String sea = instanceBroadway + "|" + instanceDockside + "|" + instanceHangar + "|" + instanceMagiclamp;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => bigband｜1|null|magician
+//        合ってた。スコープ範囲の問題ですね。グローバル変数としてinstanceBroadwayとinstanceDocksideはhelpInstanceVariableViaMethod内で扱われている。
+//        そのため、helpInstanceVariableViaMethod内での変更が反映されている。instanceMagiclampは引数として渡されているため、helpInstanceVariableViaMethod内での変更が反映されていない。
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
@@ -130,7 +141,8 @@ public class Step01VariableTest extends PlainTestCase {
         String sea = "harbor";
         int land = 415;
         helpMethodArgumentImmutableMethodcall(sea, land);
-        log(sea); // your answer? => 
+        log(sea); // your answer? => harbor
+//        合ってた。
     }
 
     private void helpMethodArgumentImmutableMethodcall(String sea, int land) {
@@ -147,7 +159,9 @@ public class Step01VariableTest extends PlainTestCase {
         StringBuilder sea = new StringBuilder("harbor");
         int land = 415;
         helpMethodArgumentMethodcall(sea, land);
-        log(sea); // your answer? => 
+        log(sea); // your answer? => harbor416
+//        合ってた。今回seaはStringBuilder型であり、appendでretuen thisをしているため、内部で変更がされている。
+//        ただ感覚でわかったのでちゃんと解説欲しい。
     }
 
     private void helpMethodArgumentMethodcall(StringBuilder sea, int land) {
@@ -163,7 +177,9 @@ public class Step01VariableTest extends PlainTestCase {
         StringBuilder sea = new StringBuilder("harbor");
         int land = 415;
         helpMethodArgumentVariable(sea, land);
-        log(sea); // your answer? => 
+        log(sea); // your answer? => harbor
+//        合ってた。
+//        helpMethodArgumentVariable内でseaに新しいStringBuilderが代入されているが、そのスコープ範囲はhelpMethodArgumentVariable内で終わっているため、外部には影響がない。
     }
 
     private void helpMethodArgumentVariable(StringBuilder sea, int land) {
@@ -193,6 +209,10 @@ public class Step01VariableTest extends PlainTestCase {
      */
     public void test_variable_writing() {
         // define variables here
+        String sea = "mystic";
+        Integer land = null;
+        int piari = instanceDockside;
+        log(sea + "," + land + "," + piari);
     }
 
     // ===================================================================================
@@ -204,11 +224,16 @@ public class Step01VariableTest extends PlainTestCase {
      * <pre>
      * _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
      * your question here (ここにあなたの質問を):
-     * 
+     * ローカル変数、名前はnum, 型はInteger, 初期値は 10
+     * 型をStringに変換して、それぞれの型をlog()で表示
      * _/_/_/_/_/_/_/_/_/_/
      * </pre>
      */
     public void test_variable_yourExercise() {
         // write your code here
+        Integer num = 10;
+        String str = num.toString();
+        log(num, num.getClass().getName());
+        log(str, str.getClass().getName());
     }
 }
