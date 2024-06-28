@@ -141,7 +141,8 @@ public class Step01VariableTest extends PlainTestCase {
         String sea = "harbor";
         int land = 415;
         helpMethodArgumentImmutableMethodcall(sea, land);
-        log(sea); // your answer? => 
+        log(sea); // your answer? => harbor
+//        合ってた。
     }
 
     private void helpMethodArgumentImmutableMethodcall(String sea, int land) {
@@ -158,7 +159,9 @@ public class Step01VariableTest extends PlainTestCase {
         StringBuilder sea = new StringBuilder("harbor");
         int land = 415;
         helpMethodArgumentMethodcall(sea, land);
-        log(sea); // your answer? => 
+        log(sea); // your answer? => harbor416
+//        合ってた。今回seaはStringBuilder型であり、appendでretuen thisをしているため、内部で変更がされている。
+//        ただ感覚でわかったのでちゃんと解説欲しい。
     }
 
     private void helpMethodArgumentMethodcall(StringBuilder sea, int land) {
@@ -174,7 +177,9 @@ public class Step01VariableTest extends PlainTestCase {
         StringBuilder sea = new StringBuilder("harbor");
         int land = 415;
         helpMethodArgumentVariable(sea, land);
-        log(sea); // your answer? => 
+        log(sea); // your answer? => harbor
+//        合ってた。
+//        helpMethodArgumentVariable内でseaに新しいStringBuilderが代入されているが、そのスコープ範囲はhelpMethodArgumentVariable内で終わっているため、外部には影響がない。
     }
 
     private void helpMethodArgumentVariable(StringBuilder sea, int land) {
@@ -204,6 +209,10 @@ public class Step01VariableTest extends PlainTestCase {
      */
     public void test_variable_writing() {
         // define variables here
+        String sea = "mystic";
+        Integer land = null;
+        int piari = instanceDockside;
+        log(sea + "," + land + "," + piari);
     }
 
     // ===================================================================================
@@ -215,11 +224,16 @@ public class Step01VariableTest extends PlainTestCase {
      * <pre>
      * _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
      * your question here (ここにあなたの質問を):
-     * 
+     * ローカル変数、名前はnum, 型はInteger, 初期値は 10
+     * 型をStringに変換して、それぞれの型をlog()で表示
      * _/_/_/_/_/_/_/_/_/_/
      * </pre>
      */
     public void test_variable_yourExercise() {
         // write your code here
+        Integer num = 10;
+        String str = num.toString();
+        log(num, num.getClass().getName());
+        log(str, str.getClass().getName());
     }
 }
