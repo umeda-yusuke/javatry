@@ -47,7 +47,8 @@ public class Step01VariableTest extends PlainTestCase {
         String piari = null;
         String dstore = "mai";
         sea = sea + land + piari + ":" + dstore;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => mystic8null:mai
+//        piariにnullという文字列が入るか、何も入っていないか迷った。合ってた
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -56,7 +57,8 @@ public class Step01VariableTest extends PlainTestCase {
         String land = "oneman";
         sea = land;
         land = land + "'s dreams";
-        log(sea); // your answer? => 
+        log(sea); // your answer? => oneman
+//        合ってた。変数seaに変数landの値が代入されているため、seaの値はlandの値になる。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -65,7 +67,8 @@ public class Step01VariableTest extends PlainTestCase {
         int land = 415;
         sea = land;
         land++;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 415
+//        合ってた。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -75,7 +78,9 @@ public class Step01VariableTest extends PlainTestCase {
         sea = land;
         sea = land.add(new BigDecimal(1));
         sea.add(new BigDecimal(1));
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 416
+//        this + augendが返される。BigDecimalはimmutable（内部で情報が変わらない）なので、seaには416が代入されるが、sea.add(new BigDecimal(1));はseaには影響しない。
+//        合ってた。
     }
 
     // ===================================================================================
@@ -89,19 +94,23 @@ public class Step01VariableTest extends PlainTestCase {
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_instance_variable_default_String() {
         String sea = instanceBroadway;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => ””
+//        空文字列と思ったが、nullだった
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_instance_variable_default_int() {
         int sea = instanceDockside;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => null
+//        nullと思ったが、0だった
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_instance_variable_default_Integer() {
         Integer sea = instanceHangar;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 0
+//        0と思ったが、nullだった。問題作成者の思う壺になってて腹立つ。
+//        intとIntegerの違いを理解していなかった。intはプリミティブ型で、初期値は0。Integerはクラス型で、初期値はnull。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -110,7 +119,9 @@ public class Step01VariableTest extends PlainTestCase {
         instanceMagiclamp = "magician";
         helpInstanceVariableViaMethod(instanceMagiclamp);
         String sea = instanceBroadway + "|" + instanceDockside + "|" + instanceHangar + "|" + instanceMagiclamp;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => bigband｜1|null|magician
+//        合ってた。スコープ範囲の問題ですね。グローバル変数としてinstanceBroadwayとinstanceDocksideはhelpInstanceVariableViaMethod内で扱われている。
+//        そのため、helpInstanceVariableViaMethod内での変更が反映されている。instanceMagiclampは引数として渡されているため、helpInstanceVariableViaMethod内での変更が反映されていない。
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
