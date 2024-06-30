@@ -19,6 +19,9 @@ import java.math.BigDecimal;
 
 import org.docksidestage.unit.PlainTestCase;
 
+// TODO umeyan これは伝えてなかったのでしょうがないのですが、今伝えさせてください by jflute (2024/06/30)
+// 一応、javatryの実装ポリシーとして、クラスのJavaDocのauthorの your_name_here のところを自分の名前に変えるようにお願いします。
+// https://dbflute.seasar.org/ja/tutorial/handson/review/codingpolicy.html#minjavadoc
 /**
  * The test of variable. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
@@ -49,6 +52,8 @@ public class Step01VariableTest extends PlainTestCase {
         sea = sea + land + piari + ":" + dstore;
         log(sea); // your answer? => mystic8null:mai
 //        piariにnullという文字列が入るか、何も入っていないか迷った。合ってた
+        // TODO umeyan 些細な話ですが言語によってこういうところ違ったりするものなんですよね by jflute (2024/06/30)
+        // TODO jflute 1on1で軽くフォロー予定 (Java以外の言語の話やnull事件) (2024/06/30)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -81,6 +86,7 @@ public class Step01VariableTest extends PlainTestCase {
         log(sea); // your answer? => 416
 //        this + augendが返される。BigDecimalはimmutable（内部で情報が変わらない）なので、seaには416が代入されるが、sea.add(new BigDecimal(1));はseaには影響しない。
 //        合ってた。
+     // TODO jflute 1on1で軽くフォロー予定 (immutable話、javadocやコードリーディングを交えて) (2024/06/30)
     }
 
     // ===================================================================================
@@ -111,6 +117,7 @@ public class Step01VariableTest extends PlainTestCase {
         log(sea); // your answer? => 0
 //        0と思ったが、nullだった。問題作成者の思う壺になってて腹立つ。
 //        intとIntegerの違いを理解していなかった。intはプリミティブ型で、初期値は0。Integerはクラス型で、初期値はnull。
+        // TODO umeyan 丁寧に学んで頂きありあとうございます。プリミティブ型の話はstep3でもやります by jflute (2024/06/30)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -122,6 +129,12 @@ public class Step01VariableTest extends PlainTestCase {
         log(sea); // your answer? => bigband｜1|null|magician
 //        合ってた。スコープ範囲の問題ですね。グローバル変数としてinstanceBroadwayとinstanceDocksideはhelpInstanceVariableViaMethod内で扱われている。
 //        そのため、helpInstanceVariableViaMethod内での変更が反映されている。instanceMagiclampは引数として渡されているため、helpInstanceVariableViaMethod内での変更が反映されていない。
+        // TODO umeyan さすが問題なしですね。プログラミング初心者で間違い多い箇所なんですよ by jflute (2024/06/30)
+        // 変数名が同じだと同じもの(箱/変数)だと思ってしまいがちで、でも言う通り「スコープ範囲」の問題ですよね。
+        // 違うスコープの変数が名前かぶりした場合、基本的には近い方(狭い方)が優先されます。(他の言語でもだいたい同じかな!?)
+        // ちなみに、ここではまだ「クラス」という概念を意識していないのですが、そのグローバル変数は「インスタンス変数」と呼びます。
+        // Step01VariableTestクラスの1インスタンスに属する変数ということでインスタンス変数です。
+        // TODO jflute 1on1で軽くフォロー予定 (インスタンスとは？の問い) (2024/06/30)
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
@@ -162,6 +175,7 @@ public class Step01VariableTest extends PlainTestCase {
         log(sea); // your answer? => harbor416
 //        合ってた。今回seaはStringBuilder型であり、appendでretuen thisをしているため、内部で変更がされている。
 //        ただ感覚でわかったのでちゃんと解説欲しい。
+        // TODO jflute 1on1でフォロー予定 (mutableの引数、変数とインスタンス) (2024/06/30)
     }
 
     private void helpMethodArgumentMethodcall(StringBuilder sea, int land) {
@@ -180,6 +194,7 @@ public class Step01VariableTest extends PlainTestCase {
         log(sea); // your answer? => harbor
 //        合ってた。
 //        helpMethodArgumentVariable内でseaに新しいStringBuilderが代入されているが、そのスコープ範囲はhelpMethodArgumentVariable内で終わっているため、外部には影響がない。
+        // TODO umeyan パーフェクトです！(インスタンスが違えば別物だし、そのnewインスタンスはメソッド内で消えるし) by jflute (2024/06/30)
     }
 
     private void helpMethodArgumentVariable(StringBuilder sea, int land) {
@@ -211,7 +226,10 @@ public class Step01VariableTest extends PlainTestCase {
         // define variables here
         String sea = "mystic";
         Integer land = null;
+        // TODO umeyan インスタンス変数を定義して欲しいという話なので、piari変数の定義場所をinstanceDocksideと似たような場所にして欲しいということです by jflute (2024/06/30)
         int piari = instanceDockside;
+        // TODO umeyan あまり本質的ではないフォローですが、log()メソッドの引数定義とjavadocを読んでみてください by jflute (2024/06/30)
+        // (可変長引数として複数の引数を指定できて、それら引数をカンマで連結してログ出力するようになっています)
         log(sea + "," + land + "," + piari);
     }
 
@@ -235,5 +253,6 @@ public class Step01VariableTest extends PlainTestCase {
         String str = num.toString();
         log(num, num.getClass().getName());
         log(str, str.getClass().getName());
+        // TODO umeyan いいですね！型を表示しなさいってところが面白いです(^^ by jflute (2024/06/30)
     }
 }
