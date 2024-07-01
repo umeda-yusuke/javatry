@@ -25,7 +25,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author umeda-yusuke
  */
 public class Step02IfForTest extends PlainTestCase {
 
@@ -52,7 +52,8 @@ public class Step02IfForTest extends PlainTestCase {
         } else {
             sea = 7;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 7
+//        合ってた。seaは904より大きくないのでelseに入る。結果は7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -67,7 +68,8 @@ public class Step02IfForTest extends PlainTestCase {
         } else {
             sea = 9;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => ７
+//        合ってた。seaは904より大きくないのでifに入らず、１つ目のelseifに入る。以降のelseifは無視される。結果は7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -78,9 +80,9 @@ public class Step02IfForTest extends PlainTestCase {
             sea = 2001;
         } else if (land && sea >= 904) {
             sea = 7;
-        } else if (sea >= 903 || land) {
+        } else if (sea >= 903 || land) { // true || false = true ここに入る
             sea = 8;
-            if (!land) {
+            if (!land) {  // !false = true
                 land = true;
             } else if (sea <= 903) {
                 sea++;
@@ -91,13 +93,14 @@ public class Step02IfForTest extends PlainTestCase {
         } else {
             sea = 9;
         }
-        if (sea >= 9 || (sea > 7 && sea < 9)) {
-            sea--;
+        if (sea >= 9 || (sea > 7 && sea < 9)) { // sea=8, land=true
+            sea--; // 8-1=7
         }
-        if (land) {
+        if (land) { // land=true
             sea = 10;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 10
+//        合ってた。めちゃ読みずらかった。
     }
 
     // ===================================================================================
@@ -105,7 +108,7 @@ public class Step02IfForTest extends PlainTestCase {
     //                                                                       =============
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_for_inti_basic() {
-        List<String> stageList = prepareStageList();
+        List<String> stageList = prepareStageList(); // [broadway, dockside, hangar, magiclamp]
         String sea = null;
         for (int i = 0; i < stageList.size(); i++) {
             String stage = stageList.get(i);
@@ -113,22 +116,24 @@ public class Step02IfForTest extends PlainTestCase {
                 sea = stage;
             }
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? =>　dockside
+//      合ってた。stageList.get(i)でi=1の時のstageをseaに代入している。結果はprepareStageList()の1番目の要素であるdockside
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_for_foreach_basic() {
-        List<String> stageList = prepareStageList();
+        List<String> stageList = prepareStageList(); // [broadway, dockside, hangar, magiclamp]
         String sea = null;
         for (String stage : stageList) {
             sea = stage;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => magiclamp
+//      合ってた。stageListの要素をseaに代入し続けている。結果は最後に代入した要素。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_for_foreach_continueBreak() {
-        List<String> stageList = prepareStageList();
+        List<String> stageList = prepareStageList(); // [broadway, dockside, hangar, magiclamp]
         String sea = null;
         for (String stage : stageList) {
             if (stage.startsWith("br")) {
@@ -139,13 +144,14 @@ public class Step02IfForTest extends PlainTestCase {
                 break;
             }
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => hangar
+//      合ってた。"br"で始まる要素はcontinueでスキップ。"ga"を含む要素があるとbreakで終了。breakされる前の要素がhangar
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_for_listforeach_basic() {
-        List<String> stageList = prepareStageList();
-        StringBuilder sb = new StringBuilder();
+        List<String> stageList = prepareStageList(); // [broadway, dockside, hangar, magiclamp]
+        StringBuilder sb = new StringBuilder(); // 初期値は空文字列
         stageList.forEach(stage -> {
             if (sb.length() > 0) {
                 return;
@@ -155,7 +161,8 @@ public class Step02IfForTest extends PlainTestCase {
             }
         });
         String sea = sb.toString();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => dockside
+//      合ってた。sbの長さが０以上になったら、ループが終わるので、要素に"i"が含まれる最初の要素がseaに代入される。
     }
 
     // ===================================================================================
@@ -167,6 +174,16 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_making() {
         // write if-for here
+        List<String> stageList = prepareStageList();
+        List<String> aList = new ArrayList<>();
+        for (String stage : stageList) {
+            if (stage.contains("a")) {
+                aList.add(stage);
+            }
+        }
+        for (String aStage : aList) {
+            log(aStage);
+        }
     }
 
     // ===================================================================================
@@ -177,18 +194,24 @@ public class Step02IfForTest extends PlainTestCase {
      * (foreach文をforEach()メソッドへの置き換えてみましょう (修正前と修正後で実行結果が同じになるように))
      */
     public void test_iffor_refactor_foreach_to_forEach() {
-        List<String> stageList = prepareStageList();
-        String sea = null;
-        for (String stage : stageList) {
+        List<String> stageList = prepareStageList(); // [broadway, dockside, hangar, magiclamp]
+        StringBuilder sb = new StringBuilder();
+        stageList.forEach(stage -> {
+            if (sb.length() > 0) {
+                return;
+            }
             if (stage.startsWith("br")) {
-                continue;
+                return;
             }
-            sea = stage;
             if (stage.contains("ga")) {
-                break;
+                sb.append(stage);
             }
-        }
+        });
+        String sea = sb.toString();
         log(sea); // should be same as before-fix
+//      forEach内ではfinalな変数しか使えないらしい（これよく分からない）。なので、seaをsbに変更して、最後にsb.toString()でseaに代入するように変更。
+//      参考にした→　https://qiita.com/turn-take/items/ac6971ef8f0e35ef51c9
+//      for内の処理は、brから始まらず、gaを含む最初の要素をseaに代入したら良いと解釈したので、breakを使わずにそれができるように変更。
     }
 
     /**
@@ -197,12 +220,21 @@ public class Step02IfForTest extends PlainTestCase {
      * <pre>
      * _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
      * your question here (ここにあなたの質問を):
-     * 
+     * forEachを使って、prepareStageListからcを含む要素だけを抽出した配列を作れ
+     * 抽出した配列をログに表示せよ
      * _/_/_/_/_/_/_/_/_/_/
      * </pre>
      */
     public void test_iffor_yourExercise() {
         // write your code here
+        List<String> stageList = prepareStageList();
+        List<String> cList = new ArrayList<>();
+        stageList.forEach(stage -> {
+            if (stage.contains("c")) {
+                cList.add(stage);
+            }
+        });
+        log(cList);
     }
 
     // ===================================================================================
