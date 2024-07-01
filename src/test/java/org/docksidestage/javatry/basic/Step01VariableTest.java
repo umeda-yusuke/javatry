@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO umeyan これは伝えてなかったのでしょうがないのですが、今伝えさせてください by jflute (2024/06/30)
+// TODO done umeyan これは伝えてなかったのでしょうがないのですが、今伝えさせてください by jflute (2024/06/30)
 // 一応、javatryの実装ポリシーとして、クラスのJavaDocのauthorの your_name_here のところを自分の名前に変えるようにお願いします。
 // https://dbflute.seasar.org/ja/tutorial/handson/review/codingpolicy.html#minjavadoc
 /**
@@ -27,7 +27,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author umeda-yusuke
  */
 public class Step01VariableTest extends PlainTestCase {
 
@@ -52,7 +52,8 @@ public class Step01VariableTest extends PlainTestCase {
         sea = sea + land + piari + ":" + dstore;
         log(sea); // your answer? => mystic8null:mai
 //        piariにnullという文字列が入るか、何も入っていないか迷った。合ってた
-        // TODO umeyan 些細な話ですが言語によってこういうところ違ったりするものなんですよね by jflute (2024/06/30)
+        // TODO done umeyan 些細な話ですが言語によってこういうところ違ったりするものなんですよね by jflute (2024/06/30)
+        // ですよね。そんな気がしたので、一か八かで当てました。
         // TODO jflute 1on1で軽くフォロー予定 (Java以外の言語の話やnull事件) (2024/06/30)
     }
 
@@ -117,7 +118,8 @@ public class Step01VariableTest extends PlainTestCase {
         log(sea); // your answer? => 0
 //        0と思ったが、nullだった。問題作成者の思う壺になってて腹立つ。
 //        intとIntegerの違いを理解していなかった。intはプリミティブ型で、初期値は0。Integerはクラス型で、初期値はnull。
-        // TODO umeyan 丁寧に学んで頂きありあとうございます。プリミティブ型の話はstep3でもやります by jflute (2024/06/30)
+        // TODO done umeyan 丁寧に学んで頂きありあとうございます。プリミティブ型の話はstep3でもやります by jflute (2024/06/30)
+//        そうなんですね。プリミティブ型の話はstep3でもやるんですね。楽しみです。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -129,7 +131,7 @@ public class Step01VariableTest extends PlainTestCase {
         log(sea); // your answer? => bigband｜1|null|magician
 //        合ってた。スコープ範囲の問題ですね。グローバル変数としてinstanceBroadwayとinstanceDocksideはhelpInstanceVariableViaMethod内で扱われている。
 //        そのため、helpInstanceVariableViaMethod内での変更が反映されている。instanceMagiclampは引数として渡されているため、helpInstanceVariableViaMethod内での変更が反映されていない。
-        // TODO umeyan さすが問題なしですね。プログラミング初心者で間違い多い箇所なんですよ by jflute (2024/06/30)
+        // TODO done umeyan さすが問題なしですね。プログラミング初心者で間違い多い箇所なんですよ by jflute (2024/06/30)
         // 変数名が同じだと同じもの(箱/変数)だと思ってしまいがちで、でも言う通り「スコープ範囲」の問題ですよね。
         // 違うスコープの変数が名前かぶりした場合、基本的には近い方(狭い方)が優先されます。(他の言語でもだいたい同じかな!?)
         // ちなみに、ここではまだ「クラス」という概念を意識していないのですが、そのグローバル変数は「インスタンス変数」と呼びます。
@@ -194,7 +196,7 @@ public class Step01VariableTest extends PlainTestCase {
         log(sea); // your answer? => harbor
 //        合ってた。
 //        helpMethodArgumentVariable内でseaに新しいStringBuilderが代入されているが、そのスコープ範囲はhelpMethodArgumentVariable内で終わっているため、外部には影響がない。
-        // TODO umeyan パーフェクトです！(インスタンスが違えば別物だし、そのnewインスタンスはメソッド内で消えるし) by jflute (2024/06/30)
+        // TODO done umeyan パーフェクトです！(インスタンスが違えば別物だし、そのnewインスタンスはメソッド内で消えるし) by jflute (2024/06/30)
     }
 
     private void helpMethodArgumentVariable(StringBuilder sea, int land) {
@@ -222,15 +224,16 @@ public class Step01VariableTest extends PlainTestCase {
      * o すべての変数をlog()でカンマ区切りの文字列で表示
      * </pre>
      */
+    private int piari;
     public void test_variable_writing() {
         // define variables here
         String sea = "mystic";
         Integer land = null;
-        // TODO umeyan インスタンス変数を定義して欲しいという話なので、piari変数の定義場所をinstanceDocksideと似たような場所にして欲しいということです by jflute (2024/06/30)
-        int piari = instanceDockside;
-        // TODO umeyan あまり本質的ではないフォローですが、log()メソッドの引数定義とjavadocを読んでみてください by jflute (2024/06/30)
+        // TODO done umeyan インスタンス変数を定義して欲しいという話なので、piari変数の定義場所をinstanceDocksideと似たような場所にして欲しいということです by jflute (2024/06/30)
+//        なるほどです。piari変数の定義場所を変更しました。
+        // TODO doen umeyan あまり本質的ではないフォローですが、log()メソッドの引数定義とjavadocを読んでみてください by jflute (2024/06/30)
         // (可変長引数として複数の引数を指定できて、それら引数をカンマで連結してログ出力するようになっています)
-        log(sea + "," + land + "," + piari);
+        log(sea, land, piari);
     }
 
     // ===================================================================================
@@ -253,6 +256,7 @@ public class Step01VariableTest extends PlainTestCase {
         String str = num.toString();
         log(num, num.getClass().getName());
         log(str, str.getClass().getName());
-        // TODO umeyan いいですね！型を表示しなさいってところが面白いです(^^ by jflute (2024/06/30)
+        // TODO done umeyan いいですね！型を表示しなさいってところが面白いです(^^ by jflute (2024/06/30)
+//        intとIntegerの違いとして、文字列に変換するメソッドの有無があるということを知ったので、それを使ってみました。
     }
 }
