@@ -101,7 +101,7 @@ public class Step02IfForTest extends PlainTestCase {
         }
         log(sea); // your answer? => 10
 //        合ってた。めちゃ読みずらかった。
-        // TODO umeyan [いいね]一生懸命読みづらく書いたので褒め言葉、やったー(^^ by jflute (2024/07/01)
+        // TODO done umeyan [いいね]一生懸命読みづらく書いたので褒め言葉、やったー(^^ by jflute (2024/07/01)
 
         // TODO jflute 1on1でコードリーディングのちょいコツの話をする予定 (2024/07/01)
     }
@@ -210,16 +210,20 @@ public class Step02IfForTest extends PlainTestCase {
                 sb.append(stage);
             }
         });
+        if (sb.length() == 0) {
+            int lastIndex = stageList.size() - 1;
+            sb.append(stageList.get(lastIndex));
+        }
         String sea = sb.toString();
         log(sea); // should be same as before-fix
 //      forEach内ではfinalな変数しか使えないらしい（これよく分からない）。なので、seaをsbに変更して、最後にsb.toString()でseaに代入するように変更。
 //      参考にした→　https://qiita.com/turn-take/items/ac6971ef8f0e35ef51c9
 //      for内の処理は、brから始まらず、gaを含む最初の要素をseaに代入したら良いと解釈したので、breakを使わずにそれができるように変更。
         // TODO umeyan [いいね] sbのlength()でskipさせて実質的なbreakにしてるの良い発想ですね by jflute (2024/07/01)
-        
-        // TODO umeyan 修行++: もし、stageList の中に「"ga"を含むもの」が一つもなかった場合、結果は同じになるでしょうか？ by jflute (2024/07/01)
+//        ありがとうございます！
+        // TODO done umeyan 修行++: もし、stageList の中に「"ga"を含むもの」が一つもなかった場合、結果は同じになるでしょうか？ by jflute (2024/07/01)
         // prepareStageList()で戻って来るリストの中身が変動することを想定して実行結果が同じになるか？をちょっと考えてみましょう。
-        
+//        確かにそれを考えていませんでした。"ga"を含む要素がない場合、最後の要素をseaに代入するようにしました。
         // TODO jflute 1on1にてコールバック内におけるfinal変数限定の参照について補足予定 (2024/07/01)
     }
 
@@ -245,7 +249,7 @@ public class Step02IfForTest extends PlainTestCase {
         });
         log(cList);
         
-        // TODO umeyan Javaだと(会話上)「配列」と「リスト」というのはけっこう厳密に区別をする傾向にあります。 by jflute (2024/07/01)
+        // TODO done umeyan Javaだと(会話上)「配列」と「リスト」というのはけっこう厳密に区別をする傾向にあります。 by jflute (2024/07/01)
         // なので、"配列を作れ" と言われたら、List<>ではなく、String[]を最終成果物にする印象です。
         // とはいえ中間成果物でList<>を使っちゃいけないわけではないので、最後にcListから配列を作り出すとしっくり来るかもですね。
         //
@@ -255,6 +259,8 @@ public class Step02IfForTest extends PlainTestCase {
         // オブジェクトはメモリを食いますから、もっとコンピューターネイティヴなプログラミングもできるように残してると。
         // 組み込み系プログラミングとかで何かの機械の中でJavaを使うとかも想定して。
         // でもWebサービス開発とかだと、サーバーにメモリがたんまりあるのであんまり気にしないですが(^^
+
+//        そうなんですね！僕はpythonしか触っきてなかったので、そこは同じ感じに扱ってました。配列とリストの違いは可変長か固定長かという感じですかね？
     }
 
     // ===================================================================================
