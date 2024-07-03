@@ -101,7 +101,7 @@ public class Step02IfForTest extends PlainTestCase {
         }
         log(sea); // your answer? => 10
 //        合ってた。めちゃ読みずらかった。
-        // TODO done umeyan [いいね]一生懸命読みづらく書いたので褒め言葉、やったー(^^ by jflute (2024/07/01)
+        // done umeyan [いいね]一生懸命読みづらく書いたので褒め言葉、やったー(^^ by jflute (2024/07/01)
 
         // TODO jflute 1on1でコードリーディングのちょいコツの話をする予定 (2024/07/01)
     }
@@ -221,9 +221,21 @@ public class Step02IfForTest extends PlainTestCase {
 //      for内の処理は、brから始まらず、gaを含む最初の要素をseaに代入したら良いと解釈したので、breakを使わずにそれができるように変更。
         // TODO umeyan [いいね] sbのlength()でskipさせて実質的なbreakにしてるの良い発想ですね by jflute (2024/07/01)
 //        ありがとうございます！
-        // TODO done umeyan 修行++: もし、stageList の中に「"ga"を含むもの」が一つもなかった場合、結果は同じになるでしょうか？ by jflute (2024/07/01)
+        // done umeyan 修行++: もし、stageList の中に「"ga"を含むもの」が一つもなかった場合、結果は同じになるでしょうか？ by jflute (2024/07/01)
         // prepareStageList()で戻って来るリストの中身が変動することを想定して実行結果が同じになるか？をちょっと考えてみましょう。
 //        確かにそれを考えていませんでした。"ga"を含む要素がない場合、最後の要素をseaに代入するようにしました。
+
+        // TODO umeyan [いいねいやちょっと待った]おおぉ、すごい。辻褄を合わせましたね(^^。実現することは大事なのでGoodです by jflute (2024/07/04)
+        // と大丈夫だろうと思って↑のtodoコメント書いた直後くらいに、あれ？って思いついてしまいました。
+        // 「"ga"を含むものが一つもない、かつ、最後のstageが"br"を含むもの」だったら、"br"を含むものが入ってしまわないでしょうか？
+        // 元のプログラムでprepareStageList()を以下のように修正すると、magiclampが出力されますが...
+        //  List<String> stageList = new ArrayList<>();
+        //  stageList.add("dockside");
+        //  stageList.add("magiclamp");
+        //  stageList.add("broadway");
+        //  return stageList;
+        // 今のコードはbroadwayを戻してしまいます。
+
         // TODO jflute 1on1にてコールバック内におけるfinal変数限定の参照について補足予定 (2024/07/01)
     }
 
@@ -249,7 +261,7 @@ public class Step02IfForTest extends PlainTestCase {
         });
         log(cList);
         
-        // TODO done umeyan Javaだと(会話上)「配列」と「リスト」というのはけっこう厳密に区別をする傾向にあります。 by jflute (2024/07/01)
+        // done umeyan Javaだと(会話上)「配列」と「リスト」というのはけっこう厳密に区別をする傾向にあります。 by jflute (2024/07/01)
         // なので、"配列を作れ" と言われたら、List<>ではなく、String[]を最終成果物にする印象です。
         // とはいえ中間成果物でList<>を使っちゃいけないわけではないので、最後にcListから配列を作り出すとしっくり来るかもですね。
         //
@@ -261,6 +273,12 @@ public class Step02IfForTest extends PlainTestCase {
         // でもWebサービス開発とかだと、サーバーにメモリがたんまりあるのであんまり気にしないですが(^^
 
 //        そうなんですね！僕はpythonしか触っきてなかったので、そこは同じ感じに扱ってました。配列とリストの違いは可変長か固定長かという感じですかね？
+        // TODO umeyan [へんじ]そうですね、配列というのはイメージとしてはメモリ上に確保した領域を直接触っているような感覚で... by jflute (2024/07/04)
+        // 最初に用意した要素以上は追加できないです。new String[3]; => 絶対に3要素だけだし、逆に何も追加しなくても3要素分のメモリスペースを確保してしまっています。
+        // それではプログラムが書きづらいので、配列をラップ(wrap)して、add(), add()しても大丈夫のようにしているのがリスト(ArrayList)です。
+        // ってなこと言われると、中ではどういう仕組みなのか？ArrayListのソースコード読んでみたくなりますよね？きっと恐らくMaybe。
+        
+        // TODO jflute 1on1にて、ArrayListのソースコードを一緒に軽く追う (2024/07/04)
     }
 
     // ===================================================================================
