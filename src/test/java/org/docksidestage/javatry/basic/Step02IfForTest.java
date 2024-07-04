@@ -236,7 +236,7 @@ public class Step02IfForTest extends PlainTestCase {
         //  return stageList;
         // 今のコードはbroadwayを戻してしまいます。
 
-        // TODO jflute 1on1にてコールバック内におけるfinal変数限定の参照について補足予定 (2024/07/01)
+        // done jflute 1on1にてコールバック内におけるfinal変数限定の参照について補足予定 (2024/07/01)
     }
 
     /**
