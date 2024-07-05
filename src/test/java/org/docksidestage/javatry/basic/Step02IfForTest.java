@@ -198,24 +198,17 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_refactor_foreach_to_forEach() {
         List<String> stageList = prepareStageList(); // [broadway, dockside, hangar, magiclamp]
-        StringBuilder sb = new StringBuilder();
+        final String[] sea = {null, null};
         stageList.forEach(stage -> {
-            if (sb.length() > 0) {
+            if (stage.contains("br") || sea[1] != null) {
                 return;
             }
-            if (stage.startsWith("br")) {
-                return;
-            }
+            sea[0] = stage;
             if (stage.contains("ga")) {
-                sb.append(stage);
+                sea[1] = "gaあった！";
             }
         });
-        if (sb.length() == 0) {
-            int lastIndex = stageList.size() - 1;
-            sb.append(stageList.get(lastIndex));
-        }
-        String sea = sb.toString();
-        log(sea); // should be same as before-fix
+        log(sea[0]); // should be same as before-fix
 //      forEach内ではfinalな変数しか使えないらしい（これよく分からない）。なので、seaをsbに変更して、最後にsb.toString()でseaに代入するように変更。
 //      参考にした→　https://qiita.com/turn-take/items/ac6971ef8f0e35ef51c9
 //      for内の処理は、brから始まらず、gaを含む最初の要素をseaに代入したら良いと解釈したので、breakを使わずにそれができるように変更。
@@ -235,6 +228,8 @@ public class Step02IfForTest extends PlainTestCase {
         //  stageList.add("broadway");
         //  return stageList;
         // 今のコードはbroadwayを戻してしまいます。
+
+        // ↑の方向性で行ったら、forEachの外のifがよく分からない事になりそうだったので、逃げました^^
 
         // done jflute 1on1にてコールバック内におけるfinal変数限定の参照について補足予定 (2024/07/01)
     }
