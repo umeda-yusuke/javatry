@@ -15,6 +15,8 @@
  */
 package org.docksidestage.javatry.basic;
 
+import static com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeUtility.quote;
+
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -22,7 +24,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author umeda-yusuke
  */
 public class Step04MethodTest extends PlainTestCase {
 
@@ -34,16 +36,18 @@ public class Step04MethodTest extends PlainTestCase {
      * (メソッド終了時の変数 sea の中身は？)
      */
     public void test_method_call_basic() {
-        String sea = supplySomething();
-        log(sea); // your answer? =>
+        String sea = supplySomething(); // over
+        log(sea); // your answer? => over
+//        合ってた
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_method_call_many() {
-        String sea = functionSomething("mystic");
+        String sea = functionSomething("mystic"); // tic -> mys, in function: mysmys
         consumeSomething(supplySomething());
         runnableSomething();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => mysmys
+//        合ってた. functionSomethingでticをmysに置き換えている
     }
 
     private String functionSomething(String name) {
@@ -72,11 +76,12 @@ public class Step04MethodTest extends PlainTestCase {
         St4MutableStage mutable = new St4MutableStage();
         int sea = 904;
         boolean land = false;
-        helloMutable(sea - 4, land, mutable);
+        helloMutable(sea - 4, land, mutable); // mutable = "mystic"
         if (!land) {
-            sea = sea + mutable.getStageName().length();
+            sea = sea + mutable.getStageName().length(); // 904 + 6 = 910
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 910
+//        合ってた. mutableのstageNameがmysticになっている。seaやlandは変更されていない
     }
 
     private int helloMutable(int sea, Boolean land, St4MutableStage piari) {
@@ -112,10 +117,11 @@ public class Step04MethodTest extends PlainTestCase {
         offAnnualPassport(hasAnnualPassport);
         for (int i = 0; i < 100; i++) {
             goToPark();
-        }
-        ++sea;
-        sea = inParkCount;
-        log(sea); // your answer? => 
+        } // 100回hasAnnualPassportがtrueなのでinParkCountが100になる
+        ++sea; // 0 + 1 = 1
+        sea = inParkCount; // 100
+        log(sea); // your answer? =>  100
+//        合ってた. hasAnnualPassportがtrueなので100回inParkCountが増える
     }
 
     private void offAnnualPassport(boolean hasAnnualPassport) {
@@ -152,12 +158,31 @@ public class Step04MethodTest extends PlainTestCase {
      */
     public void test_method_making() {
         // use after making these methods
-        //String replaced = replaceCwithB(replaceAwithB("ABC"));
-        //String sea = quote(replaced, "'");
-        //if (isAvailableLogging()) {
-        //    showSea(sea);
-        //}
+        String replaced = replaceCwithB(replaceAwithB("ABC"));
+        String sea = quote(replaced, "'");
+        if (isAvailableLogging()) {
+            showSea(sea);
+        }
     }
 
     // write methods here
+    private String replaceAwithB(String str) {
+        return str.replace("A", "B");
+    }
+
+    private String replaceCwithB(String str) {
+        return str.replace("C", "B");
+    }
+
+    private String quote(String str, String quote) {
+        return quote + str + quote;
+    }
+
+    private boolean isAvailableLogging() {
+        return true;
+    }
+
+    private void showSea(String str) {
+        log(str);
+    }
 }
