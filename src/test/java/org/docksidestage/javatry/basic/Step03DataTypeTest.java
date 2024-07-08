@@ -48,13 +48,14 @@ public class Step03DataTypeTest extends PlainTestCase {
         piari = piari.plusDays(1);
         land = piari.getYear();
         bonvo = bonvo.plusMonths(1);
-        land = bonvo.getMonthValue();
-        land--;
+        land = bonvo.getMonthValue(); // 10
+        land--; // 9
         if (dstore) {
-            BigDecimal addedDecimal = amba.add(new BigDecimal(land));
+            BigDecimal addedDecimal = amba.add(new BigDecimal(land)); // 9.4 + 9 = 18.0
             sea = String.valueOf(addedDecimal);
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 18.4
+//        合ってた。BigDecimalの足し算は、BigDecimal型の値を引数に取るaddメソッドを使う。
     }
 
     // ===================================================================================
@@ -70,19 +71,20 @@ public class Step03DataTypeTest extends PlainTestCase {
         double amba = 2.3d;
         char miraco = 'a';
         boolean dohotel = miraco == 'a';
-        if (dohotel && dstore >= piari) {
-            bonvo = sea;
-            land = (short) bonvo;
-            bonvo = piari;
-            sea = (byte) land;
+        if (dohotel && dstore >= piari) { // dohotel = true, dstore = 1.1, piari = 1 →　true
+            bonvo = sea; // 127
+            land = (short) bonvo; // 127
+            bonvo = piari; // 1
+            sea = (byte) land; // 127
             if (amba == 2.3D) {
-                sea = (byte) amba;
+                sea = (byte) amba; // 2.3 → 2(byte型にすると小数点以下が切り捨てられる)
             }
         }
-        if ((int) dstore > piari) {
+        if ((int) dstore > piari) { // 1 > 1 → false
             sea = 0;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 2
+//        合ってた。byte型にdouble型の値を代入すると、小数点以下が切り捨てられる。
     }
 
     // ===================================================================================
@@ -92,7 +94,8 @@ public class Step03DataTypeTest extends PlainTestCase {
     public void test_datatype_object() {
         St3ImmutableStage stage = new St3ImmutableStage("hangar");
         String sea = stage.getStageName();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => hanger
+//        合ってた。St3ImmutableStageクラスのインスタンスを生成し、そのインスタンスのgetStageNameメソッドを呼び出している。
     }
 
     private static class St3ImmutableStage {

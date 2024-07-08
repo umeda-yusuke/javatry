@@ -54,7 +54,7 @@ public class Step01VariableTest extends PlainTestCase {
 //        piariにnullという文字列が入るか、何も入っていないか迷った。合ってた
         // done umeyan 些細な話ですが言語によってこういうところ違ったりするものなんですよね by jflute (2024/06/30)
         // ですよね。そんな気がしたので、一か八かで当てました。
-        // TODO jflute 1on1で軽くフォロー予定 (Java以外の言語の話やnull事件) (2024/06/30)
+        // done jflute 1on1で軽くフォロー予定 (Java以外の言語の話やnull事件) (2024/06/30)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -79,15 +79,17 @@ public class Step01VariableTest extends PlainTestCase {
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_reassigned_BigDecimal() {
-        BigDecimal sea = new BigDecimal(94);
-        BigDecimal land = new BigDecimal(415);
+        BigDecimal sea = new BigDecimal(94);  // +1
+        BigDecimal land = new BigDecimal(415); // +1
         sea = land;
-        sea = land.add(new BigDecimal(1));
-        sea.add(new BigDecimal(1));
+        sea = land.add(new BigDecimal(1)); // +1(1), +1(416)
+        sea.add(new BigDecimal(1)); // +1(1), +1(417)
         log(sea); // your answer? => 416
 //        this + augendが返される。BigDecimalはimmutable（内部で情報が変わらない）なので、seaには416が代入されるが、sea.add(new BigDecimal(1));はseaには影響しない。
 //        合ってた。
-     // TODO jflute 1on1で軽くフォロー予定 (immutable話、javadocやコードリーディングを交えて) (2024/06/30)
+     // done jflute 1on1で軽くフォロー予定 (immutable話、javadocやコードリーディングを交えて) (2024/06/30)
+        // Returns a BigDecimal whose value is (this + augend),
+        // and whose scale is max(this.scale(), augend.scale()).
     }
 
     // ===================================================================================
@@ -136,7 +138,7 @@ public class Step01VariableTest extends PlainTestCase {
         // 違うスコープの変数が名前かぶりした場合、基本的には近い方(狭い方)が優先されます。(他の言語でもだいたい同じかな!?)
         // ちなみに、ここではまだ「クラス」という概念を意識していないのですが、そのグローバル変数は「インスタンス変数」と呼びます。
         // Step01VariableTestクラスの1インスタンスに属する変数ということでインスタンス変数です。
-        // TODO jflute 1on1で軽くフォロー予定 (インスタンスとは？の問い) (2024/06/30)
+        // done jflute 1on1で軽くフォロー予定 (インスタンスとは？の問い) (2024/06/30)
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
@@ -177,12 +179,12 @@ public class Step01VariableTest extends PlainTestCase {
         log(sea); // your answer? => harbor416
 //        合ってた。今回seaはStringBuilder型であり、appendでretuen thisをしているため、内部で変更がされている。
 //        ただ感覚でわかったのでちゃんと解説欲しい。
-        // TODO jflute 1on1でフォロー予定 (mutableの引数、変数とインスタンス) (2024/06/30)
+        // done jflute 1on1でフォロー予定 (mutableの引数、変数とインスタンス) (2024/06/30)
     }
 
     private void helpMethodArgumentMethodcall(StringBuilder sea, int land) {
         ++land;
-        sea.append(land);
+        sea.append(land); // このseaは、testの方のseaが指し占めている同じStringBuilderインスタンスを指している
     }
 
     // -----------------------------------------------------
@@ -197,12 +199,20 @@ public class Step01VariableTest extends PlainTestCase {
 //        合ってた。
 //        helpMethodArgumentVariable内でseaに新しいStringBuilderが代入されているが、そのスコープ範囲はhelpMethodArgumentVariable内で終わっているため、外部には影響がない。
         // done umeyan パーフェクトです！(インスタンスが違えば別物だし、そのnewインスタンスはメソッド内で消えるし) by jflute (2024/06/30)
+
+        // [memo] by jflute (2024/07/04)
+        // log(sea);
+        // // seaとappendedは同じインスタンスを指し占めている
+        // StringBuilder appended = sea.append("aaaa");
+        // // メソッドチェーンがしたいという人間の欲望のためにreturnしてる
+        // sea.append("999").append("888").append(1111);
+        // log(sea);
     }
 
     private void helpMethodArgumentVariable(StringBuilder sea, int land) {
         ++land;
         String seaStr = sea.toString(); // is "harbor"
-        sea = new StringBuilder(seaStr).append(land);
+        new StringBuilder(seaStr).append(land);
     }
 
     // ===================================================================================
