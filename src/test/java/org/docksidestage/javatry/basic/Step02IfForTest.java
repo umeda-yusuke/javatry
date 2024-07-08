@@ -212,13 +212,13 @@ public class Step02IfForTest extends PlainTestCase {
 //      forEach内ではfinalな変数しか使えないらしい（これよく分からない）。なので、seaをsbに変更して、最後にsb.toString()でseaに代入するように変更。
 //      参考にした→　https://qiita.com/turn-take/items/ac6971ef8f0e35ef51c9
 //      for内の処理は、brから始まらず、gaを含む最初の要素をseaに代入したら良いと解釈したので、breakを使わずにそれができるように変更。
-        // TODO umeyan [いいね] sbのlength()でskipさせて実質的なbreakにしてるの良い発想ですね by jflute (2024/07/01)
+        // done umeyan [いいね] sbのlength()でskipさせて実質的なbreakにしてるの良い発想ですね by jflute (2024/07/01)
 //        ありがとうございます！
         // done umeyan 修行++: もし、stageList の中に「"ga"を含むもの」が一つもなかった場合、結果は同じになるでしょうか？ by jflute (2024/07/01)
         // prepareStageList()で戻って来るリストの中身が変動することを想定して実行結果が同じになるか？をちょっと考えてみましょう。
 //        確かにそれを考えていませんでした。"ga"を含む要素がない場合、最後の要素をseaに代入するようにしました。
 
-        // TODO umeyan [いいねいやちょっと待った]おおぉ、すごい。辻褄を合わせましたね(^^。実現することは大事なのでGoodです by jflute (2024/07/04)
+        // done umeyan [いいねいやちょっと待った]おおぉ、すごい。辻褄を合わせましたね(^^。実現することは大事なのでGoodです by jflute (2024/07/04)
         // と大丈夫だろうと思って↑のtodoコメント書いた直後くらいに、あれ？って思いついてしまいました。
         // 「"ga"を含むものが一つもない、かつ、最後のstageが"br"を含むもの」だったら、"br"を含むものが入ってしまわないでしょうか？
         // 元のプログラムでprepareStageList()を以下のように修正すると、magiclampが出力されますが...
@@ -230,6 +230,7 @@ public class Step02IfForTest extends PlainTestCase {
         // 今のコードはbroadwayを戻してしまいます。
 
         // ↑の方向性で行ったら、forEachの外のifがよく分からない事になりそうだったので、逃げました^^
+        // TODO jflute 1on1にてフォロー予定、でも今の実装も良いと思う^^ (2024/07/09)
 
         // done jflute 1on1にてコールバック内におけるfinal変数限定の参照について補足予定 (2024/07/01)
     }
