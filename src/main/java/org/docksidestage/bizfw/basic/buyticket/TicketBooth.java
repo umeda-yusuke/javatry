@@ -15,6 +15,9 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 /**
  * @author jflute
  */
@@ -33,6 +36,7 @@ public class TicketBooth {
     private int quantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
 
+    private LocalDate[] selectDate = new LocalDate[2];
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
@@ -64,12 +68,25 @@ public class TicketBooth {
         return new Ticket(ONE_DAY_PRICE);
     }
 
-    public int buyTwoDayPassport(Integer handedMoney) {
+    public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
         checkTicketSoldOut();
         checkTicketShortMoney(handedMoney, TWO_DAY_PRICE);
         quantity -= 2;
         processSalesProceeds(TWO_DAY_PRICE);
-        return handedMoney - TWO_DAY_PRICE;
+        Ticket ticket = new Ticket(TWO_DAY_PRICE);
+        ticket.setAbalebleDate(selectDate[0], selectDate[1]);
+        return new TicketBuyResult(ticket, handedMoney - TWO_DAY_PRICE);
+    }
+
+    public void selectTwoDate(LocalDate date1, LocalDate date2) {
+        if (date1 == null || date2 == null) {
+            throw new IllegalArgumentException("The argument 'date1' and 'date2' should not be null.");
+        }
+        if (date1.equals(date2)) {
+            throw new IllegalArgumentException("The argument 'date1' and 'date2' should be different dates.");
+        }
+        selectDate[0] = date1;
+        selectDate[1] = date2;
     }
 
     private void checkTicketSoldOut() {

@@ -15,9 +15,13 @@
  */
 package org.docksidestage.javatry.basic;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
+import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -118,14 +122,14 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_letsFix_makeMethod_twoday() {
         // uncomment after making the method
-        TicketBooth booth = new TicketBooth();
-        int money = 14000;
-        int change = booth.buyTwoDayPassport(money);
-        Integer sea = booth.getSalesProceeds() + change;
-        log(sea); // should be same as money
-
-        // and show two-day passport quantity here
-        log("two-day passport quantity: " + booth.getQuantity());
+//        TicketBooth booth = new TicketBooth();
+//        int money = 14000;
+//        int change = booth.buyTwoDayPassport(money);
+//        Integer sea = booth.getSalesProceeds() + change;
+//        log(sea); // should be same as money
+//
+//        // and show two-day passport quantity here
+//        log("two-day passport quantity: " + booth.getQuantity());
         // できた
     }
 
@@ -167,12 +171,12 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_return_whole() {
         // uncomment after modifying the method
-        //TicketBooth booth = new TicketBooth();
-        //int handedMoney = 20000;
-        //TicketBuyResult buyResult = booth.buyTwoDayPassport(handedMoney);
-        //Ticket twoDayPassport = buyResult.getTicket();
-        //int change = buyResult.getChange();
-        //log(twoDayPassport.getDisplayPrice() + change); // should be same as money
+        TicketBooth booth = new TicketBooth();
+        int handedMoney = 20000;
+        TicketBuyResult buyResult = booth.buyTwoDayPassport(handedMoney);
+        Ticket twoDayPassport = buyResult.getTicket();
+        int change = buyResult.getChange();
+        log(twoDayPassport.getDisplayPrice() + change); // should be same as money
     }
 
     /**
@@ -180,8 +184,34 @@ public class Step05ClassTest extends PlainTestCase {
      * (TwoDayPassportなのに一回しか利用できません。複数日数に対応できるようにTicketを修正しましょう)
      */
     public void test_class_moreFix_usePluralDays() {
-        // your confirmation code here
+        LocalDate day1 = LocalDate.of(2024, 7, 10);
+        LocalDate day2 = LocalDate.of(2024, 7, 11);
+        LocalDate day3 = LocalDate.of(2024, 7, 12);
+
+        TicketBooth booth = new TicketBooth();
+        booth.selectTwoDate(day1, day2); // 2日指定する
+        TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
+        Ticket twoDayPassport = buyResult.getTicket();
+
+        log("入場可能日の確認");
+        log(twoDayPassport.isAbalebleDate(day1)); // should be true
+        log(twoDayPassport.isAbalebleDate(day2)); // should be true
+        log(twoDayPassport.isAbalebleDate(day3)); // should be false
+
+        log("入場後の確認");
+        log(twoDayPassport.enterPark(day1)); // should be true
+        log(twoDayPassport.enterPark(day1)); // should be false
+        log(twoDayPassport.enterPark(day2)); // should be true
+        log(twoDayPassport.enterPark(day2)); // should be false
+        log(twoDayPassport.enterPark(day3)); // should be false
     }
+    // TwoDayPassportをどう解釈するかで、実装はかなり変わると思う。
+//    ・　単純に２回入ることができる
+//    ・　1日1回入場できる　
+//    ・　決まった日なら何回でも入場できる。そしてその日が2日ある
+//    元の実装が、一回外に出て、再入場ができない仕様なので、一度入ったら基本的に外に出ない施設と仮定。つまり、一日1回入場できるという仕様になる。
+//    よって、決まった日に１回だけ入場できる仕様にする。
+//    日にちの指定は、チケットを買うタイミングで指定する仕様にする。日には重複がないようにする。
 
     /**
      * Accurately determine whether type of bought ticket is two-day passport or not by if-statemet. (fix Ticket classes if needed) <br>
@@ -189,22 +219,23 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_whetherTicketType() {
         // uncomment when you implement this exercise
-        //TicketBooth booth = new TicketBooth();
-        //Ticket oneDayPassport = booth.buyOneDayPassport(10000);
-        //showTicketIfNeeds(oneDayPassport);
-        //TicketBuyResult buyResult = booth.buyTwoDayPassport(10000);
-        //Ticket twoDayPassport = buyResult.getTicket();
-        //showTicketIfNeeds(twoDayPassport);
+        TicketBooth booth = new TicketBooth();
+        Ticket oneDayPassport = booth.buyOneDayPassport(10000);
+        showTicketIfNeeds(oneDayPassport);
+        TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
+        Ticket twoDayPassport = buyResult.getTicket();
+        showTicketIfNeeds(twoDayPassport);
     }
+    // 色んな判断基準が考えられるが、今回は値段で判断することにする。
 
     // uncomment when you implement this exercise
-    //private void showTicketIfNeeds(Ticket ticket) {
-    //    if (xxxxxxxxxxxxxxxxxx) { // write determination for two-day passport
-    //        log("two-day passport");
-    //    } else {
-    //        log("other");
-    //    }
-    //}
+    private void showTicketIfNeeds(Ticket ticket) {
+        if (ticket.getDisplayPrice() > 10000) { // write determination for two-day passport
+            log("two-day passport");
+        } else {
+            log("other");
+        }
+    }
 
     // ===================================================================================
     //                                                                           Good Luck

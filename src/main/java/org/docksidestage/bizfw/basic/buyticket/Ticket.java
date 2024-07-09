@@ -15,6 +15,10 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashMap;
+
 /**
  * @author jflute
  */
@@ -25,7 +29,7 @@ public class Ticket {
     //                                                                           =========
     private final int displayPrice; // written on ticket, park guest can watch this
     private boolean alreadyIn = false; // true means this ticket is unavailable
-
+    public HashMap<LocalDate, Boolean> availableDate = new HashMap<LocalDate, Boolean>();
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
@@ -41,6 +45,26 @@ public class Ticket {
             throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + displayPrice);
         }
         alreadyIn = true;
+    }
+
+    public void setAbalebleDate(LocalDate date1, LocalDate date2) {
+        availableDate.put(date1, true);
+        availableDate.put(date2, true);
+    }
+
+    public boolean isAbalebleDate(LocalDate date) {
+        if (! availableDate.containsKey(date)) {
+            return false;
+        }
+        return availableDate.get(date);
+    }
+
+    public boolean enterPark(LocalDate date) {
+        if (! isAbalebleDate(date)) {
+            return false;
+        }
+        availableDate.put(date, false);
+        return true;
     }
 
     // ===================================================================================
