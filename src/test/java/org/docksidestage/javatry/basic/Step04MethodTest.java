@@ -15,11 +15,9 @@
  */
 package org.docksidestage.javatry.basic;
 
-import static com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeUtility.quote;
-
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO umeyan ↑なんか、com.sunのMimeUtilityという知らないクラスのquoteメソッドがimportされています(^^ by jflute (2024/07/09)
+// TODO done umeyan ↑なんか、com.sunのMimeUtilityという知らないクラスのquoteメソッドがimportされています(^^ by jflute (2024/07/09)
 // そして、unusedの警告が出ていますね。恐らく、test_method_making()のときに間違ってimportしちゃったんじゃないでしょうか？
 // できるだけコミット前にIDEの警告が残ってないか？確認する習慣を付けましょう。(でもIntelliJはノイズ的な警告もめっちゃ出るんですね...)
 // TODO jflute 1on1にてIDE警告のよもやま話 (2024/07/09)
@@ -179,7 +177,7 @@ public class Step04MethodTest extends PlainTestCase {
         return str.replace("C", "B");
     }
 
-    // TODO umeyan [いいね]第二引数の名前がとてもわかりやすくて良いです！ by jflute (2024/07/09)
+    // TODO done umeyan [いいね]第二引数の名前がとてもわかりやすくて良いです！ by jflute (2024/07/09)
     // いや、時々 (str1, str2) とか、(target, str) とか付けてしまうパターンとかあったりするもので
     // メソッドの引数名って、メソッドをメンテする人のためだけでなく、呼び出す人のためにもわかりやすい変数名にしたいもので。
     private String quote(String str, String quote) {
