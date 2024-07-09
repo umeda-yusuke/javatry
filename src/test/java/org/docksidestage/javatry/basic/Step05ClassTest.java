@@ -138,6 +138,9 @@ public class Step05ClassTest extends PlainTestCase {
         booth.buyOneDayPassport(10000);
         log(booth.getQuantity(), booth.getSalesProceeds()); // should be same as before-fix
         // できた
+        // checkTicketSoldOutは売り切れていないかを確認するメソッド
+        // checkTicketShortMoneyはお金が足りているかを確認するメソッド
+        // processSalesProceedsは売り上げを計算するメソッド
     }
 
     // ===================================================================================
