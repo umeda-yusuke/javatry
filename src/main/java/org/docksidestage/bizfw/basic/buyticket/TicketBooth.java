@@ -25,6 +25,7 @@ public class TicketBooth {
     //                                                                          ==========
     private static final int MAX_QUANTITY = 10;
     private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
+    private static final int TWO_DAY_PRICE = 13200;
 
     // ===================================================================================
     //                                                                           Attribute
@@ -55,18 +56,39 @@ public class TicketBooth {
      * @throws TicketSoldOutException When ticket in booth is sold out.
      * @throws TicketShortMoneyException When the specified money is short for purchase.
      */
-    public void buyOneDayPassport(Integer handedMoney) {
+    public Ticket buyOneDayPassport(Integer handedMoney) {
+        checkTicketSoldOut();
+        checkTicketShortMoney(handedMoney, ONE_DAY_PRICE);
+        --quantity;
+        processSalesProceeds(ONE_DAY_PRICE);
+        return new Ticket(ONE_DAY_PRICE);
+    }
+
+    public int buyTwoDayPassport(Integer handedMoney) {
+        checkTicketSoldOut();
+        checkTicketShortMoney(handedMoney, TWO_DAY_PRICE);
+        quantity -= 2;
+        processSalesProceeds(TWO_DAY_PRICE);
+        return handedMoney - TWO_DAY_PRICE;
+    }
+
+    private void checkTicketSoldOut() {
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
-        --quantity;
-        if (handedMoney < ONE_DAY_PRICE) {
+    }
+
+    private void checkTicketShortMoney(Integer handedMoney, Integer price) {
+        if (handedMoney < price) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
+    }
+
+    private void processSalesProceeds(Integer price) {
         if (salesProceeds != null) { // second or more purchase
-            salesProceeds = salesProceeds + handedMoney;
+            salesProceeds = salesProceeds + price;
         } else { // first purchase
-            salesProceeds = handedMoney;
+            salesProceeds = price;
         }
     }
 
