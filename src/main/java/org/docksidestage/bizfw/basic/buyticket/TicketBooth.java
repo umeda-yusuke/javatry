@@ -17,6 +17,7 @@ package org.docksidestage.bizfw.basic.buyticket;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author jflute
@@ -29,6 +30,7 @@ public class TicketBooth {
     private static final int MAX_QUANTITY = 10;
     private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
     private static final int TWO_DAY_PRICE = 13200;
+    private static final int FOUR_DAY_PRICE = 22400;
 
     // ===================================================================================
     //                                                                           Attribute
@@ -36,7 +38,7 @@ public class TicketBooth {
     private int quantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
 
-    private LocalDate[] selectDate = new LocalDate[2];
+    private LocalDate[] selectDate = new LocalDate[4];
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
@@ -74,7 +76,7 @@ public class TicketBooth {
         quantity -= 2;
         processSalesProceeds(TWO_DAY_PRICE);
         Ticket ticket = new Ticket(TWO_DAY_PRICE);
-        ticket.setAbalebleDate(selectDate[0], selectDate[1]);
+        ticket.setAvailableDate(selectDate);
         return new TicketBuyResult(ticket, handedMoney - TWO_DAY_PRICE);
     }
 
@@ -88,6 +90,31 @@ public class TicketBooth {
         selectDate[0] = date1;
         selectDate[1] = date2;
     }
+
+    public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
+        checkTicketSoldOut();
+        checkTicketShortMoney(handedMoney, FOUR_DAY_PRICE);
+        quantity -= 4;
+        processSalesProceeds(FOUR_DAY_PRICE);
+        Ticket ticket = new Ticket(FOUR_DAY_PRICE);
+        ticket.setAvailableDate(selectDate);
+        return new TicketBuyResult(ticket, handedMoney - FOUR_DAY_PRICE);
+    }
+
+    public void selectFourDate(LocalDate date1, LocalDate date2, LocalDate date3, LocalDate date4) {
+        if (date1 == null || date2 == null || date3 == null || date4 == null) {
+            throw new IllegalArgumentException("The argument 'date1', 'date2', 'date3' and 'date4' should not be null.");
+        }
+        if (date1.equals(date2) || date1.equals(date3) || date1.equals(date4) || date2.equals(date3) || date2.equals(date4) || date3.equals(date4)) {
+            throw new IllegalArgumentException("The argument 'date1', 'date2', 'date3' and 'date4' should be different dates.");
+        }
+        selectDate[0] = date1;
+        selectDate[1] = date2;
+        selectDate[2] = date3;
+        selectDate[3] = date4;
+    }
+
+
 
     private void checkTicketSoldOut() {
         if (quantity <= 0) {

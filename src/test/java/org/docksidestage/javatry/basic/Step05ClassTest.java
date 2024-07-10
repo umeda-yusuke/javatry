@@ -194,9 +194,9 @@ public class Step05ClassTest extends PlainTestCase {
         Ticket twoDayPassport = buyResult.getTicket();
 
         log("入場可能日の確認");
-        log(twoDayPassport.isAbalebleDate(day1)); // should be true
-        log(twoDayPassport.isAbalebleDate(day2)); // should be true
-        log(twoDayPassport.isAbalebleDate(day3)); // should be false
+        log(twoDayPassport.isAvailableDate(day1)); // should be true
+        log(twoDayPassport.isAvailableDate(day2)); // should be true
+        log(twoDayPassport.isAvailableDate(day3)); // should be false
 
         log("入場後の確認");
         log(twoDayPassport.enterPark(day1)); // should be true
@@ -226,7 +226,7 @@ public class Step05ClassTest extends PlainTestCase {
         Ticket twoDayPassport = buyResult.getTicket();
         showTicketIfNeeds(twoDayPassport);
     }
-    // 色んな判断基準が考えられるが、今回は値段で判断することにする。
+    // 色んな判断基準が考えられるが、今回は値段で判断することにする。ガバガバ条件だが、1万円以上のいチケットはTwoDayPassportとする。
 
     // uncomment when you implement this exercise
     private void showTicketIfNeeds(Ticket ticket) {
@@ -246,8 +246,22 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder_four() {
         // your confirmation code here
-    }
+        LocalDate day1 = LocalDate.of(2024, 7, 10);
+        LocalDate day2 = LocalDate.of(2024, 7, 11);
+        LocalDate day3 = LocalDate.of(2024, 7, 12);
+        LocalDate day4 = LocalDate.of(2024, 7, 13);
 
+        TicketBooth booth = new TicketBooth();
+        booth.selectFourDate(day1, day2, day3, day4); // 4日指定する
+        TicketBuyResult buyResult = booth.buyFourDayPassport(30000);
+        Ticket fourDayPassport = buyResult.getTicket();
+
+        log(fourDayPassport.getDisplayPrice() + buyResult.getChange()); // should be same as money
+    }
+//    方針
+//    ・　buyTwoDayPassportを拡張して、multipleDayPassportを作る
+//    ・　buyFourDayPassportを作る
+//    TicketBooth内部で、selectDateを２つ作るのは、違和感があるので、selectDateの長さを４に固定する
     /**
      * Fix it to be able to buy night-only two-day passport (price is 7400), which can be used at only night. <br>
      * (NightOnlyTwoDayPassport (金額は7400) のチケットも買えるようにしましょう。夜しか使えないようにしましょう)

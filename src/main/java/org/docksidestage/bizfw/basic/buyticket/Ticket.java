@@ -47,12 +47,14 @@ public class Ticket {
         alreadyIn = true;
     }
 
-    public void setAbalebleDate(LocalDate date1, LocalDate date2) {
-        availableDate.put(date1, true);
-        availableDate.put(date2, true);
+    public void setAvailableDate(LocalDate[] date) {
+        for (LocalDate d : date) {
+            if (d == null) continue;
+            availableDate.put(d, true);
+        }
     }
 
-    public boolean isAbalebleDate(LocalDate date) {
+    public boolean isAvailableDate(LocalDate date) {
         if (! availableDate.containsKey(date)) {
             return false;
         }
@@ -60,7 +62,7 @@ public class Ticket {
     }
 
     public boolean enterPark(LocalDate date) {
-        if (! isAbalebleDate(date)) {
+        if (! isAvailableDate(date)) {
             return false;
         }
         availableDate.put(date, false);
