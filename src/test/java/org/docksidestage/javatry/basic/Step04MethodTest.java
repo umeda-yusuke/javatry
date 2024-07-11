@@ -17,10 +17,11 @@ package org.docksidestage.javatry.basic;
 
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO done umeyan ↑なんか、com.sunのMimeUtilityという知らないクラスのquoteメソッドがimportされています(^^ by jflute (2024/07/09)
+// done umeyan ↑なんか、com.sunのMimeUtilityという知らないクラスのquoteメソッドがimportされています(^^ by jflute (2024/07/09)
 // そして、unusedの警告が出ていますね。恐らく、test_method_making()のときに間違ってimportしちゃったんじゃないでしょうか？
 // できるだけコミット前にIDEの警告が残ってないか？確認する習慣を付けましょう。(でもIntelliJはノイズ的な警告もめっちゃ出るんですね...)
-// TODO jflute 1on1にてIDE警告のよもやま話 (2024/07/09)
+// done jflute 1on1にてIDE警告のよもやま話 (2024/07/09)
+// import文を読んでクラスの依存性を確認してからコードを読む話 => importも大事
 /**
  * The test of method. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
@@ -72,7 +73,7 @@ public class Step04MethodTest extends PlainTestCase {
         String sea = "outofshadow";
         log("in runnable: {}", sea);
     }
-    // TODO jflute 1on1にてFunctionインターフェースの名前との関連性のちょいよもやま話 (2024/07/09)
+    // done jflute 1on1にてFunctionインターフェースの名前との関連性のちょいよもやま話 (2024/07/09)
     
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_method_object() {
@@ -177,7 +178,7 @@ public class Step04MethodTest extends PlainTestCase {
         return str.replace("C", "B");
     }
 
-    // TODO done umeyan [いいね]第二引数の名前がとてもわかりやすくて良いです！ by jflute (2024/07/09)
+    // done umeyan [いいね]第二引数の名前がとてもわかりやすくて良いです！ by jflute (2024/07/09)
     // いや、時々 (str1, str2) とか、(target, str) とか付けてしまうパターンとかあったりするもので
     // メソッドの引数名って、メソッドをメンテする人のためだけでなく、呼び出す人のためにもわかりやすい変数名にしたいもので。
     private String quote(String str, String quote) {

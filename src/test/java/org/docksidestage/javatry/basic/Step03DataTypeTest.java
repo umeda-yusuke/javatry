@@ -86,7 +86,7 @@ public class Step03DataTypeTest extends PlainTestCase {
         log(sea); // your answer? => 2
 //        合ってた。byte型にdouble型の値を代入すると、小数点以下が切り捨てられる。
         
-        // TODO done umeyan [読み物課題]プリミティブ型とラッパー型、こちらぜひ読んでみて理解を深めてみてください by jflute (2024/07/09)
+        // done umeyan [読み物課題]プリミティブ型とラッパー型、こちらぜひ読んでみて理解を深めてみてください by jflute (2024/07/09)
         // https://dbflute.seasar.org/ja/manual/topic/programming/java/beginners.html#primitivewrapper
     }
 
