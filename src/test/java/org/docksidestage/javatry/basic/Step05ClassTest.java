@@ -24,6 +24,8 @@ import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyExcep
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.unit.PlainTestCase;
 
+// TODO umeyan ↑unusedなimport by jflute (2024/07/11)
+
 /**
  * The test of class. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
@@ -145,6 +147,7 @@ public class Step05ClassTest extends PlainTestCase {
         // checkTicketSoldOutは売り切れていないかを確認するメソッド
         // checkTicketShortMoneyはお金が足りているかを確認するメソッド
         // processSalesProceedsは売り上げを計算するメソッド
+        // TODO umeyan [いいね]良い単位でまとめっていると思います！buyOneDayとbuyTwoDayが流れがわかりやすく少しスッキリしました by jflute (2024/07/11)
     }
 
     // ===================================================================================
@@ -212,6 +215,25 @@ public class Step05ClassTest extends PlainTestCase {
 //    元の実装が、一回外に出て、再入場ができない仕様なので、一度入ったら基本的に外に出ない施設と仮定。つまり、一日1回入場できるという仕様になる。
 //    よって、決まった日に１回だけ入場できる仕様にする。
 //    日にちの指定は、チケットを買うタイミングで指定する仕様にする。日には重複がないようにする。
+    // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+    // TODO umeyan [ふぉろー]色々と考えて頂き、ありがとうございます。色々仕様を想定するのもトレーニングなので素晴らしいです。 by jflute (2024/07/11)
+    // 多くの人は「単純に２回入ることができる」という形で実装しています。その単純な仕様でもそれなりに苦しめるエクササイズになっているので(^^
+    // 実質的には「一日1回入場」とほぼ同じで、イメージとしては外に出る場合は再入場券を別途もらうことで、チケットの状態はそのままみたいな。
+    // (TwoDayと言ってますから、仕組みとしては単純に2回入るでも、業務上は別日に入ることを想定)
+    // ただ、チケット入場が1日1回だけというチェックがあると親切ですよね。明日の分入れなくなっちゃったー（＞＜、ってならないように。
+    //
+    // 一方で、「決まった日なら何回でも入場できる。そしてその日が2日ある」というのは、またパターンが２つあるかなと。
+    // A. チケットを買うときから入場できる日を決めているのか？
+    //  (チケットに入場できる日が固定で書かているイメージ、この場合は別にTwoDayだけじゃなくOneDayもあり得ることかな)
+    // B. 入場した日なら何回でも入場できるのか？
+    //  (21日の朝に思い立って1度入場して21日は何度も入場できて、また別日(あと1日)にいつか気が向いた時に入場する)
+    //  (ただ、これは一日1回入場のケースと近くて、同日2回目入場時にエラーになるのか？素通りできるのか？の違い)
+    //
+    // すでにやりかけの実装もあるわけなので、うめやんさん自身で決めちゃって良いです。それに合わせてぼくもレビューをしてきます。
+    // ただ、もう一つの選択肢としては、段階実装というのもあるかなと。
+    // まずは「単純に２回入ることができる」でキチっと実装。それができたら1日1回の入場チェック。そのあと日付...
+    // という感じで。
+    // _/_/_/_/_/_/_/_/_/_/
 
     /**
      * Accurately determine whether type of bought ticket is two-day passport or not by if-statemet. (fix Ticket classes if needed) <br>
@@ -227,9 +249,15 @@ public class Step05ClassTest extends PlainTestCase {
         showTicketIfNeeds(twoDayPassport);
     }
     // 色んな判断基準が考えられるが、今回は値段で判断することにする。ガバガバ条件だが、1万円以上のいチケットはTwoDayPassportとする。
+    // TODO umeyan [いいね] ↑ガバガバ条件というはちゃんとわかってコメントしていることはとても素晴らしいです(^^ by jflute (2024/07/11)
+    // TODO umeyan [読み物課題] オートマティックおうむ返しコメントより背景や理由を by jflute (2024/07/11)
+    // https://jflute.hatenadiary.jp/entry/20180625/repeatablecomment
+    // 記事の本題はちょっと違いますが、「言い訳コメントも良い訳」のところに通じます。
 
     // uncomment when you implement this exercise
     private void showTicketIfNeeds(Ticket ticket) {
+        // TODO umeyan まあ一方で、ForDayが追加されたらもう破綻してしまいますし、TwoDayの価格改定が起きても破綻します by jflute (2024/07/11)
+        // どうにかして価格に依存せずに判定できるようにしたいところですね。後回しでも良いのでじっくり考えてみてください。
         if (ticket.getDisplayPrice() > 10000) { // write determination for two-day passport
             log("two-day passport");
         } else {
