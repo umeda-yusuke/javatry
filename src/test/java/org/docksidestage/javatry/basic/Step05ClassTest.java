@@ -39,6 +39,9 @@ import org.docksidestage.unit.PlainTestCase;
  */
 public class Step05ClassTest extends PlainTestCase {
 
+    // TODO umeyan [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/07/18)
+    // https://jflute.hatenadiary.jp/entry/20170623/desigraming
+    
     // ===================================================================================
     //                                                                          How to Use
     //                                                                          ==========
