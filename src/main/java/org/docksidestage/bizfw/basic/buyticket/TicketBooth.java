@@ -34,6 +34,7 @@ public class TicketBooth {
     private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
     private static final int TWO_DAY_PRICE = 13200;
     private static final int FOUR_DAY_PRICE = 22400;
+    private static final int NIGHT_ONLY_TWO_DAY_PRICE = 7400;
 
     // ===================================================================================
     //                                                                           Attribute
@@ -71,7 +72,7 @@ public class TicketBooth {
         checkTicketShortMoney(handedMoney, ONE_DAY_PRICE);
         --quantity;
         processSalesProceeds(ONE_DAY_PRICE);
-        return new Ticket(ONE_DAY_PRICE, 1);
+        return new Ticket(ONE_DAY_PRICE, 1, false);
     }
 
     // TODO umeyan javadoc, 少なくともそのクラスにおける主要となるpublicメソッドをお願いします by jflute (2024/07/11)
@@ -81,7 +82,7 @@ public class TicketBooth {
         checkTicketShortMoney(handedMoney, TWO_DAY_PRICE);
         quantity -= 2;
         processSalesProceeds(TWO_DAY_PRICE);
-        return new TicketBuyResult(new Ticket(TWO_DAY_PRICE, 2), handedMoney - TWO_DAY_PRICE);
+        return new TicketBuyResult(new Ticket(TWO_DAY_PRICE, 2, false), handedMoney - TWO_DAY_PRICE);
     }
 
     public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
@@ -89,7 +90,15 @@ public class TicketBooth {
         checkTicketShortMoney(handedMoney, FOUR_DAY_PRICE);
         quantity -= 4;
         processSalesProceeds(FOUR_DAY_PRICE);
-        return new TicketBuyResult(new Ticket(FOUR_DAY_PRICE, 4), handedMoney - FOUR_DAY_PRICE);
+        return new TicketBuyResult(new Ticket(FOUR_DAY_PRICE, 4, false), handedMoney - FOUR_DAY_PRICE);
+    }
+
+    public TicketBuyResult buyNightOnlyTwoDayPassport(Integer handedMoney) {
+        checkTicketSoldOut();
+        checkTicketShortMoney(handedMoney, NIGHT_ONLY_TWO_DAY_PRICE);
+        quantity -= 2;
+        processSalesProceeds(NIGHT_ONLY_TWO_DAY_PRICE);
+        return new TicketBuyResult(new Ticket(NIGHT_ONLY_TWO_DAY_PRICE, 2, true), handedMoney - NIGHT_ONLY_TWO_DAY_PRICE);
     }
 
     // TODO umeyan [よもやま話]このメソッド名でも全然OKですが、よくcheckという言葉を避けようという話もあります。 by jflute (2024/07/11)

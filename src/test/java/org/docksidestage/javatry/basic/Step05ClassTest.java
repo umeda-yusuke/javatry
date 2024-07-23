@@ -15,6 +15,8 @@
  */
 package org.docksidestage.javatry.basic;
 
+import java.time.LocalDateTime;
+
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
@@ -190,9 +192,9 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
         Ticket twoDayPassport = buyResult.getTicket();
-        for (int i = 0; i <= 2; i++) {
+        for (int i = 0; i <= 3; i++) {
             log("残り入園回数：" + twoDayPassport.getAvailableEnterCount());
-            twoDayPassport.enterPark();
+            twoDayPassport.enterPark(LocalDateTime.now());
         }
     }
     // TwoDayPassportをどう解釈するかで、実装はかなり変わると思う。
@@ -238,16 +240,18 @@ public class Step05ClassTest extends PlainTestCase {
         showTicketIfNeeds(twoDayPassport);
     }
     // 色んな判断基準が考えられるが、今回は値段で判断することにする。ガバガバ条件だが、1万円以上のいチケットはTwoDayPassportとする。
-    // TODO umeyan [いいね] ↑ガバガバ条件というはちゃんとわかってコメントしていることはとても素晴らしいです(^^ by jflute (2024/07/11)
-    // TODO umeyan [読み物課題] オートマティックおうむ返しコメントより背景や理由を by jflute (2024/07/11)
+    // TODO done umeyan [いいね] ↑ガバガバ条件というはちゃんとわかってコメントしていることはとても素晴らしいです(^^ by jflute (2024/07/11)
+    // TODO done umeyan [読み物課題] オートマティックおうむ返しコメントより背景や理由を by jflute (2024/07/11)
     // https://jflute.hatenadiary.jp/entry/20180625/repeatablecomment
     // 記事の本題はちょっと違いますが、「言い訳コメントも良い訳」のところに通じます。
+
+    // チケットの種類を内部に持つようにする。そしてチケットの種類を取得するメソッドを作成する。（2024/7/23）
 
     // uncomment when you implement this exercise
     private void showTicketIfNeeds(Ticket ticket) {
         // TODO umeyan まあ一方で、ForDayが追加されたらもう破綻してしまいますし、TwoDayの価格改定が起きても破綻します by jflute (2024/07/11)
         // どうにかして価格に依存せずに判定できるようにしたいところですね。後回しでも良いのでじっくり考えてみてください。
-        if (ticket.getDisplayPrice() > 10000) { // write determination for two-day passport
+        if (ticket.getTicketType().contains("2")) { // write determination for two-day passport
             log("two-day passport");
         } else {
             log("other");
@@ -263,18 +267,30 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder_four() {
         // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        TicketBuyResult buyResult = booth.buyFourDayPassport(30000);
+        Ticket fourDayPassport = buyResult.getTicket();
+        log(fourDayPassport.getDisplayPrice() + buyResult.getChange()); // should be same as money
+        log("入園可能回数：" + fourDayPassport.getAvailableEnterCount());
     }
-//    方針
-//    ・　buyTwoDayPassportを拡張して、multipleDayPassportを作る
-//    ・　buyFourDayPassportを作る
-//    TicketBooth内部で、selectDateを２つ作るのは、違和感があるので、selectDateの長さを４に固定する
+//    方針　：buyFourDayPassportを作る
     /**
      * Fix it to be able to buy night-only two-day passport (price is 7400), which can be used at only night. <br>
      * (NightOnlyTwoDayPassport (金額は7400) のチケットも買えるようにしましょう。夜しか使えないようにしましょう)
      */
     public void test_class_moreFix_wonder_night() {
         // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        TicketBuyResult buyResult = booth.buyNightOnlyTwoDayPassport(10000);
+        Ticket nightOnlyTwoDayPassport = buyResult.getTicket();
+        log(nightOnlyTwoDayPassport.getDisplayPrice() + buyResult.getChange()); // should be same as money
+        nightOnlyTwoDayPassport.enterPark(LocalDateTime.of(2024, 7, 23, 16, 0)); // 16時に入場
+        log("入園可能回数：" + nightOnlyTwoDayPassport.getAvailableEnterCount());
+        nightOnlyTwoDayPassport.enterPark(LocalDateTime.of(2024, 7, 23, 19, 0)); // 19時に入場
+        log("入園可能回数：" + nightOnlyTwoDayPassport.getAvailableEnterCount());
     }
+
+    // 18時以降を夜とする。
 
     /**
      * Refactor if you want to fix (e.g. is it well-balanced name of method and variable?). <br>

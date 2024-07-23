@@ -16,6 +16,7 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -30,6 +31,8 @@ public class Ticket {
     private final int displayPrice; // written on ticket, park guest can watch this
     private boolean alreadyIn = false; // true means this ticket is unavailable
     private int availableEnterCount; // 入園できる回数
+    private final String ticketType; // チケットの種類
+    private boolean isOnlyNight; // 夜だけ使えるチケットかどうか
     // TODO done umeyan この変数はpublicで公開する必要はないと思うのでprivateにしましょう by jflute (2024/07/11)
     // インスタンス変数をpublicにすることはめったにないです。(publicフィールドスタイルの場合は別ですが)
     // TODO done umeyan HashMapを扱う時は、Mapインターフェースで受け取るのが慣習です by jflute (2024/07/11)
@@ -41,9 +44,15 @@ public class Ticket {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public Ticket(int displayPrice, int availableEnterCount) {
+    public Ticket(int displayPrice, int availableEnterCount, boolean isOnlyNight) {
         this.displayPrice = displayPrice;
         this.availableEnterCount = availableEnterCount;
+        this.ticketType = generateTicketType(availableEnterCount);
+        this.isOnlyNight = isOnlyNight;
+    }
+
+    private String generateTicketType(int availableEnterCount) {
+        return String.format("%dday ticket", availableEnterCount);
     }
 
     // ===================================================================================
@@ -56,7 +65,10 @@ public class Ticket {
         alreadyIn = true;
     }
 
-    public boolean enterPark() {
+    public boolean enterPark(LocalDateTime localDateTime) {
+        if (isOnlyNight && localDateTime.getHour() < 17) {
+            return false;
+        }
         if (availableEnterCount > 0) {
             availableEnterCount--;
             return true;
@@ -80,5 +92,9 @@ public class Ticket {
 
     public int getAvailableEnterCount() {
         return availableEnterCount;
+    }
+
+    public String getTicketType() {
+        return ticketType;
     }
 }
