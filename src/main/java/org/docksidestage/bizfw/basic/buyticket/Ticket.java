@@ -29,6 +29,7 @@ public class Ticket {
     //                                                                           =========
     private final int displayPrice; // written on ticket, park guest can watch this
     private boolean alreadyIn = false; // true means this ticket is unavailable
+    private int availableEnterCount; // 入園できる回数
     // TODO done umeyan この変数はpublicで公開する必要はないと思うのでprivateにしましょう by jflute (2024/07/11)
     // インスタンス変数をpublicにすることはめったにないです。(publicフィールドスタイルの場合は別ですが)
     // TODO done umeyan HashMapを扱う時は、Mapインターフェースで受け取るのが慣習です by jflute (2024/07/11)
@@ -40,8 +41,9 @@ public class Ticket {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public Ticket(int displayPrice) {
+    public Ticket(int displayPrice, int availableEnterCount) {
         this.displayPrice = displayPrice;
+        this.availableEnterCount = availableEnterCount;
     }
 
     // ===================================================================================
@@ -52,6 +54,14 @@ public class Ticket {
             throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + displayPrice);
         }
         alreadyIn = true;
+    }
+
+    public boolean enterPark() {
+        if (availableEnterCount > 0) {
+            availableEnterCount--;
+            return true;
+        }
+        return false;
     }
 
     // TODO done umeyan 配列の変数名の場合は最低限複数であることを示すのが慣習となっています。 by jflute (2024/07/11)
@@ -66,5 +76,9 @@ public class Ticket {
 
     public boolean isAlreadyIn() {
         return alreadyIn;
+    }
+
+    public int getAvailableEnterCount() {
+        return availableEnterCount;
     }
 }

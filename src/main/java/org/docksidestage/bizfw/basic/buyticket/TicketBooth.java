@@ -71,7 +71,7 @@ public class TicketBooth {
         checkTicketShortMoney(handedMoney, ONE_DAY_PRICE);
         --quantity;
         processSalesProceeds(ONE_DAY_PRICE);
-        return new Ticket(ONE_DAY_PRICE);
+        return new Ticket(ONE_DAY_PRICE, 1);
     }
 
     // TODO umeyan javadoc, 少なくともそのクラスにおける主要となるpublicメソッドをお願いします by jflute (2024/07/11)
@@ -81,7 +81,7 @@ public class TicketBooth {
         checkTicketShortMoney(handedMoney, TWO_DAY_PRICE);
         quantity -= 2;
         processSalesProceeds(TWO_DAY_PRICE);
-        return new TicketBuyResult(new Ticket(TWO_DAY_PRICE), handedMoney - TWO_DAY_PRICE);
+        return new TicketBuyResult(new Ticket(TWO_DAY_PRICE, 2), handedMoney - TWO_DAY_PRICE);
     }
 
     public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
@@ -89,8 +89,7 @@ public class TicketBooth {
         checkTicketShortMoney(handedMoney, FOUR_DAY_PRICE);
         quantity -= 4;
         processSalesProceeds(FOUR_DAY_PRICE);
-        Ticket ticket = new Ticket(FOUR_DAY_PRICE);
-        return new TicketBuyResult(ticket, handedMoney - FOUR_DAY_PRICE);
+        return new TicketBuyResult(new Ticket(FOUR_DAY_PRICE, 4), handedMoney - FOUR_DAY_PRICE);
     }
 
     // TODO umeyan [よもやま話]このメソッド名でも全然OKですが、よくcheckという言葉を避けようという話もあります。 by jflute (2024/07/11)

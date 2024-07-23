@@ -15,8 +15,6 @@
  */
 package org.docksidestage.javatry.basic;
 
-import java.time.LocalDate;
-
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
@@ -189,6 +187,13 @@ public class Step05ClassTest extends PlainTestCase {
      * (TwoDayPassportなのに一回しか利用できません。複数日数に対応できるようにTicketを修正しましょう)
      */
     public void test_class_moreFix_usePluralDays() {
+        TicketBooth booth = new TicketBooth();
+        TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
+        Ticket twoDayPassport = buyResult.getTicket();
+        for (int i = 0; i <= 2; i++) {
+            log("残り入園回数：" + twoDayPassport.getAvailableEnterCount());
+            twoDayPassport.enterPark();
+        }
     }
     // TwoDayPassportをどう解釈するかで、実装はかなり変わると思う。
 //    ・　単純に２回入ることができる
