@@ -29,13 +29,14 @@ public class Ticket {
     //                                                                           =========
     private final int displayPrice; // written on ticket, park guest can watch this
     private boolean alreadyIn = false; // true means this ticket is unavailable
-    // TODO umeyan この変数はpublicで公開する必要はないと思うのでprivateにしましょう by jflute (2024/07/11)
+    // TODO done umeyan この変数はpublicで公開する必要はないと思うのでprivateにしましょう by jflute (2024/07/11)
     // インスタンス変数をpublicにすることはめったにないです。(publicフィールドスタイルの場合は別ですが)
-    // TODO umeyan HashMapを扱う時は、Mapインターフェースで受け取るのが慣習です by jflute (2024/07/11)
+    // TODO done umeyan HashMapを扱う時は、Mapインターフェースで受け取るのが慣習です by jflute (2024/07/11)
     // step6のオブジェクト指向のところでポリモーフィズムで詳しくやるのですが...
     // このMapを利用する側は、「Hashで実現したMap」であることを意識する必要はないので、それをMapで隠蔽します。
     // new ArrayList()をListインターフェース受け取るのと同じです。
-    public HashMap<LocalDate, Boolean> availableDate = new HashMap<LocalDate, Boolean>();
+
+    // 日付は使わない方針にしたので、Hashmapを使わない方針に変更
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
@@ -53,29 +54,8 @@ public class Ticket {
         alreadyIn = true;
     }
 
-    // TODO umeyan 配列の変数名の場合は最低限複数であることを示すのが慣習となっています。 by jflute (2024/07/11)
+    // TODO done umeyan 配列の変数名の場合は最低限複数であることを示すのが慣習となっています。 by jflute (2024/07/11)
     // dates or dateArray (まあdatesが一般的かな)。そうすれば、for文の単一のLocalDateは素直にdateにできるかと。
-    public void setAvailableDate(LocalDate[] date) {
-        for (LocalDate d : date) {
-            if (d == null) continue;
-            availableDate.put(d, true);
-        }
-    }
-
-    public boolean isAvailableDate(LocalDate date) {
-        if (! availableDate.containsKey(date)) {
-            return false;
-        }
-        return availableDate.get(date);
-    }
-
-    public boolean enterPark(LocalDate date) {
-        if (! isAvailableDate(date)) {
-            return false;
-        }
-        availableDate.put(date, false);
-        return true;
-    }
 
     // ===================================================================================
     //                                                                            Accessor

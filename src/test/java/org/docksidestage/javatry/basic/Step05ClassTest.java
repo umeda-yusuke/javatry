@@ -16,7 +16,6 @@
 package org.docksidestage.javatry.basic;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
@@ -24,7 +23,7 @@ import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyExcep
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO umeyan ↑unusedなimport by jflute (2024/07/11)
+// TODO done umeyan ↑unusedなimport by jflute (2024/07/11)
 
 /**
  * The test of class. <br>
@@ -39,7 +38,7 @@ import org.docksidestage.unit.PlainTestCase;
  */
 public class Step05ClassTest extends PlainTestCase {
 
-    // TODO umeyan [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/07/18)
+    // TODO done umeyan [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/07/18)
     // https://jflute.hatenadiary.jp/entry/20170623/desigraming
     
     // ===================================================================================
@@ -150,7 +149,7 @@ public class Step05ClassTest extends PlainTestCase {
         // checkTicketSoldOutは売り切れていないかを確認するメソッド
         // checkTicketShortMoneyはお金が足りているかを確認するメソッド
         // processSalesProceedsは売り上げを計算するメソッド
-        // TODO umeyan [いいね]良い単位でまとめっていると思います！buyOneDayとbuyTwoDayが流れがわかりやすく少しスッキリしました by jflute (2024/07/11)
+        // TODO done umeyan [いいね]良い単位でまとめっていると思います！buyOneDayとbuyTwoDayが流れがわかりやすく少しスッキリしました by jflute (2024/07/11)
     }
 
     // ===================================================================================
@@ -190,26 +189,6 @@ public class Step05ClassTest extends PlainTestCase {
      * (TwoDayPassportなのに一回しか利用できません。複数日数に対応できるようにTicketを修正しましょう)
      */
     public void test_class_moreFix_usePluralDays() {
-        LocalDate day1 = LocalDate.of(2024, 7, 10);
-        LocalDate day2 = LocalDate.of(2024, 7, 11);
-        LocalDate day3 = LocalDate.of(2024, 7, 12);
-
-        TicketBooth booth = new TicketBooth();
-        booth.selectTwoDate(day1, day2); // 2日指定する
-        TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
-        Ticket twoDayPassport = buyResult.getTicket();
-
-        log("入場可能日の確認");
-        log(twoDayPassport.isAvailableDate(day1)); // should be true
-        log(twoDayPassport.isAvailableDate(day2)); // should be true
-        log(twoDayPassport.isAvailableDate(day3)); // should be false
-
-        log("入場後の確認");
-        log(twoDayPassport.enterPark(day1)); // should be true
-        log(twoDayPassport.enterPark(day1)); // should be false
-        log(twoDayPassport.enterPark(day2)); // should be true
-        log(twoDayPassport.enterPark(day2)); // should be false
-        log(twoDayPassport.enterPark(day3)); // should be false
     }
     // TwoDayPassportをどう解釈するかで、実装はかなり変わると思う。
 //    ・　単純に２回入ることができる
@@ -219,7 +198,7 @@ public class Step05ClassTest extends PlainTestCase {
 //    よって、決まった日に１回だけ入場できる仕様にする。
 //    日にちの指定は、チケットを買うタイミングで指定する仕様にする。日には重複がないようにする。
     // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
-    // TODO umeyan [ふぉろー]色々と考えて頂き、ありがとうございます。色々仕様を想定するのもトレーニングなので素晴らしいです。 by jflute (2024/07/11)
+    // TODO done umeyan [ふぉろー]色々と考えて頂き、ありがとうございます。色々仕様を想定するのもトレーニングなので素晴らしいです。 by jflute (2024/07/11)
     // 多くの人は「単純に２回入ることができる」という形で実装しています。その単純な仕様でもそれなりに苦しめるエクササイズになっているので(^^
     // 実質的には「一日1回入場」とほぼ同じで、イメージとしては外に出る場合は再入場券を別途もらうことで、チケットの状態はそのままみたいな。
     // (TwoDayと言ってますから、仕組みとしては単純に2回入るでも、業務上は別日に入ることを想定)
@@ -237,6 +216,8 @@ public class Step05ClassTest extends PlainTestCase {
     // まずは「単純に２回入ることができる」でキチっと実装。それができたら1日1回の入場チェック。そのあと日付...
     // という感じで。
     // _/_/_/_/_/_/_/_/_/_/
+
+    // 了解です！単純に２回入る事ができる仕様で作り直そうと思います。（7/23）
 
     /**
      * Accurately determine whether type of bought ticket is two-day passport or not by if-statemet. (fix Ticket classes if needed) <br>
@@ -277,17 +258,6 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder_four() {
         // your confirmation code here
-        LocalDate day1 = LocalDate.of(2024, 7, 10);
-        LocalDate day2 = LocalDate.of(2024, 7, 11);
-        LocalDate day3 = LocalDate.of(2024, 7, 12);
-        LocalDate day4 = LocalDate.of(2024, 7, 13);
-
-        TicketBooth booth = new TicketBooth();
-        booth.selectFourDate(day1, day2, day3, day4); // 4日指定する
-        TicketBuyResult buyResult = booth.buyFourDayPassport(30000);
-        Ticket fourDayPassport = buyResult.getTicket();
-
-        log(fourDayPassport.getDisplayPrice() + buyResult.getChange()); // should be same as money
     }
 //    方針
 //    ・　buyTwoDayPassportを拡張して、multipleDayPassportを作る

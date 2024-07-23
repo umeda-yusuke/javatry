@@ -19,10 +19,11 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-// TODO umeyan 以下のような感じで、既存クラスで手を入れたクラスに、authorの追加をよろしくお願いします by jflute (2024/07/11)
+// TODO done umeyan 以下のような感じで、既存クラスで手を入れたクラスに、authorの追加をよろしくお願いします by jflute (2024/07/11)
 // https://dbflute.seasar.org/ja/tutorial/handson/review/codingpolicy.html#minjavadoc
 /**
  * @author jflute
+ * @author umeda-yusuke
  */
 public class TicketBooth {
 
@@ -39,8 +40,6 @@ public class TicketBooth {
     //                                                                           =========
     private int quantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
-
-    private LocalDate[] selectDate = new LocalDate[4];
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
@@ -82,20 +81,7 @@ public class TicketBooth {
         checkTicketShortMoney(handedMoney, TWO_DAY_PRICE);
         quantity -= 2;
         processSalesProceeds(TWO_DAY_PRICE);
-        Ticket ticket = new Ticket(TWO_DAY_PRICE);
-        ticket.setAvailableDate(selectDate);
-        return new TicketBuyResult(ticket, handedMoney - TWO_DAY_PRICE);
-    }
-
-    public void selectTwoDate(LocalDate date1, LocalDate date2) {
-        if (date1 == null || date2 == null) {
-            throw new IllegalArgumentException("The argument 'date1' and 'date2' should not be null.");
-        }
-        if (date1.equals(date2)) {
-            throw new IllegalArgumentException("The argument 'date1' and 'date2' should be different dates.");
-        }
-        selectDate[0] = date1;
-        selectDate[1] = date2;
+        return new TicketBuyResult(new Ticket(TWO_DAY_PRICE), handedMoney - TWO_DAY_PRICE);
     }
 
     public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
@@ -104,23 +90,8 @@ public class TicketBooth {
         quantity -= 4;
         processSalesProceeds(FOUR_DAY_PRICE);
         Ticket ticket = new Ticket(FOUR_DAY_PRICE);
-        ticket.setAvailableDate(selectDate);
         return new TicketBuyResult(ticket, handedMoney - FOUR_DAY_PRICE);
     }
-
-    public void selectFourDate(LocalDate date1, LocalDate date2, LocalDate date3, LocalDate date4) {
-        if (date1 == null || date2 == null || date3 == null || date4 == null) {
-            throw new IllegalArgumentException("The argument 'date1', 'date2', 'date3' and 'date4' should not be null.");
-        }
-        if (date1.equals(date2) || date1.equals(date3) || date1.equals(date4) || date2.equals(date3) || date2.equals(date4) || date3.equals(date4)) {
-            throw new IllegalArgumentException("The argument 'date1', 'date2', 'date3' and 'date4' should be different dates.");
-        }
-        selectDate[0] = date1;
-        selectDate[1] = date2;
-        selectDate[2] = date3;
-        selectDate[3] = date4;
-    }
-
 
     // TODO umeyan [よもやま話]このメソッド名でも全然OKですが、よくcheckという言葉を避けようという話もあります。 by jflute (2024/07/11)
     // checkの目的語 (チェックされるもの) が「正常な方」なのか？「異常な方」なのか？どっちもありえるということが理由です。
