@@ -20,6 +20,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 
+// TODO umeyan こちらもTicketBoothのJavaDocでの指摘と同じようにauthorお願いします by jflute (2024/07/25)
+// (一つ指摘されたら、似たような箇所が他にないか？確認する習慣を付けましょう)
 /**
  * @author jflute
  */
@@ -28,14 +30,17 @@ public class Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    // TODO umeyan [いいね] 横のスラスラコメント(//コメント) がとても良いですね！ by jflute (2024/07/25)
+    // TODO jflute 1on1にてコメントのe.g.技の話を (2024/07/25)
     private final int displayPrice; // written on ticket, park guest can watch this
     private boolean alreadyIn = false; // true means this ticket is unavailable
     private int availableEnterCount; // 入園できる回数
     private final String ticketType; // チケットの種類
     private boolean isOnlyNight; // 夜だけ使えるチケットかどうか
-    // TODO done umeyan この変数はpublicで公開する必要はないと思うのでprivateにしましょう by jflute (2024/07/11)
+
+    // done umeyan この変数はpublicで公開する必要はないと思うのでprivateにしましょう by jflute (2024/07/11)
     // インスタンス変数をpublicにすることはめったにないです。(publicフィールドスタイルの場合は別ですが)
-    // TODO done umeyan HashMapを扱う時は、Mapインターフェースで受け取るのが慣習です by jflute (2024/07/11)
+    // done umeyan HashMapを扱う時は、Mapインターフェースで受け取るのが慣習です by jflute (2024/07/11)
     // step6のオブジェクト指向のところでポリモーフィズムで詳しくやるのですが...
     // このMapを利用する側は、「Hashで実現したMap」であることを意識する必要はないので、それをMapで隠蔽します。
     // new ArrayList()をListインターフェース受け取るのと同じです。
@@ -76,7 +81,7 @@ public class Ticket {
         return false;
     }
 
-    // TODO done umeyan 配列の変数名の場合は最低限複数であることを示すのが慣習となっています。 by jflute (2024/07/11)
+    // done umeyan 配列の変数名の場合は最低限複数であることを示すのが慣習となっています。 by jflute (2024/07/11)
     // dates or dateArray (まあdatesが一般的かな)。そうすれば、for文の単一のLocalDateは素直にdateにできるかと。
 
     // ===================================================================================

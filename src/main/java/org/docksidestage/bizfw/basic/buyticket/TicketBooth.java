@@ -19,7 +19,10 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-// TODO done umeyan 以下のような感じで、既存クラスで手を入れたクラスに、authorの追加をよろしくお願いします by jflute (2024/07/11)
+// TODO umeyan unusedのimportがあります by jflute (2024/07/25)
+// IntelliJで、shift+command+A の後に Organize imports のコマンドを実行すると消えると思いますのでぜひ使ってみてください。
+
+// done umeyan 以下のような感じで、既存クラスで手を入れたクラスに、authorの追加をよろしくお願いします by jflute (2024/07/11)
 // https://dbflute.seasar.org/ja/tutorial/handson/review/codingpolicy.html#minjavadoc
 /**
  * @author jflute
@@ -50,9 +53,31 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                          Buy Ticket
     //                                                                          ==========
-    // TODO done umeyan [お知らせ]javadoc, 日本語で書いても全然OKです。javatryでたくさん書いていくので自分で決めてOKです by jflute (2024/07/11)
+    // done umeyan [お知らせ]javadoc, 日本語で書いても全然OKです。javatryでたくさん書いていくので自分で決めてOKです by jflute (2024/07/11)
     // you can rewrite comments for your own language by jflute
     // e.g. Japanese
+    // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+    // TODO umeyan これはjavatryでのお願いですが、引数と戻り値に関しては、nullの可否を明示するようにお願いします by jflute (2024/07/25)
+    // handedMoneyの方はすでに書いてあるので、ここでは戻り値の方ですね。
+    //
+    // @return 1Dayパスポートのチケット
+    //  ↓
+    // @return 1Dayパスポートのチケット (NotNull)
+    // 
+    // Javaの性質上、どうしても "値がないかもしれない" (nullかもしれない) というのを意識しないといけないので、
+    // メソッドの呼び出し側からすると、引数や戻り値でnullがあり得るのか？ってのは大きな関心事になります。
+    // というか厳密にはそれを正確に把握した上で呼び出さないといけないという感じですね。
+    // (Java8のOptionalに関しては、step8でやりますのでここではnull限定の話で)
+    // なので、JavaDocにnullの可否が書いてあるというのは、とてもありがたい情報なのです。
+    //
+    // ぼくが書くJavaDocではほとんど (NotNull) もしくは (NullAllowed) と付けていますし、
+    // 書き方が違えど、Javaの標準APIのクラスのJavaDocでもnullの可否が書いてあるものもあります。
+    // (LocalDate@plusDays() の JavaDoc の Returns の部分を読んでみてください)
+    // ということで、これはあくまでjfluteのオススメということになりますが、
+    // 少なくともくぼBootCampのjavatryやハンズオンでは面倒でも書いてもらって、null可否の意識を高めてもらいたいという狙いがあります。
+    //
+    // (intとかbooleanのプリミティブ型は、そもそも文法的にnullにならないのでその場合は要らないですが)
+    // _/_/_/_/_/_/_/_/_/_/
      /**
      * 1Dayパスポートを買う、パークゲスト用のメソッド。
      * @param handedMoney パークゲストから手渡しされたお金(金額) (NotNull, NotMinus)
@@ -60,7 +85,7 @@ public class TicketBooth {
      * @throws TicketShortMoneyException 買うのに金額が足りなかったら
       * @return 1Dayパスポートのチケット
      */
-    // TODO done umeyan javadoc, 変更された分の修正をしていきましょう by jflute (2024/07/11)
+    // done umeyan javadoc, 変更された分の修正をしていきましょう by jflute (2024/07/11)
     // (Eclipseの方だと、いま戻り値の記述がjavadocにないというお知らせが来ています)
     public Ticket buyOneDayPassport(Integer handedMoney) {
         assertTicketExisting();
@@ -70,7 +95,7 @@ public class TicketBooth {
         return new Ticket(ONE_DAY_PRICE, 1, false);
     }
 
-    // TODO done umeyan javadoc, 少なくともそのクラスにおける主要となるpublicメソッドをお願いします by jflute (2024/07/11)
+    // done umeyan javadoc, 少なくともそのクラスにおける主要となるpublicメソッドをお願いします by jflute (2024/07/11)
     // これはjavadocのトレーニングのつもりで。(良いコメントを書くというのもコツがいるものなので)
     /**
      * 2Dayパスポートを買う、パークゲスト用のメソッド。
@@ -103,7 +128,7 @@ public class TicketBooth {
         return new TicketBuyResult(new Ticket(NIGHT_ONLY_TWO_DAY_PRICE, 2, true), handedMoney - NIGHT_ONLY_TWO_DAY_PRICE);
     }
 
-    // TODO umeyan [よもやま話]このメソッド名でも全然OKですが、よくcheckという言葉を避けようという話もあります。 by jflute (2024/07/11)
+    // done umeyan [よもやま話]このメソッド名でも全然OKですが、よくcheckという言葉を避けようという話もあります。 by jflute (2024/07/11)
     // checkの目的語 (チェックされるもの) が「正常な方」なのか？「異常な方」なのか？どっちもありえるということが理由です。
     // 例えば、checkTicketExisting(), checkTicketSoldOut() というようにどちらでも意味が通じます。
     // その分、checkという単語だけではどっちの状態が正常なのか異常なのかが判断しづらいという面もあります。

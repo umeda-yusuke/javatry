@@ -23,7 +23,7 @@ import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyExcep
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO done umeyan ↑unusedなimport by jflute (2024/07/11)
+// done umeyan ↑unusedなimport by jflute (2024/07/11)
 
 /**
  * The test of class. <br>
@@ -38,8 +38,9 @@ import org.docksidestage.unit.PlainTestCase;
  */
 public class Step05ClassTest extends PlainTestCase {
 
-    // TODO done umeyan [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/07/18)
+    // done umeyan [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/07/18)
     // https://jflute.hatenadiary.jp/entry/20170623/desigraming
+    // TODO jflute 1on1にてちょい補足 (2024/07/25)
     
     // ===================================================================================
     //                                                                          How to Use
@@ -149,7 +150,13 @@ public class Step05ClassTest extends PlainTestCase {
         // checkTicketSoldOutは売り切れていないかを確認するメソッド
         // checkTicketShortMoneyはお金が足りているかを確認するメソッド
         // processSalesProceedsは売り上げを計算するメソッド
-        // TODO done umeyan [いいね]良い単位でまとめっていると思います！buyOneDayとbuyTwoDayが流れがわかりやすく少しスッキリしました by jflute (2024/07/11)
+        // done umeyan [いいね]良い単位でまとめっていると思います！buyOneDayとbuyTwoDayが流れがわかりやすく少しスッキリしました by jflute (2024/07/11)
+
+        // TODO umeyan [思考課題] おつりの計算ですが、なんたることかおつりを10円増やすというサービス仕様に変えると仮定します by jflute (2024/07/25)
+        // そのとき、どこをどう直しますか？できるだけこういうときは一箇所だけ直せばOKという風にしたいものです。(1on1のとき聞きます)
+
+        // TODO umeyan [思考課題] 在庫を減らした後、売上計上の前のタイミングで、ログを出力したいと言われたと仮定します by jflute (2024/07/25)
+        // そのとき、どこにそのログ処理を入れますか？できるだけこういうときは一箇所だけ直せばOKという風にしたいものです。(1on1のとき聞きます)
     }
 
     // ===================================================================================
@@ -205,7 +212,7 @@ public class Step05ClassTest extends PlainTestCase {
 //    よって、決まった日に１回だけ入場できる仕様にする。
 //    日にちの指定は、チケットを買うタイミングで指定する仕様にする。日には重複がないようにする。
     // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
-    // TODO done umeyan [ふぉろー]色々と考えて頂き、ありがとうございます。色々仕様を想定するのもトレーニングなので素晴らしいです。 by jflute (2024/07/11)
+    // done umeyan [ふぉろー]色々と考えて頂き、ありがとうございます。色々仕様を想定するのもトレーニングなので素晴らしいです。 by jflute (2024/07/11)
     // 多くの人は「単純に２回入ることができる」という形で実装しています。その単純な仕様でもそれなりに苦しめるエクササイズになっているので(^^
     // 実質的には「一日1回入場」とほぼ同じで、イメージとしては外に出る場合は再入場券を別途もらうことで、チケットの状態はそのままみたいな。
     // (TwoDayと言ってますから、仕組みとしては単純に2回入るでも、業務上は別日に入ることを想定)
@@ -240,8 +247,8 @@ public class Step05ClassTest extends PlainTestCase {
         showTicketIfNeeds(twoDayPassport);
     }
     // 色んな判断基準が考えられるが、今回は値段で判断することにする。ガバガバ条件だが、1万円以上のいチケットはTwoDayPassportとする。
-    // TODO done umeyan [いいね] ↑ガバガバ条件というはちゃんとわかってコメントしていることはとても素晴らしいです(^^ by jflute (2024/07/11)
-    // TODO done umeyan [読み物課題] オートマティックおうむ返しコメントより背景や理由を by jflute (2024/07/11)
+    // done umeyan [いいね] ↑ガバガバ条件というはちゃんとわかってコメントしていることはとても素晴らしいです(^^ by jflute (2024/07/11)
+    // done umeyan [読み物課題] オートマティックおうむ返しコメントより背景や理由を by jflute (2024/07/11)
     // https://jflute.hatenadiary.jp/entry/20180625/repeatablecomment
     // 記事の本題はちょっと違いますが、「言い訳コメントも良い訳」のところに通じます。
 
@@ -249,8 +256,21 @@ public class Step05ClassTest extends PlainTestCase {
 
     // uncomment when you implement this exercise
     private void showTicketIfNeeds(Ticket ticket) {
-        // TODO done umeyan まあ一方で、ForDayが追加されたらもう破綻してしまいますし、TwoDayの価格改定が起きても破綻します by jflute (2024/07/11)
+        // done umeyan まあ一方で、ForDayが追加されたらもう破綻してしまいますし、TwoDayの価格改定が起きても破綻します by jflute (2024/07/11)
         // どうにかして価格に依存せずに判定できるようにしたいところですね。後回しでも良いのでじっくり考えてみてください。
+
+        // TODO umeyan [思考課題] "チケットの種類" が現状は大丈夫だけど、もうちょい拡張的な仕様変更が入るようになって... by jflute (2024/07/25)
+        // "1day ticket2" (1dayのバージョン2みたいな) とかあったりすると破綻するので、もうちょい種類の表現方法に依存しない実装にしたいところですね。
+        // まあでも、恐らくそれを気にして、露骨に equals("2day ticket") は止めて contains() 方式にしたのかなって。
+        //
+        // "チケットの種類" の文字列が人間に見せる用の文字列なのか？コンピューター上で識別するための文字列なのか？それにも寄ります。
+        // いま "2day ticket" っていうように人間が見やすい形式になっていますから画面とかで目で見るための値のように思えてるので、
+        // もしその場合、表現というのは簡単に人間の都合で変わったりしますので、表現に依存した判定だと破綻リスクが高いと言えます。
+        // (例えば、大文字にして欲しいとか、数字は one, two と英語にして欲しいとか)
+        //
+        // 色々な方法があるので、1on1で少しフォローします。それまではうーむーって悩んでみてください。
+
+        // TODO umeyan [質問] こちらの実装、nightOnlyのtwoDayも含まれてしまいますが、これは意図して含んでますでしょうか？ by jflute (2024/07/25)
         if (ticket.getTicketType().contains("2")) { // write determination for two-day passport
             log("two-day passport");
         } else {
