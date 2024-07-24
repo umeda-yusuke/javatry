@@ -50,52 +50,54 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                          Buy Ticket
     //                                                                          ==========
-    // TODO umeyan [お知らせ]javadoc, 日本語で書いても全然OKです。javatryでたくさん書いていくので自分で決めてOKです by jflute (2024/07/11)
+    // TODO done umeyan [お知らせ]javadoc, 日本語で書いても全然OKです。javatryでたくさん書いていくので自分で決めてOKです by jflute (2024/07/11)
     // you can rewrite comments for your own language by jflute
     // e.g. Japanese
-    // /**
-    // * 1Dayパスポートを買う、パークゲスト用のメソッド。
-    // * @param handedMoney パークゲストから手渡しされたお金(金額) (NotNull, NotMinus)
-    // * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
-    // * @throws TicketShortMoneyException 買うのに金額が足りなかったら
-    // */
-    // TODO umeyan javadoc, 変更された分の修正をしていきましょう by jflute (2024/07/11)
-    // (Eclipseの方だと、いま戻り値の記述がjavadocにないというお知らせが来ています)
-    /**
-     * Buy one-day passport, method for park guest.
-     * @param handedMoney The money (amount) handed over from park guest. (NotNull, NotMinus)
-     * @throws TicketSoldOutException When ticket in booth is sold out.
-     * @throws TicketShortMoneyException When the specified money is short for purchase.
+     /**
+     * 1Dayパスポートを買う、パークゲスト用のメソッド。
+     * @param handedMoney パークゲストから手渡しされたお金(金額) (NotNull, NotMinus)
+     * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
+     * @throws TicketShortMoneyException 買うのに金額が足りなかったら
+      * @return 1Dayパスポートのチケット
      */
+    // TODO done umeyan javadoc, 変更された分の修正をしていきましょう by jflute (2024/07/11)
+    // (Eclipseの方だと、いま戻り値の記述がjavadocにないというお知らせが来ています)
     public Ticket buyOneDayPassport(Integer handedMoney) {
-        checkTicketSoldOut();
-        checkTicketShortMoney(handedMoney, ONE_DAY_PRICE);
+        assertTicketExisting();
+        assertEnoughMoney(handedMoney, ONE_DAY_PRICE);
         --quantity;
         processSalesProceeds(ONE_DAY_PRICE);
         return new Ticket(ONE_DAY_PRICE, 1, false);
     }
 
-    // TODO umeyan javadoc, 少なくともそのクラスにおける主要となるpublicメソッドをお願いします by jflute (2024/07/11)
+    // TODO done umeyan javadoc, 少なくともそのクラスにおける主要となるpublicメソッドをお願いします by jflute (2024/07/11)
     // これはjavadocのトレーニングのつもりで。(良いコメントを書くというのもコツがいるものなので)
+    /**
+     * 2Dayパスポートを買う、パークゲスト用のメソッド。
+     * @param handedMoney パークゲストから手渡しされたお金(金額) (NotNull, NotMinus)
+     * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
+     * @throws TicketShortMoneyException 買うのに金額が足りなかったら
+     * @return 2Dayパスポートのチケットの購入結果
+     */
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
-        checkTicketSoldOut();
-        checkTicketShortMoney(handedMoney, TWO_DAY_PRICE);
+        assertTicketExisting();
+        assertEnoughMoney(handedMoney, TWO_DAY_PRICE);
         quantity -= 2;
         processSalesProceeds(TWO_DAY_PRICE);
         return new TicketBuyResult(new Ticket(TWO_DAY_PRICE, 2, false), handedMoney - TWO_DAY_PRICE);
     }
 
     public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
-        checkTicketSoldOut();
-        checkTicketShortMoney(handedMoney, FOUR_DAY_PRICE);
+        assertTicketExisting();
+        assertEnoughMoney(handedMoney, FOUR_DAY_PRICE);
         quantity -= 4;
         processSalesProceeds(FOUR_DAY_PRICE);
         return new TicketBuyResult(new Ticket(FOUR_DAY_PRICE, 4, false), handedMoney - FOUR_DAY_PRICE);
     }
 
     public TicketBuyResult buyNightOnlyTwoDayPassport(Integer handedMoney) {
-        checkTicketSoldOut();
-        checkTicketShortMoney(handedMoney, NIGHT_ONLY_TWO_DAY_PRICE);
+        assertTicketExisting();
+        assertEnoughMoney(handedMoney, NIGHT_ONLY_TWO_DAY_PRICE);
         quantity -= 2;
         processSalesProceeds(NIGHT_ONLY_TWO_DAY_PRICE);
         return new TicketBuyResult(new Ticket(NIGHT_ONLY_TWO_DAY_PRICE, 2, true), handedMoney - NIGHT_ONLY_TWO_DAY_PRICE);
@@ -113,13 +115,16 @@ public class TicketBooth {
     // ここだと、assertTicketExisting() とすると「存在しなかったら例外が発生するんだな」というのが伝わります。
     //
     // 今のcheckも間違いではないので、直すかどうかは、お任せします。
-    private void checkTicketSoldOut() {
+
+    // なるほど！今後assertをたくさん使っていこうと思います！ by umeda-yusuke（2024/07/24）
+    private void assertTicketExisting() {
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
     }
 
-    private void checkTicketShortMoney(Integer handedMoney, Integer price) {
+    // お金が足りているか確認するので、assertEnoughMoney() とする by umeda-yusuke（2024/07/24）
+    private void assertEnoughMoney(Integer handedMoney, Integer price) {
         if (handedMoney < price) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
