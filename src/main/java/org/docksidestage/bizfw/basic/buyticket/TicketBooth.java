@@ -15,11 +15,7 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-
-// TODO umeyan unusedのimportがあります by jflute (2024/07/25)
+// TODO done umeyan unusedのimportがあります by jflute (2024/07/25)
 // IntelliJで、shift+command+A の後に Organize imports のコマンドを実行すると消えると思いますのでぜひ使ってみてください。
 
 // done umeyan 以下のような感じで、既存クラスで手を入れたクラスに、authorの追加をよろしくお願いします by jflute (2024/07/11)
@@ -57,7 +53,7 @@ public class TicketBooth {
     // you can rewrite comments for your own language by jflute
     // e.g. Japanese
     // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
-    // TODO umeyan これはjavatryでのお願いですが、引数と戻り値に関しては、nullの可否を明示するようにお願いします by jflute (2024/07/25)
+    // TODO done umeyan これはjavatryでのお願いですが、引数と戻り値に関しては、nullの可否を明示するようにお願いします by jflute (2024/07/25)
     // handedMoneyの方はすでに書いてあるので、ここでは戻り値の方ですね。
     //
     // @return 1Dayパスポートのチケット
@@ -83,7 +79,7 @@ public class TicketBooth {
      * @param handedMoney パークゲストから手渡しされたお金(金額) (NotNull, NotMinus)
      * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
      * @throws TicketShortMoneyException 買うのに金額が足りなかったら
-      * @return 1Dayパスポートのチケット
+      * @return 1Dayパスポートのチケット (NotNull)
      */
     // done umeyan javadoc, 変更された分の修正をしていきましょう by jflute (2024/07/11)
     // (Eclipseの方だと、いま戻り値の記述がjavadocにないというお知らせが来ています)
@@ -102,7 +98,7 @@ public class TicketBooth {
      * @param handedMoney パークゲストから手渡しされたお金(金額) (NotNull, NotMinus)
      * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
      * @throws TicketShortMoneyException 買うのに金額が足りなかったら
-     * @return 2Dayパスポートのチケットの購入結果
+     * @return 2Dayパスポートのチケットの購入結果 (NotNull)
      */
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
         assertTicketExisting();

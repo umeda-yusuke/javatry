@@ -20,17 +20,18 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 
-// TODO umeyan こちらもTicketBoothのJavaDocでの指摘と同じようにauthorお願いします by jflute (2024/07/25)
+// TODO done umeyan こちらもTicketBoothのJavaDocでの指摘と同じようにauthorお願いします by jflute (2024/07/25)
 // (一つ指摘されたら、似たような箇所が他にないか？確認する習慣を付けましょう)
 /**
  * @author jflute
+ * @author umeda-yusuke
  */
 public class Ticket {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO umeyan [いいね] 横のスラスラコメント(//コメント) がとても良いですね！ by jflute (2024/07/25)
+    // TODO done umeyan [いいね] 横のスラスラコメント(//コメント) がとても良いですね！ by jflute (2024/07/25)
     // TODO jflute 1on1にてコメントのe.g.技の話を (2024/07/25)
     private final int displayPrice; // written on ticket, park guest can watch this
     private boolean alreadyIn = false; // true means this ticket is unavailable
