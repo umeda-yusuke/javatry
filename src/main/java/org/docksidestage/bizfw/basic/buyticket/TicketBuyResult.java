@@ -15,10 +15,11 @@ package org.docksidestage.bizfw.basic.buyticket;
 // done umeyan 以下のような感じで、最低限のjavadoc, よろしくお願いします by jflute (2024/07/11)
 // https://dbflute.seasar.org/ja/tutorial/handson/review/codingpolicy.html#minjavadoc
 
-// TODO done umeyan [いいね]javadoc, 良いですね！概要が一行あるだけでも全然初見の人の理解しやすさが変わりますね by jflute (2024/07/25)
-// TODO jflute 1on1にて、コメントで具体的な項目を列挙する場合のリスクと工夫について補足予定 (2024/07/25)
+// done umeyan [いいね]javadoc, 良いですね！概要が一行あるだけでも全然初見の人の理解しやすさが変わりますね by jflute (2024/07/25)
+// done jflute 1on1にて、コメントで具体的な項目を列挙する場合のリスクと工夫について補足予定 (2024/07/25)
+// [memo] チケットオブジェクトとおつりなどを保持する。 || e.g. チケットオブジェクトやおつり
 
-// TODO done umeyan ちょっと勘違いさせてしまったかもですが、クラス宣言のクラスjavadocの間は空行は無しでOKです by jflute (2024/07/25)
+// done umeyan ちょっと勘違いさせてしまったかもですが、クラス宣言のクラスjavadocの間は空行は無しでOKです by jflute (2024/07/25)
 // (↑の指摘は、クラス宣言の下の方の話なので)
 /**
  * チケットの購入結果を表すクラス。チケットオブジェクトとおつりを保持する。

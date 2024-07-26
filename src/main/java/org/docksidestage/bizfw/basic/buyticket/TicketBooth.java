@@ -15,7 +15,10 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-// TODO done umeyan unusedのimportがあります by jflute (2024/07/25)
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+// done umeyan unusedのimportがあります by jflute (2024/07/25)
 // IntelliJで、shift+command+A の後に Organize imports のコマンドを実行すると消えると思いますのでぜひ使ってみてください。
 
 // done umeyan 以下のような感じで、既存クラスで手を入れたクラスに、authorの追加をよろしくお願いします by jflute (2024/07/11)
@@ -53,7 +56,7 @@ public class TicketBooth {
     // you can rewrite comments for your own language by jflute
     // e.g. Japanese
     // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
-    // TODO done umeyan これはjavatryでのお願いですが、引数と戻り値に関しては、nullの可否を明示するようにお願いします by jflute (2024/07/25)
+    // done umeyan これはjavatryでのお願いですが、引数と戻り値に関しては、nullの可否を明示するようにお願いします by jflute (2024/07/25)
     // handedMoneyの方はすでに書いてあるので、ここでは戻り値の方ですね。
     //
     // @return 1Dayパスポートのチケット

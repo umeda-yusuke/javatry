@@ -20,7 +20,9 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 
-// TODO done umeyan こちらもTicketBoothのJavaDocでの指摘と同じようにauthorお願いします by jflute (2024/07/25)
+// TODO umeyan ↑一度指摘されたら、他にも似たところがないか確認する習慣を by jflute (2024/07/26)
+
+// done umeyan こちらもTicketBoothのJavaDocでの指摘と同じようにauthorお願いします by jflute (2024/07/25)
 // (一つ指摘されたら、似たような箇所が他にないか？確認する習慣を付けましょう)
 /**
  * @author jflute
@@ -28,14 +30,19 @@ import java.util.HashMap;
  */
 public class Ticket {
 
+    public static final String ONE_DAY_TICKET_TYPE = "1day ticket";
+    public static final String TWO_DAY_TICKET_TYPE = "2day ticket";
+    public static final String FOUR_DAY_TICKET_TYPE = "4day ticket";
+    
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO done umeyan [いいね] 横のスラスラコメント(//コメント) がとても良いですね！ by jflute (2024/07/25)
-    // TODO jflute 1on1にてコメントのe.g.技の話を (2024/07/25)
+    // done umeyan [いいね] 横のスラスラコメント(//コメント) がとても良いですね！ by jflute (2024/07/25)
+    // done jflute 1on1にてコメントのe.g.技の話を (2024/07/25)
+    // [memo] チケットの種類 e.g. 1day ticket
     private final int displayPrice; // written on ticket, park guest can watch this
     private boolean alreadyIn = false; // true means this ticket is unavailable
-    private int availableEnterCount; // 入園できる回数
+    public int availableEnterCount; // 入園できる回数
     private final String ticketType; // チケットの種類
     private boolean isOnlyNight; // 夜だけ使えるチケットかどうか
 

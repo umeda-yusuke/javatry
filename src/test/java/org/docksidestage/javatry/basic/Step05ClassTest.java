@@ -40,7 +40,7 @@ public class Step05ClassTest extends PlainTestCase {
 
     // done umeyan [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/07/18)
     // https://jflute.hatenadiary.jp/entry/20170623/desigraming
-    // TODO jflute 1on1にてちょい補足 (2024/07/25)
+    // done jflute 1on1にてちょい補足 (2024/07/25)
     
     // ===================================================================================
     //                                                                          How to Use
@@ -154,9 +154,11 @@ public class Step05ClassTest extends PlainTestCase {
 
         // TODO umeyan [思考課題] おつりの計算ですが、なんたることかおつりを10円増やすというサービス仕様に変えると仮定します by jflute (2024/07/25)
         // そのとき、どこをどう直しますか？できるだけこういうときは一箇所だけ直せばOKという風にしたいものです。(1on1のとき聞きます)
+        // [memo] 説明したので、いい感じの実装をお願いします。
 
         // TODO umeyan [思考課題] 在庫を減らした後、売上計上の前のタイミングで、ログを出力したいと言われたと仮定します by jflute (2024/07/25)
         // そのとき、どこにそのログ処理を入れますか？できるだけこういうときは一箇所だけ直せばOKという風にしたいものです。(1on1のとき聞きます)
+        // [memo] がんば！
     }
 
     // ===================================================================================
@@ -269,8 +271,11 @@ public class Step05ClassTest extends PlainTestCase {
         // (例えば、大文字にして欲しいとか、数字は one, two と英語にして欲しいとか)
         //
         // 色々な方法があるので、1on1で少しフォローします。それまではうーむーって悩んでみてください。
+        // [memo] 定数の共有や、ロジックの共有のフォローはした
+        // ただ、ご自身で enum (なんて読むのかわからない) の話をされたので乞うご期待。
 
         // TODO umeyan [質問] こちらの実装、nightOnlyのtwoDayも含まれてしまいますが、これは意図して含んでますでしょうか？ by jflute (2024/07/25)
+        // [memo] これも enum でどうにかなるはず
         if (ticket.getTicketType().contains("2")) { // write determination for two-day passport
             log("two-day passport");
         } else {
