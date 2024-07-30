@@ -108,7 +108,7 @@ public class TicketBooth {
         assertEnoughMoney(handedMoney, ticketType.getDisplayPrice());
         this.quantity -= ticketType.getDays();
         processSalesProceeds(ticketType.getDisplayPrice());
-        int change = calculateChange(handedMoney, ticketType.getDisplayPrice());
+        Integer change = calculateChange(handedMoney, ticketType.getDisplayPrice());
         return new TicketBuyResult(new Ticket(ticketType), change);
     }
 
