@@ -27,11 +27,6 @@ import java.time.LocalDateTime;
  */
 public class Ticket {
 
-    // TODO umeyan これもう使われてない？ by jflute (2024/07/31)
-    public static final String ONE_DAY_TICKET_TYPE = "1day ticket";
-    public static final String TWO_DAY_TICKET_TYPE = "2day ticket";
-    public static final String FOUR_DAY_TICKET_TYPE = "4day ticket";
-    
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
@@ -57,11 +52,6 @@ public class Ticket {
     public Ticket(TicketType ticketType) {
         this.ticketType = ticketType;
         this.availableEnterCount = ticketType.getDays();
-    }
-
-    // TODO umeyan unusedの警告が出ています by jflute (2024/07/31)
-    private String generateTicketType(int availableEnterCount) {
-        return String.format("%dday ticket", availableEnterCount);
     }
 
     // ===================================================================================
