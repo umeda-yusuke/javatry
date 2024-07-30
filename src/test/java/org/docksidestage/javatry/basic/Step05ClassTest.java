@@ -174,7 +174,7 @@ public class Step05ClassTest extends PlainTestCase {
     public void test_class_moreFix_return_ticket() {
         // uncomment out after modifying the method
         TicketBooth booth = new TicketBooth();
-        Ticket oneDayPassport = booth.buyOneDayPassport(10000);
+        Ticket oneDayPassport = booth.buyOneDayPassport(10000).getTicket();
         log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
         log(oneDayPassport.isAlreadyIn()); // should be false
         oneDayPassport.doInPark();
@@ -245,10 +245,9 @@ public class Step05ClassTest extends PlainTestCase {
     public void test_class_moreFix_whetherTicketType() {
         // uncomment when you implement this exercise
         TicketBooth booth = new TicketBooth();
-        Ticket oneDayPassport = booth.buyOneDayPassport(10000);
+        Ticket oneDayPassport = booth.buyOneDayPassport(10000).getTicket();
         showTicketIfNeeds(oneDayPassport);
-        TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
-        Ticket twoDayPassport = buyResult.getTicket();
+        Ticket twoDayPassport = booth.buyTwoDayPassport(20000).getTicket();
         showTicketIfNeeds(twoDayPassport);
     }
     // 色んな判断基準が考えられるが、今回は値段で判断することにする。ガバガバ条件だが、1万円以上のいチケットはTwoDayPassportとする。

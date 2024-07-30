@@ -74,12 +74,12 @@ public class TicketBooth {
      * @param handedMoney パークゲストから手渡しされたお金(金額) (NotNull, NotMinus)
      * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
      * @throws TicketShortMoneyException 買うのに金額が足りなかったら
-      * @return 1Dayパスポートのチケット (NotNull)
+      * @return 1Dayパスポートのチケットの購入結果(NotNull)
      */
     // done umeyan javadoc, 変更された分の修正をしていきましょう by jflute (2024/07/11)
     // (Eclipseの方だと、いま戻り値の記述がjavadocにないというお知らせが来ています)
-    public Ticket buyOneDayPassport(Integer handedMoney) {
-        return doBuyPassport(handedMoney, TicketType.ONE_DAY).getTicket();
+    public TicketBuyResult buyOneDayPassport(Integer handedMoney) {
+        return doBuyPassport(handedMoney, TicketType.ONE_DAY);
     }
 
     // done umeyan javadoc, 少なくともそのクラスにおける主要となるpublicメソッドをお願いします by jflute (2024/07/11)
