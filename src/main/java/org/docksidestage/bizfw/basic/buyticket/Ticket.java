@@ -15,12 +15,9 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
 
-// TODO umeyan ↑一度指摘されたら、他にも似たところがないか確認する習慣を by jflute (2024/07/26)
+// TODO done umeyan ↑一度指摘されたら、他にも似たところがないか確認する習慣を by jflute (2024/07/26)
 
 // done umeyan こちらもTicketBoothのJavaDocでの指摘と同じようにauthorお願いします by jflute (2024/07/25)
 // (一つ指摘されたら、似たような箇所が他にないか？確認する習慣を付けましょう)
@@ -40,11 +37,9 @@ public class Ticket {
     // done umeyan [いいね] 横のスラスラコメント(//コメント) がとても良いですね！ by jflute (2024/07/25)
     // done jflute 1on1にてコメントのe.g.技の話を (2024/07/25)
     // [memo] チケットの種類 e.g. 1day ticket
-    private final int displayPrice; // written on ticket, park guest can watch this
     private boolean alreadyIn = false; // true means this ticket is unavailable
-    public int availableEnterCount; // 入園できる回数
-    private final String ticketType; // チケットの種類
-    private boolean isOnlyNight; // 夜だけ使えるチケットかどうか
+    private int availableEnterCount; // 入園できる回数
+    private final TicketType ticketType; // チケットの種類
 
     // done umeyan この変数はpublicで公開する必要はないと思うのでprivateにしましょう by jflute (2024/07/11)
     // インスタンス変数をpublicにすることはめったにないです。(publicフィールドスタイルの場合は別ですが)
@@ -57,11 +52,9 @@ public class Ticket {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public Ticket(int displayPrice, int availableEnterCount, boolean isOnlyNight) {
-        this.displayPrice = displayPrice;
-        this.availableEnterCount = availableEnterCount;
-        this.ticketType = generateTicketType(availableEnterCount);
-        this.isOnlyNight = isOnlyNight;
+    public Ticket(TicketType ticketType) {
+        this.ticketType = ticketType;
+        this.availableEnterCount = ticketType.getDays();
     }
 
     private String generateTicketType(int availableEnterCount) {
@@ -73,13 +66,13 @@ public class Ticket {
     //                                                                             =======
     public void doInPark() {
         if (alreadyIn) {
-            throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + displayPrice);
+            throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + ticketType.getDisplayPrice());
         }
         alreadyIn = true;
     }
 
     public boolean enterPark(LocalDateTime localDateTime) {
-        if (isOnlyNight && localDateTime.getHour() < 17) {
+        if (ticketType.isNightOnly() && localDateTime.getHour() < 17) {
             return false;
         }
         if (availableEnterCount > 0) {
@@ -96,7 +89,7 @@ public class Ticket {
     //                                                                            Accessor
     //                                                                            ========
     public int getDisplayPrice() {
-        return displayPrice;
+        return ticketType.getDisplayPrice();
     }
 
     public boolean isAlreadyIn() {
@@ -107,7 +100,7 @@ public class Ticket {
         return availableEnterCount;
     }
 
-    public String getTicketType() {
+    public TicketType getTicketType() {
         return ticketType;
     }
 }

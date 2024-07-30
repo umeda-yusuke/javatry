@@ -15,9 +15,6 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 // done umeyan unusedのimportがあります by jflute (2024/07/25)
 // IntelliJで、shift+command+A の後に Organize imports のコマンドを実行すると消えると思いますのでぜひ使ってみてください。
 
@@ -33,11 +30,6 @@ public class TicketBooth {
     //                                                                          Definition
     //                                                                          ==========
     private static final int MAX_QUANTITY = 10;
-    private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
-    private static final int TWO_DAY_PRICE = 13200;
-    private static final int FOUR_DAY_PRICE = 22400;
-    private static final int NIGHT_ONLY_TWO_DAY_PRICE = 7400;
-
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
@@ -87,11 +79,7 @@ public class TicketBooth {
     // done umeyan javadoc, 変更された分の修正をしていきましょう by jflute (2024/07/11)
     // (Eclipseの方だと、いま戻り値の記述がjavadocにないというお知らせが来ています)
     public Ticket buyOneDayPassport(Integer handedMoney) {
-        assertTicketExisting();
-        assertEnoughMoney(handedMoney, ONE_DAY_PRICE);
-        --quantity;
-        processSalesProceeds(ONE_DAY_PRICE);
-        return new Ticket(ONE_DAY_PRICE, 1, false);
+        return doBuyPassport(handedMoney, TicketType.ONE_DAY).getTicket();
     }
 
     // done umeyan javadoc, 少なくともそのクラスにおける主要となるpublicメソッドをお願いします by jflute (2024/07/11)
@@ -104,27 +92,28 @@ public class TicketBooth {
      * @return 2Dayパスポートのチケットの購入結果 (NotNull)
      */
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
-        assertTicketExisting();
-        assertEnoughMoney(handedMoney, TWO_DAY_PRICE);
-        quantity -= 2;
-        processSalesProceeds(TWO_DAY_PRICE);
-        return new TicketBuyResult(new Ticket(TWO_DAY_PRICE, 2, false), handedMoney - TWO_DAY_PRICE);
+        return doBuyPassport(handedMoney, TicketType.TWO_DAY);
     }
 
     public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
-        assertTicketExisting();
-        assertEnoughMoney(handedMoney, FOUR_DAY_PRICE);
-        quantity -= 4;
-        processSalesProceeds(FOUR_DAY_PRICE);
-        return new TicketBuyResult(new Ticket(FOUR_DAY_PRICE, 4, false), handedMoney - FOUR_DAY_PRICE);
+        return doBuyPassport(handedMoney, TicketType.FOUR_DAY);
     }
 
     public TicketBuyResult buyNightOnlyTwoDayPassport(Integer handedMoney) {
+        return doBuyPassport(handedMoney, TicketType.NIGHT_ONLY_TWO_DAY);
+    }
+
+    private TicketBuyResult doBuyPassport(Integer handedMoney, TicketType ticketType) {
         assertTicketExisting();
-        assertEnoughMoney(handedMoney, NIGHT_ONLY_TWO_DAY_PRICE);
-        quantity -= 2;
-        processSalesProceeds(NIGHT_ONLY_TWO_DAY_PRICE);
-        return new TicketBuyResult(new Ticket(NIGHT_ONLY_TWO_DAY_PRICE, 2, true), handedMoney - NIGHT_ONLY_TWO_DAY_PRICE);
+        assertEnoughMoney(handedMoney, ticketType.getDisplayPrice());
+        this.quantity -= ticketType.getDays();
+        processSalesProceeds(ticketType.getDisplayPrice());
+        int change = calculateChange(handedMoney, ticketType.getDisplayPrice());
+        return new TicketBuyResult(new Ticket(ticketType), change);
+    }
+
+    private Integer calculateChange(Integer handedMoney, Integer price) {
+        return handedMoney - price;
     }
 
     // done umeyan [よもやま話]このメソッド名でも全然OKですが、よくcheckという言葉を避けようという話もあります。 by jflute (2024/07/11)
