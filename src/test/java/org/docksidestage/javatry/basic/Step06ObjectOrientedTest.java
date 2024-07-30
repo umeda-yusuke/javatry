@@ -33,7 +33,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author umeda-yusuke
  */
 public class Step06ObjectOrientedTest extends PlainTestCase {
 
@@ -68,13 +68,13 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         if (handedMoney < oneDayPrice) {
             throw new IllegalStateException("Short money: handedMoney=" + handedMoney);
         }
-        salesProceeds = handedMoney;
+        salesProceeds = oneDayPrice;
 
         //
         // [ticket info]
         //
         // simulation: actually these variables should be more wide scope
-        int displayPrice = quantity;
+        int displayPrice = oneDayPrice;
         boolean alreadyIn = false;
 
         // other processes here...
@@ -99,10 +99,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
         if (alreadyIn) {
             // simulation: only logging here (normally e.g. DB insert)
-            showTicketBooth(displayPrice, salesProceeds);
-            showYourTicket(quantity, alreadyIn);
+            showTicketBooth(quantity, salesProceeds);
+            showYourTicket(displayPrice, alreadyIn);
         }
     }
+    // 修正した　by umeda-yusuke（2024/07/31）
 
     private void showTicketBooth(int quantity, Integer salesProceeds) {
         log("Ticket Booth: quantity={}, salesProceeds={}", quantity, salesProceeds);
@@ -172,6 +173,10 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         saveBuyingHistory(booth, ticket);
     }
+    // オブジェクトとは何か?
+    // オブジェクトとは、プログラムの中でデータとそのデータに対する操作をまとめたものである。一塊にして行った結果、それは概念のような物に集約されていく。
+    // 概念によっては、振る舞いをもっていたり、状態を持っていたりする。しかし、概念を完全にプログラムで表現しようとしたら、無数の状態・振る舞いを持たなければならない。
+    // そのため、オブジェクトは、その概念の中で仕様を必要十分に満たすように、状態と振る舞いを持つように設計される。べきだと思っている。
 
     private void saveBuyingHistory(TicketBooth booth, Ticket ticket) {
         if (ticket.isAlreadyIn()) {
@@ -216,20 +221,24 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = new Dog();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 10
     }
+    // landを間違えた。ちゃんとコードを読まず、getInitialHitPointの値を見てしまった。by umeda-yusuke（2024/07/31）
+    // barkメソッドを実行すると、breatheIn, prepareAbdominalMuscle, doBarkの中でdownHitPointが呼ばれる。
+    // その結果、hitPointが3回減少する。そのため、10 - 3 * 1 = 7 となる。
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_objectOriented_polymorphism_3rd_fromMethod() {
         Animal animal = createAnyAnimal();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 7
     }
+    // 合ってた。by umeda-yusuke（2024/07/31）
 
     private Animal createAnyAnimal() {
         return new Dog();
@@ -240,13 +249,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Dog dog = new Dog();
         doAnimalSeaLand_for_4th(dog);
     }
+    // 合ってた。by umeda-yusuke（2024/07/31）
 
     private void doAnimalSeaLand_for_4th(Animal animal) {
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -254,20 +264,26 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = new Cat();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => nya-
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 5
     }
+    // 合ってた。by umeda-yusuke（2024/07/31）
+    // Catクラスのbarkメソッドは、AnimalクラスのbarkメソッドやdownHitPointメソッドをオーバーライドしている。
+    // そのため、hitPointの減り方が違う。
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_objectOriented_polymorphism_6th_overriddenWithoutSuper() {
         Animal animal = new Zombie();
-        BarkedSound sound = animal.bark();
+        BarkedSound sound = animal.bark(); // breathInCount = 1
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => uooo
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => -1
     }
+    // 合ってた。by umeda-yusuke（2024/07/31）
+    // Zombieクラスは、getInitialHitPointメソッドをオーバーライドしている。
+    // そして、downHitPointメソッドをオーバーライドしているため、hitPointが減少しない。
 
     /**
      * What is happy if you can assign Dog or Cat instance to Animal variable? <br>
