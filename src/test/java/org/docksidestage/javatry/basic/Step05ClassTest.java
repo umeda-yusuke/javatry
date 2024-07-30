@@ -153,13 +153,13 @@ public class Step05ClassTest extends PlainTestCase {
         // processSalesProceedsは売り上げを計算するメソッド
         // done umeyan [いいね]良い単位でまとめっていると思います！buyOneDayとbuyTwoDayが流れがわかりやすく少しスッキリしました by jflute (2024/07/11)
 
-        // TODO done umeyan [思考課題] おつりの計算ですが、なんたることかおつりを10円増やすというサービス仕様に変えると仮定します by jflute (2024/07/25)
+        // done umeyan [思考課題] おつりの計算ですが、なんたることかおつりを10円増やすというサービス仕様に変えると仮定します by jflute (2024/07/25)
         // そのとき、どこをどう直しますか？できるだけこういうときは一箇所だけ直せばOKという風にしたいものです。(1on1のとき聞きます)
         // [memo] 説明したので、いい感じの実装をお願いします。
 
         // calculateChangeメソッドを作成し、おつりの計算を行うように変更する。by umeda (2024/07/30)
 
-        // TODO done umeyan [思考課題] 在庫を減らした後、売上計上の前のタイミングで、ログを出力したいと言われたと仮定します by jflute (2024/07/25)
+        // done umeyan [思考課題] 在庫を減らした後、売上計上の前のタイミングで、ログを出力したいと言われたと仮定します by jflute (2024/07/25)
         // そのとき、どこにそのログ処理を入れますか？できるだけこういうときは一箇所だけ直せばOKという風にしたいものです。(1on1のとき聞きます)
         // [memo] がんば！
     }
@@ -263,7 +263,7 @@ public class Step05ClassTest extends PlainTestCase {
         // done umeyan まあ一方で、ForDayが追加されたらもう破綻してしまいますし、TwoDayの価格改定が起きても破綻します by jflute (2024/07/11)
         // どうにかして価格に依存せずに判定できるようにしたいところですね。後回しでも良いのでじっくり考えてみてください。
 
-        // TODO done umeyan [思考課題] "チケットの種類" が現状は大丈夫だけど、もうちょい拡張的な仕様変更が入るようになって... by jflute (2024/07/25)
+        // done umeyan [思考課題] "チケットの種類" が現状は大丈夫だけど、もうちょい拡張的な仕様変更が入るようになって... by jflute (2024/07/25)
         // "1day ticket2" (1dayのバージョン2みたいな) とかあったりすると破綻するので、もうちょい種類の表現方法に依存しない実装にしたいところですね。
         // まあでも、恐らくそれを気にして、露骨に equals("2day ticket") は止めて contains() 方式にしたのかなって。
         //
@@ -276,7 +276,7 @@ public class Step05ClassTest extends PlainTestCase {
         // [memo] 定数の共有や、ロジックの共有のフォローはした
         // ただ、ご自身で enum (なんて読むのかわからない) の話をされたので乞うご期待。
 
-        // TODO done umeyan [質問] こちらの実装、nightOnlyのtwoDayも含まれてしまいますが、これは意図して含んでますでしょうか？ by jflute (2024/07/25)
+        // done umeyan [質問] こちらの実装、nightOnlyのtwoDayも含まれてしまいますが、これは意図して含んでますでしょうか？ by jflute (2024/07/25)
         // [memo] これも enum でどうにかなるはず
 
         // enumで実装した。　by umeda (2024/07/30)
@@ -324,6 +324,7 @@ public class Step05ClassTest extends PlainTestCase {
     }
 
     // 18時以降を夜とする。
+    // TODO umeyan ↑とありますが、実装を見ると localDateTime.getHour() < 17 となっていて、17時も夜になってる？ by jflute (2024/07/31)
 
     /**
      * Refactor if you want to fix (e.g. is it well-balanced name of method and variable?). <br>

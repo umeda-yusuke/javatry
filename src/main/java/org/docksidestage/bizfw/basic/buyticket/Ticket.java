@@ -27,6 +27,7 @@ import java.time.LocalDateTime;
  */
 public class Ticket {
 
+    // TODO umeyan これもう使われてない？ by jflute (2024/07/31)
     public static final String ONE_DAY_TICKET_TYPE = "1day ticket";
     public static final String TWO_DAY_TICKET_TYPE = "2day ticket";
     public static final String FOUR_DAY_TICKET_TYPE = "4day ticket";
@@ -37,6 +38,7 @@ public class Ticket {
     // done umeyan [いいね] 横のスラスラコメント(//コメント) がとても良いですね！ by jflute (2024/07/25)
     // done jflute 1on1にてコメントのe.g.技の話を (2024/07/25)
     // [memo] チケットの種類 e.g. 1day ticket
+    // TODO umeyan [思考課題] インスタンス変数の定義順序って、どうしたらいいか？ってアイディアありますか？ by jflute (2024/07/31)
     private boolean alreadyIn = false; // true means this ticket is unavailable
     private int availableEnterCount; // 入園できる回数
     private final TicketType ticketType; // チケットの種類
@@ -57,6 +59,7 @@ public class Ticket {
         this.availableEnterCount = ticketType.getDays();
     }
 
+    // TODO umeyan unusedの警告が出ています by jflute (2024/07/31)
     private String generateTicketType(int availableEnterCount) {
         return String.format("%dday ticket", availableEnterCount);
     }
@@ -64,6 +67,8 @@ public class Ticket {
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
+    // TODO umeyan 元々のdoInPark()を修正してenterPark()の内容を実装してしまってOKです by jflute (2024/07/31)
+    // ただ、LocalDateTimeの引数は、チケットの利用者が日時 (現在日時) を指定するのは変なので、現在日時は中で取りたいですね。
     public void doInPark() {
         if (alreadyIn) {
             throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + ticketType.getDisplayPrice());

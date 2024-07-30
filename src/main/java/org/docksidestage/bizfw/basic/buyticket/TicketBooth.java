@@ -33,6 +33,7 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    // TODO umeyan [思考課題] 在庫がチケット種類で共有する形ですが、種類ごとに分けるとなったらどう実装しますか？ by jflute (2024/07/31)
     private int quantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
     // ===================================================================================
@@ -95,6 +96,7 @@ public class TicketBooth {
         return doBuyPassport(handedMoney, TicketType.TWO_DAY);
     }
 
+    // TODO umeyan fourDay以降もjavadocをお願いします by jflute (2024/07/31)
     public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
         return doBuyPassport(handedMoney, TicketType.FOUR_DAY);
     }
@@ -103,6 +105,7 @@ public class TicketBooth {
         return doBuyPassport(handedMoney, TicketType.NIGHT_ONLY_TWO_DAY);
     }
 
+    // TODO umeyan [いいね]素晴らしい、めちゃめちゃわかりやすくなりましたね！ by jflute (2024/07/31)
     private TicketBuyResult doBuyPassport(Integer handedMoney, TicketType ticketType) {
         assertTicketExisting();
         assertEnoughMoney(handedMoney, ticketType.getDisplayPrice());
@@ -112,6 +115,7 @@ public class TicketBooth {
         return new TicketBuyResult(new Ticket(ticketType), change);
     }
 
+    // TODO umeyan メソッドの定義位置、他のprivateメソッドの定義位置と一貫性があると嬉しいです by jflute (2024/07/31)
     private Integer calculateChange(Integer handedMoney, Integer price) {
         return handedMoney - price;
     }
