@@ -26,11 +26,6 @@ import java.time.LocalDateTime;
  * @author umeda-yusuke
  */
 public class Ticket {
-
-    public static final String ONE_DAY_TICKET_TYPE = "1day ticket";
-    public static final String TWO_DAY_TICKET_TYPE = "2day ticket";
-    public static final String FOUR_DAY_TICKET_TYPE = "4day ticket";
-    
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
@@ -56,11 +51,6 @@ public class Ticket {
         this.ticketType = ticketType;
         this.availableEnterCount = ticketType.getDays();
     }
-
-    private String generateTicketType(int availableEnterCount) {
-        return String.format("%dday ticket", availableEnterCount);
-    }
-
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
