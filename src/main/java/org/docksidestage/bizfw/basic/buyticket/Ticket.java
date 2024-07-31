@@ -18,7 +18,7 @@ package org.docksidestage.bizfw.basic.buyticket;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-// TODO done umeyan ↑一度指摘されたら、他にも似たところがないか確認する習慣を by jflute (2024/07/26)
+// done umeyan ↑一度指摘されたら、他にも似たところがないか確認する習慣を by jflute (2024/07/26)
 
 // done umeyan こちらもTicketBoothのJavaDocでの指摘と同じようにauthorお願いします by jflute (2024/07/25)
 // (一つ指摘されたら、似たような箇所が他にないか？確認する習慣を付けましょう)
@@ -34,7 +34,7 @@ public class Ticket {
     // done umeyan [いいね] 横のスラスラコメント(//コメント) がとても良いですね！ by jflute (2024/07/25)
     // done jflute 1on1にてコメントのe.g.技の話を (2024/07/25)
     // [memo] チケットの種類 e.g. 1day ticket
-    // TODO done umeyan [思考課題] インスタンス変数の定義順序って、どうしたらいいか？ってアイディアありますか？ by jflute (2024/07/31)
+    // done umeyan [思考課題] インスタンス変数の定義順序って、どうしたらいいか？ってアイディアありますか？ by jflute (2024/07/31)
     // 重要な物順とかですかね？何を持って重要かは分からないですが、雰囲気で並び変えてみます by umeyan (2024/07/31)
     private final TicketType ticketType; // チケットの種類
     private int availableEnterCount; // 入園できる回数
@@ -59,16 +59,18 @@ public class Ticket {
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
-    // TODO done umeyan 元々のdoInPark()を修正してenterPark()の内容を実装してしまってOKです by jflute (2024/07/31)
+    // done umeyan 元々のdoInPark()を修正してenterPark()の内容を実装してしまってOKです by jflute (2024/07/31)
     // ただ、LocalDateTimeの引数は、チケットの利用者が日時 (現在日時) を指定するのは変なので、現在日時は中で取りたいですね。
     public void doInPark() {
         LocalDateTime jstDateTime = LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
+        // TODO umeyan せっかくなのでticketTypeごと例外メッセージに載せてしまっても良いと思います by jflute (2024/07/31)
         if (alreadyIn) {
             throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + ticketType.getDisplayPrice());
         }
         if (availableEnterCount <= 0) {
             throw new IllegalStateException("Already cannot enter park by this ticket: displayedPrice=" + ticketType.getDisplayPrice());
         }
+        // [memo] 業務例外の話をちょこっとだけ by jflute
         if (ticketType.isNightOnly() && jstDateTime.getHour() <= 17){
             throw new IllegalStateException("Night only ticket cannot enter park before 18:00: Now =" + jstDateTime);
         }
@@ -89,7 +91,8 @@ public class Ticket {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    public int getDisplayPrice() {
+    // TODO umeyan インスタンス変数の順番に合わせましょう by jflute (2024/07/31)
+    public int getDisplayPrice() { // ちょいFacade的なメソッド
         return ticketType.getDisplayPrice();
     }
 

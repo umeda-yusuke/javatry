@@ -331,7 +331,7 @@ public class Step05ClassTest extends PlainTestCase {
     }
 
     // 18時以降を夜とする。
-    // TODO done umeyan ↑とありますが、実装を見ると localDateTime.getHour() < 17 となっていて、17時も夜になってる？ by jflute (2024/07/31)
+    // done umeyan ↑とありますが、実装を見ると localDateTime.getHour() < 17 となっていて、17時も夜になってる？ by jflute (2024/07/31)
     // ミスです by umeda (2024/07/31)
 
     /**

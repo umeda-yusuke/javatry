@@ -30,12 +30,16 @@ public class TicketBooth {
     //                                                                          Definition
     //                                                                          ==========
     private static final int MAX_QUANTITY = 10;
+
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO umeyan [思考課題] 在庫がチケット種類で共有する形ですが、種類ごとに分けるとなったらどう実装しますか？ by jflute (2024/07/31)
+    // done umeyan [思考課題] 在庫がチケット種類で共有する形ですが、種類ごとに分けるとなったらどう実装しますか？ by jflute (2024/07/31)
+    // o 4つ5つのquantity変数を作る、でも辞書にしたい
+    // o 変数の場合は、...色々と考えてもらってTicketQuantityの話をした
     private int quantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
+
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
@@ -96,7 +100,7 @@ public class TicketBooth {
         return doBuyPassport(handedMoney, TicketType.TWO_DAY);
     }
 
-    // TODO done umeyan fourDay以降もjavadocをお願いします by jflute (2024/07/31)
+    // done umeyan fourDay以降もjavadocをお願いします by jflute (2024/07/31)
     /**
      * 4Dayパスポートを買う、パークゲスト用のメソッド。
      * @param handedMoney パークゲストから手渡しされたお金(金額) (NotNull, NotMinus)
@@ -119,7 +123,7 @@ public class TicketBooth {
         return doBuyPassport(handedMoney, TicketType.NIGHT_ONLY_TWO_DAY);
     }
 
-    // TODO done umeyan [いいね]素晴らしい、めちゃめちゃわかりやすくなりましたね！ by jflute (2024/07/31)
+    // done umeyan [いいね]素晴らしい、めちゃめちゃわかりやすくなりましたね！ by jflute (2024/07/31)
     private TicketBuyResult doBuyPassport(Integer handedMoney, TicketType ticketType) {
         assertTicketExisting();
         assertEnoughMoney(handedMoney, ticketType.getDisplayPrice());
@@ -164,7 +168,7 @@ public class TicketBooth {
         }
     }
 
-    // TODO done umeyan メソッドの定義位置、他のprivateメソッドの定義位置と一貫性があると嬉しいです by jflute (2024/07/31)
+    // done umeyan メソッドの定義位置、他のprivateメソッドの定義位置と一貫性があると嬉しいです by jflute (2024/07/31)
     private Integer calculateChange(Integer handedMoney, Integer price) {
         return handedMoney - price;
     }
