@@ -76,6 +76,10 @@ public class Ticket {
         }
         availableEnterCount--;
         alreadyIn = true;
+        
+        // TODO umeyan [読み物課題] 思い出した、このブログを読んでみてください by jflute (2024/07/31)
+        // // 例外メッセージ、敬語で満足でもロスロスパターン
+        // https://jflute.hatenadiary.jp/entry/20170804/explossloss
     }
 
     public void doOutPark() {
