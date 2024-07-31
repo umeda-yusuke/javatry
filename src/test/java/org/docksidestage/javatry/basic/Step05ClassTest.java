@@ -16,6 +16,7 @@
 package org.docksidestage.javatry.basic;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
@@ -23,6 +24,7 @@ import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyExcep
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.bizfw.basic.buyticket.TicketType;
 import org.docksidestage.unit.PlainTestCase;
+import org.docksidestage.unit.flute.exception.ExceptionExpectationAfter;
 
 // done umeyan ↑unusedなimport by jflute (2024/07/11)
 
@@ -204,9 +206,10 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
         Ticket twoDayPassport = buyResult.getTicket();
-        for (int i = 0; i <= 3; i++) {
+        for (int i = 0; i <= 1; i++) {
             log("残り入園回数：" + twoDayPassport.getAvailableEnterCount());
-            twoDayPassport.enterPark(LocalDateTime.now());
+            twoDayPassport.doInPark();
+            twoDayPassport.doOutPark();
         }
     }
     // TwoDayPassportをどう解釈するかで、実装はかなり変わると思う。
@@ -317,14 +320,19 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBuyResult buyResult = booth.buyNightOnlyTwoDayPassport(10000);
         Ticket nightOnlyTwoDayPassport = buyResult.getTicket();
         log(nightOnlyTwoDayPassport.getDisplayPrice() + buyResult.getChange()); // should be same as money
-        nightOnlyTwoDayPassport.enterPark(LocalDateTime.of(2024, 7, 23, 16, 0)); // 16時に入場
-        log("入園可能回数：" + nightOnlyTwoDayPassport.getAvailableEnterCount());
-        nightOnlyTwoDayPassport.enterPark(LocalDateTime.of(2024, 7, 23, 19, 0)); // 19時に入場
-        log("入園可能回数：" + nightOnlyTwoDayPassport.getAvailableEnterCount());
+        try {
+            nightOnlyTwoDayPassport.doInPark();
+            log("夜の時間帯です。");
+            log("入園可能回数：" + nightOnlyTwoDayPassport.getAvailableEnterCount());
+        } catch (IllegalStateException e) {
+            log("昼間の時間帯です。");
+            log(e.getMessage());
+        }
     }
 
     // 18時以降を夜とする。
-    // TODO umeyan ↑とありますが、実装を見ると localDateTime.getHour() < 17 となっていて、17時も夜になってる？ by jflute (2024/07/31)
+    // TODO done umeyan ↑とありますが、実装を見ると localDateTime.getHour() < 17 となっていて、17時も夜になってる？ by jflute (2024/07/31)
+    // ミスです by umeda (2024/07/31)
 
     /**
      * Refactor if you want to fix (e.g. is it well-balanced name of method and variable?). <br>

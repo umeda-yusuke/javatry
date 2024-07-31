@@ -1,9 +1,9 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
-// TODO umeyan [いいね] チケットの種類という概念がオブジェクトになっているというのがキーポイントですね by jflute (2024/07/31)
-// TODO umeyan JavaDoc, 列挙説明のところ、"e.g." か "など" を使って断定しないようにしましょう by jflute (2024/07/31)
+// TODO done umeyan [いいね] チケットの種類という概念がオブジェクトになっているというのがキーポイントですね by jflute (2024/07/31)
+// TODO done umeyan JavaDoc, 列挙説明のところ、"e.g." か "など" を使って断定しないようにしましょう by jflute (2024/07/31)
 /**
- * チケットの種類を持つ (1day, 2day, 4day, night only)
+ * チケットの種類を持つ。e.g. 1day, 2day, 4day, night only
  * @author umeda-yusuke
  */
 public enum TicketType {
@@ -19,9 +19,9 @@ public enum TicketType {
     private final int displayPrice;
     private final boolean isNightOnly;
 
-    // TODO umeyan [よもやま補足] enumのコンストラクターは絶対にprivateなので、省略してもパッケージスコープにならずにprivateなのですが... by jflute (2024/07/31)
+    // TODO done umeyan [よもやま補足] enumのコンストラクターは絶対にprivateなので、省略してもパッケージスコープにならずにprivateなのですが... by jflute (2024/07/31)
     // 結構わかってない人も多いので、わりと明示的にprivateを付ける人は多いです。(お任せします)
-    TicketType(int days, int displayPrice, boolean isNightOnly) {
+    private TicketType(int days, int displayPrice, boolean isNightOnly) {
         this.days = days;
         this.displayPrice = displayPrice;
         this.isNightOnly = isNightOnly;

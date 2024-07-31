@@ -96,16 +96,30 @@ public class TicketBooth {
         return doBuyPassport(handedMoney, TicketType.TWO_DAY);
     }
 
-    // TODO umeyan fourDay以降もjavadocをお願いします by jflute (2024/07/31)
+    // TODO done umeyan fourDay以降もjavadocをお願いします by jflute (2024/07/31)
+    /**
+     * 4Dayパスポートを買う、パークゲスト用のメソッド。
+     * @param handedMoney パークゲストから手渡しされたお金(金額) (NotNull, NotMinus)
+     * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
+     * @throws TicketShortMoneyException 買うのに金額が足りなかったら
+     * @return 4Dayパスポートのチケットの購入結果 (NotNull)
+     */
     public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
         return doBuyPassport(handedMoney, TicketType.FOUR_DAY);
     }
 
+    /**
+     * 夜間２日間のパスポートを買う、パークゲスト用のメソッド。
+     * @param handedMoney パークゲストから手渡しされたお金(金額) (NotNull, NotMinus)
+     * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
+     * @throws TicketShortMoneyException 買うのに金額が足りなかったら
+     * @return 夜間2日間のみ入れるパスポートのチケットの購入結果 (NotNull)
+     */
     public TicketBuyResult buyNightOnlyTwoDayPassport(Integer handedMoney) {
         return doBuyPassport(handedMoney, TicketType.NIGHT_ONLY_TWO_DAY);
     }
 
-    // TODO umeyan [いいね]素晴らしい、めちゃめちゃわかりやすくなりましたね！ by jflute (2024/07/31)
+    // TODO done umeyan [いいね]素晴らしい、めちゃめちゃわかりやすくなりましたね！ by jflute (2024/07/31)
     private TicketBuyResult doBuyPassport(Integer handedMoney, TicketType ticketType) {
         assertTicketExisting();
         assertEnoughMoney(handedMoney, ticketType.getDisplayPrice());
@@ -113,11 +127,6 @@ public class TicketBooth {
         processSalesProceeds(ticketType.getDisplayPrice());
         Integer change = calculateChange(handedMoney, ticketType.getDisplayPrice());
         return new TicketBuyResult(new Ticket(ticketType), change);
-    }
-
-    // TODO umeyan メソッドの定義位置、他のprivateメソッドの定義位置と一貫性があると嬉しいです by jflute (2024/07/31)
-    private Integer calculateChange(Integer handedMoney, Integer price) {
-        return handedMoney - price;
     }
 
     // done umeyan [よもやま話]このメソッド名でも全然OKですが、よくcheckという言葉を避けようという話もあります。 by jflute (2024/07/11)
@@ -154,6 +163,12 @@ public class TicketBooth {
             salesProceeds = price;
         }
     }
+
+    // TODO done umeyan メソッドの定義位置、他のprivateメソッドの定義位置と一貫性があると嬉しいです by jflute (2024/07/31)
+    private Integer calculateChange(Integer handedMoney, Integer price) {
+        return handedMoney - price;
+    }
+
 
     public static class TicketSoldOutException extends RuntimeException {
 
