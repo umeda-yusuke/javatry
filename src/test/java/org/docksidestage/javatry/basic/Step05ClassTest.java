@@ -15,16 +15,12 @@
  */
 package org.docksidestage.javatry.basic;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.bizfw.basic.buyticket.TicketType;
 import org.docksidestage.unit.PlainTestCase;
-import org.docksidestage.unit.flute.exception.ExceptionExpectationAfter;
 
 // done umeyan ↑unusedなimport by jflute (2024/07/11)
 
