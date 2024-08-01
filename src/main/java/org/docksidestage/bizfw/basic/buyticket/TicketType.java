@@ -15,21 +15,25 @@ public enum TicketType {
 
     // done umeyan [思考課題] もし仮に、仕様追加で "xxxな日数、xxxDays" という別の意味の日数が追加となったら... by jflute (2024/07/31)
     // この元々のdays変数名はどうします？ daysのまま？それとも変数名を変える？
-    // TODO umeyan 修正すると言ってくれたので期待しています by jflute (2024/07/31)
-    private final int days; // 入れる日数
+    // TODO done umeyan 修正すると言ってくれたので期待しています by jflute (2024/07/31)
+    private final int enterableDays; // 入れる日数
     private final int displayPrice;
     private final boolean isNightOnly;
 
     // done umeyan [よもやま補足] enumのコンストラクターは絶対にprivateなので、省略してもパッケージスコープにならずにprivateなのですが... by jflute (2024/07/31)
     // 結構わかってない人も多いので、わりと明示的にprivateを付ける人は多いです。(お任せします)
-    private TicketType(int days, int displayPrice, boolean isNightOnly) {
-        this.days = days;
+    private TicketType(int enterableDays, int displayPrice, boolean isNightOnly) {
+        this.enterableDays = enterableDays;
         this.displayPrice = displayPrice;
         this.isNightOnly = isNightOnly;
     }
+
+    public String toString() {
+        return "TicketType: " + name() + " {enterableDays: " + enterableDays + ", displayPrice: " + displayPrice + ", isNightOnly: " + isNightOnly + "}";
+    }
     
-    public int getDays() {
-        return days;
+    public int geteEnterableDays() {
+        return enterableDays;
     }
 
     // done umeyan [思考課題] 表示価格と名付けていますが、これは実際の販売価格と必ず一致しますか？ by jflute (2024/07/31)

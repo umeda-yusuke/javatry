@@ -127,7 +127,7 @@ public class TicketBooth {
     private TicketBuyResult doBuyPassport(Integer handedMoney, TicketType ticketType) {
         assertTicketExisting();
         assertEnoughMoney(handedMoney, ticketType.getDisplayPrice());
-        this.quantity -= ticketType.getDays();
+        this.quantity -= ticketType.geteEnterableDays();
         processSalesProceeds(ticketType.getDisplayPrice());
         Integer change = calculateChange(handedMoney, ticketType.getDisplayPrice());
         return new TicketBuyResult(new Ticket(ticketType), change);

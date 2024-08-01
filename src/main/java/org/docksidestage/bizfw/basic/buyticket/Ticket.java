@@ -53,7 +53,7 @@ public class Ticket {
     //                                                                         ===========
     public Ticket(TicketType ticketType) {
         this.ticketType = ticketType;
-        this.availableEnterCount = ticketType.getDays();
+        this.availableEnterCount = ticketType.geteEnterableDays();
     }
 
     // ===================================================================================
@@ -63,12 +63,12 @@ public class Ticket {
     // ただ、LocalDateTimeの引数は、チケットの利用者が日時 (現在日時) を指定するのは変なので、現在日時は中で取りたいですね。
     public void doInPark() {
         LocalDateTime jstDateTime = LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
-        // TODO umeyan せっかくなのでticketTypeごと例外メッセージに載せてしまっても良いと思います by jflute (2024/07/31)
+        // TODO done umeyan せっかくなのでticketTypeごと例外メッセージに載せてしまっても良いと思います by jflute (2024/07/31)
         if (alreadyIn) {
-            throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + ticketType.getDisplayPrice());
+            throw new IllegalStateException("Already in park by this ticket: " + ticketType.toString());
         }
         if (availableEnterCount <= 0) {
-            throw new IllegalStateException("Already cannot enter park by this ticket: displayedPrice=" + ticketType.getDisplayPrice());
+            throw new IllegalStateException("Already cannot enter park by this ticket: availableEnterCount=" + ticketType.geteEnterableDays());
         }
         // [memo] 業務例外の話をちょこっとだけ by jflute
         if (ticketType.isNightOnly() && jstDateTime.getHour() <= 17){
@@ -77,7 +77,7 @@ public class Ticket {
         availableEnterCount--;
         alreadyIn = true;
         
-        // TODO umeyan [読み物課題] 思い出した、このブログを読んでみてください by jflute (2024/07/31)
+        // TODO done umeyan [読み物課題] 思い出した、このブログを読んでみてください by jflute (2024/07/31)
         // // 例外メッセージ、敬語で満足でもロスロスパターン
         // https://jflute.hatenadiary.jp/entry/20170804/explossloss
     }
@@ -95,20 +95,20 @@ public class Ticket {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    // TODO umeyan インスタンス変数の順番に合わせましょう by jflute (2024/07/31)
+    // TODO done umeyan インスタンス変数の順番に合わせましょう by jflute (2024/07/31)
     public int getDisplayPrice() { // ちょいFacade的なメソッド
         return ticketType.getDisplayPrice();
     }
 
-    public boolean isAlreadyIn() {
-        return alreadyIn;
+    public TicketType getTicketType() {
+        return ticketType;
     }
 
     public int getAvailableEnterCount() {
         return availableEnterCount;
     }
 
-    public TicketType getTicketType() {
-        return ticketType;
+    public boolean isAlreadyIn() {
+        return alreadyIn;
     }
 }
