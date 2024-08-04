@@ -18,11 +18,7 @@ package org.docksidestage.javatry.basic;
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketType;
-import org.docksidestage.bizfw.basic.objanimal.Animal;
-import org.docksidestage.bizfw.basic.objanimal.BarkedSound;
-import org.docksidestage.bizfw.basic.objanimal.Cat;
-import org.docksidestage.bizfw.basic.objanimal.Dog;
-import org.docksidestage.bizfw.basic.objanimal.Zombie;
+import org.docksidestage.bizfw.basic.objanimal.*;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
@@ -173,10 +169,6 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         saveBuyingHistory(booth, ticket);
     }
-    // オブジェクトとは何か?
-    // オブジェクトとは、プログラムの中でデータとそのデータに対する操作をまとめたものである。一塊にして行った結果、それは概念のような物に集約されていく。
-    // 概念によっては、振る舞いをもっていたり、状態を持っていたりする。しかし、概念を完全にプログラムで表現しようとしたら、無数の状態・振る舞いを持たなければならない。
-    // そのため、オブジェクトは、その概念の中で仕様を必要十分に満たすように、状態と振る舞いを持つように設計される。べきだと思っている。
 
     private void saveBuyingHistory(TicketBooth booth, Ticket ticket) {
         if (ticket.isAlreadyIn()) {
@@ -197,7 +189,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // write your memo here:
     // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
     // what is object?
-    //
+    //　オブジェクトとは、プログラムの中でデータとそのデータに対する操作をまとめたものである。一塊にして行った結果、それは概念のような物に集約されていく。
+    //　概念によっては、振る舞いをもっていたり、状態を持っていたりする。しかし、概念を完全にプログラムで表現しようとしたら、無数の状態・振る舞いを持たなければならない。
+    //　そのため、オブジェクトは、その概念の中で仕様を必要十分に満たすように、状態と振る舞いを持つように設計される。べきだと思っている。
     // _/_/_/_/_/_/_/_/_/_/
 
     // ===================================================================================
@@ -211,10 +205,13 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Dog dog = new Dog();
         BarkedSound sound = dog.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = dog.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 10
     }
+    // landを間違えた。ちゃんとコードを読まず、getInitialHitPointの値を見てしまった。by umeda-yusuke（2024/07/31）
+    // barkメソッドを実行すると、breatheIn, prepareAbdominalMuscle, doBarkの中でdownHitPointが呼ばれる。
+    // その結果、hitPointが3回減少する。そのため、10 - 3 * 1 = 7 となる。
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_objectOriented_polymorphism_2nd_asAbstract() {
@@ -223,11 +220,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         String sea = sound.getBarkWord();
         log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 10
+        log(land); // your answer? => 7
     }
-    // landを間違えた。ちゃんとコードを読まず、getInitialHitPointの値を見てしまった。by umeda-yusuke（2024/07/31）
-    // barkメソッドを実行すると、breatheIn, prepareAbdominalMuscle, doBarkの中でdownHitPointが呼ばれる。
-    // その結果、hitPointが3回減少する。そのため、10 - 3 * 1 = 7 となる。
+    // 合ってた。by umeda-yusuke（2024/07/31）
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_objectOriented_polymorphism_3rd_fromMethod() {
@@ -293,7 +288,10 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // write your memo here:
         // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
         // what is happy?
-        //
+        // Dog, CatはAnimalクラスを継承しているため、Animal型の変数に代入できる。
+        // 継承の嬉しいポイントは、コンピュータにDogとCatは同じ種類のデータであると認識させることができる事なのでは？と思っている。
+        // また、呼び出せるメソッドに制限をかける事が出来るため、プログラムの保守性が向上すると思っている。
+        // ただ現在、メソッドの追跡が大変でAnimal型を使うメリットがあまり分からない。
         // _/_/_/_/_/_/_/_/_/_/
     }
 
@@ -304,29 +302,36 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     public void test_objectOriented_polymorphism_interface_dispatch() {
         Loudable loudable = new Zombie();
         String sea = loudable.soundLoudly();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => uooo
         String land = ((Zombie) loudable).bark().getBarkWord();
-        log(land); // your answer? => 
+        log(land); // your answer? => uooo
     }
+    // 合ってた。by umeda-yusuke（2024/08/01）
+    // soundLoudlyメソッドは、bark().getBarkWord()を呼び出している。
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_objectOriented_polymorphism_interface_hierarchy() {
         Loudable loudable = new AlarmClock();
         String sea = loudable.soundLoudly();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => jiri jiri jiri---
         boolean land = loudable instanceof Animal;
-        log(land); // your answer? => 
+        log(land); // your answer? => false
     }
+    // 合ってた。by umeda-yusuke（2024/08/01）
+    // AlarmClockクラスは、Animalクラスを継承していないため、falseが返る。
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_objectOriented_polymorphism_interface_partImpl() {
         Animal seaAnimal = new Cat();
         Animal landAnimal = new Zombie();
         boolean sea = seaAnimal instanceof FastRunner;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => true
         boolean land = landAnimal instanceof FastRunner;
-        log(land); // your answer? => 
+        log(land); // your answer? => false
     }
+    // 合ってた。by umeda-yusuke（2024/08/01）
+    // Catクラスは、FastRunnerインターフェースを実装しているため、trueが返る。
+    // Zombieクラスは、FastRunnerインターフェースを実装していないため、falseが返る。
 
     /**
      * Make Dog class implement FastRunner interface. (the method implementation is same as Cat class) <br>
@@ -334,6 +339,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_interface_runnerImpl() {
         // your confirmation code here
+        Animal dog = new Dog();
+        boolean sea = dog instanceof FastRunner;
+        log(sea);
     }
 
     /**
@@ -344,7 +352,17 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // write your memo here:
         // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
         // what is difference?
-        //
+        // 確かに何が違うんだろう。。。
+        // インターフェイスに対しては、実装クラスがある。
+        // インターフェイスは、クラスの振る舞いを定義するために使われる。
+        // 抽象クラスは、処理を再利用するために使われる。
+
+        // インタフェースには出来る事のみを定義し、具体的なことは実装クラスにお任せする。
+        // →　詳細は見せず出来ることを定義し、外から使う人のため
+        //　抽象クラスは、中で処理をまとめたもの。→　中で使う人のためのもの
+
+        // 参考サイト
+        // https://qiita.com/yoshinori_hisakawa/items/cc094bef1caa011cb739
         // _/_/_/_/_/_/_/_/_/_/
     }
 
@@ -357,7 +375,13 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_makeConcrete() {
         // your confirmation code here
+        Animal bird = new Bird();
+        String sea = bird.bark().getBarkWord();
+        log(sea);
+        int land = bird.getHitPoint();
+        log(land);
     }
+    // Birdクラスを作ってみた。by umeda-yusuke（2024/08/01）
 
     /**
      * Make interface implemented by part of Animal concrete class in new package under "objanimal" package. (implementation is as you like) <br>
@@ -365,7 +389,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_makeInterface() {
         // your confirmation code here
+        Bird bird = new Bird();
+        bird.fly();
+        log(bird.getHitPoint());
     }
+    // Flyableインターフェースを作ってみた。by umeda-yusuke（2024/08/01）
+    // Flyableインターフェースは、flyメソッドを持っている。
 
     // ===================================================================================
     //                                                                           Challenge
