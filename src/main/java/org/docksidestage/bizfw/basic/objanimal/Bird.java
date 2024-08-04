@@ -2,6 +2,10 @@ package org.docksidestage.bizfw.basic.objanimal;
 
 import org.docksidestage.bizfw.basic.objanimal.flyer.Flyable;
 
+/**
+    * The object for bird(鳥).
+    * @author umeda-yusuke
+ */
 public class Bird extends Animal implements Flyable {
 
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Bird.class);
