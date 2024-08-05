@@ -20,12 +20,12 @@ public class Bird extends Animal implements Flyable {
     }
 
     @Override
-    protected String getBarkWord() {
+    public String getBarkWord() {
         return "piu";
     }
 
     @Override
-    protected void downHitPoint() {
+    public void downHitPoint() {
         hitPoint -= 3;
     }
 }

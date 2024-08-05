@@ -19,9 +19,17 @@ import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketType;
 import org.docksidestage.bizfw.basic.objanimal.*;
+import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
+import org.docksidestage.javatry.basic.st6.dbms.DatabaseSql;
+import org.docksidestage.javatry.basic.st6.dbms.St6MySql;
+import org.docksidestage.javatry.basic.st6.dbms.St6PostgreSql;
+import org.docksidestage.javatry.basic.st6.os.MacOperationSystem;
+import org.docksidestage.javatry.basic.st6.os.OldWindowsOperationSystem;
+import org.docksidestage.javatry.basic.st6.os.St6OperationSystem;
+import org.docksidestage.javatry.basic.st6.os.WindowsOperationSystem;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -381,7 +389,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         int land = bird.getHitPoint();
         log(land);
     }
-    // Birdクラスを作ってみた。by umeda-yusuke（2024/08/01）
+    // Birdクラスを作ってみた。by umeda-yusuke（2024/08/04）
 
     /**
      * Make interface implemented by part of Animal concrete class in new package under "objanimal" package. (implementation is as you like) <br>
@@ -393,7 +401,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         bird.fly();
         log(bird.getHitPoint());
     }
-    // Flyableインターフェースを作ってみた。by umeda-yusuke（2024/08/01）
+    // Flyableインターフェースを作ってみた。by umeda-yusuke（2024/08/04）
     // Flyableインターフェースは、flyメソッドを持っている。
 
     // ===================================================================================
@@ -405,7 +413,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_generalization_extractToAbstract() {
         // your confirmation code here
+        DatabaseSql mySql = new St6MySql();
+        DatabaseSql postgreSql = new St6PostgreSql();
+        log(mySql.buildPagingQuery(10, 1));
+        log(postgreSql.buildPagingQuery(10, 1));
     }
+    // DatabaseSqlクラスを作ってみた。by umeda-yusuke（2024/08/04）
 
     /**
      * Extract St6OperationSystem (basic.st6.os)'s process to concrete classes (as super class and sub-class) <br>
@@ -413,7 +426,19 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_specialization_extractToConcrete() {
         // your confirmation code here
+        St6OperationSystem mac = new MacOperationSystem("mac");
+        St6OperationSystem windows = new WindowsOperationSystem("windows");
+        St6OperationSystem oldWindows = new OldWindowsOperationSystem("oldWindows");
+
+        log(mac.getOsType());
+        log(mac.buildUserResourcePath("test"));
+        log(windows.getOsType());
+        log(windows.buildUserResourcePath("test"));
+        log(oldWindows.getOsType());
+        log(oldWindows.buildUserResourcePath("test"));
     }
+    // St6OperationSystemクラスから、MacOperationSystem、WindowsOperationSystem、OldWindowsOperationSystemクラスを作ってみた。by umeda-yusuke（2024/08/04）
+    // 共通部分をSt6OperationSystemクラスにまとめた。
 
     // ===================================================================================
     //                                                                           Good Luck
@@ -424,7 +449,18 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_withDelegation() {
         // your confirmation code here
+        Animal dog = new Dog();
+        for (int i = 0; i < 3; i++) {
+            dog.bark();
+            log(dog.getHitPoint());
+        }
     }
+    // BarkingProcessクラス内での処理で、hitPointが正常に減少していることを確認した。by umeda-yusuke（2024/08/05）
+    // BarkingProcessクラスは、Animalクラスを引数に持っている。そのため、Animalクラスのメソッドを呼び出すことができる。
+    // 正直めちゃくちゃ悩んでいる。breatheIn、prepareAbdominalMuscle、doBarkのメソッドをAnimalクラスに持たせるべきか、BarkingProcessクラスに持たせるべきか。
+    // ゾンビクラスがbreatheInメソッドをオーバライドしているため、Animalクラスに持たせないと、ゾンビクラスが正常に動作しないのは分かっている。
+    // しかし、それ以上にAnimalクラスにbreatheIn、prepareAbdominalMuscle、doBarkがあるのが違和感がある。よって、BarkingProcessクラスに持たせることにした。
+
 
     /**
      * Put barking-related classes, such as BarkingProcess and BarkedSound, into sub-package. <br>
@@ -446,6 +482,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     public void test_objectOriented_writing_withPackageRefactoring() {
         // your confirmation code here
     }
+    // barkingパッケージを作成した。by umeda-yusuke（2024/08/05）
 
     /**
      * Is Zombie correct as sub-class of Animal? Analyze it in thirty seconds. (thinking only) <br>
@@ -455,7 +492,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // write your memo here:
         // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
         // is it corrent?
-        //
+        // 適切でないと思う。ゾンビクラスだけbreatheInメソッドをオーバライドしているが、本来Animalクラスが持つべきメソッドではないと思っている。
+        // そのため、Animalクラスのサブクラスとして適切でないと思っている。
+        // いや、↑のことは理由にならんな。しかし、ゾンビは動物じゃないから適切じゃないと思っている。理由は上手く言えない。
         // _/_/_/_/_/_/_/_/_/_/
     }
 }
