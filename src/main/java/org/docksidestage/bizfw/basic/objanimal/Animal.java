@@ -29,6 +29,8 @@ public abstract class Animal implements Loudable {
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
+    // TODO umeyan [いいね] this突っ込んでるのオシャレ（＾＾ by jflute (2024/08/06)
+    // これが正解かどうかは置いておいて、インスタンスという概念を理解している証拠ですね！
     protected final BarkingProcess barkingProcess = new BarkingProcess(this);
 
     // ===================================================================================
@@ -50,6 +52,8 @@ public abstract class Animal implements Loudable {
     // ===================================================================================
     //                                                                               Bark
     //                                                                              ======
+    // TODO umeyan [いいね] すっきりしてしっかり委譲(delegate)されていますね by jflute (2024/08/06)
+    // TODO jflute 委譲とかdelegateとかの言葉の意味についてフォロー (2024/08/06)
     public BarkedSound bark() {
         return barkingProcess.bark();
     }
