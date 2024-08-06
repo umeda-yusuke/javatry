@@ -40,6 +40,9 @@ public class Dog extends Animal implements FastRunner {
         downHitPoint();
     }
 
+    
+    public void ote() {
+    }
 
     // ===================================================================================
     //                                                                               Bark
