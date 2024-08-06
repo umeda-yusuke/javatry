@@ -320,7 +320,7 @@ public class Step05ClassTest extends PlainTestCase {
             nightOnlyTwoDayPassport.doInPark();
             log("夜の時間帯です。");
             log("入園可能回数：" + nightOnlyTwoDayPassport.getAvailableEnterCount());
-        } catch (IllegalStateException e) {
+        } catch (Exception e) {
             log("昼間の時間帯です。");
             log(e.getMessage());
         }

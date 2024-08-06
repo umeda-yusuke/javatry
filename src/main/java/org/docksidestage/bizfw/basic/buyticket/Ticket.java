@@ -65,14 +65,14 @@ public class Ticket {
         LocalDateTime jstDateTime = LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
         // TODO done umeyan せっかくなのでticketTypeごと例外メッセージに載せてしまっても良いと思います by jflute (2024/07/31)
         if (alreadyIn) {
-            throw new IllegalStateException("Already in park by this ticket: " + ticketType.toString());
+            throw new EnterParkException("Already in park by this ticket: " + ticketType.toString());
         }
         if (availableEnterCount <= 0) {
-            throw new IllegalStateException("Already cannot enter park by this ticket: availableEnterCount=" + ticketType.geteEnterableDays());
+            throw new EnterParkException("Already cannot enter park by this ticket: availableEnterCount=" + ticketType.geteEnterableDays());
         }
         // [memo] 業務例外の話をちょこっとだけ by jflute
         if (ticketType.isNightOnly() && jstDateTime.getHour() <= 17){
-            throw new IllegalStateException("Night only ticket cannot enter park before 18:00: Now =" + jstDateTime);
+            throw new EnterParkException("Night only ticket cannot enter park before 18:00: Now =" + jstDateTime);
         }
         availableEnterCount--;
         alreadyIn = true;
@@ -84,7 +84,7 @@ public class Ticket {
 
     public void doOutPark() {
         if (!alreadyIn) {
-            throw new IllegalStateException("Already out park by this ticket: displayedPrice=" + ticketType.getDisplayPrice());
+            throw new OutParkException("Already out park by this ticket: displayedPrice=" + ticketType.getDisplayPrice());
         }
         alreadyIn = false;
     }
@@ -92,16 +92,35 @@ public class Ticket {
     // done umeyan 配列の変数名の場合は最低限複数であることを示すのが慣習となっています。 by jflute (2024/07/11)
     // dates or dateArray (まあdatesが一般的かな)。そうすれば、for文の単一のLocalDateは素直にdateにできるかと。
 
+
+    private static class EnterParkException extends RuntimeException {
+
+        private static final long serialVersionUID = 1L;
+
+        private EnterParkException(String msg) {
+            super(msg);
+        }
+    }
+
+    private static class OutParkException extends RuntimeException {
+
+        private static final long serialVersionUID = 1L;
+
+        private OutParkException(String msg) {
+            super(msg);
+        }
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
     // TODO done umeyan インスタンス変数の順番に合わせましょう by jflute (2024/07/31)
-    public int getDisplayPrice() { // ちょいFacade的なメソッド
-        return ticketType.getDisplayPrice();
-    }
-
     public TicketType getTicketType() {
         return ticketType;
+    }
+
+    public int getDisplayPrice() { // ちょいFacade的なメソッド
+        return ticketType.getDisplayPrice();
     }
 
     public int getAvailableEnterCount() {
