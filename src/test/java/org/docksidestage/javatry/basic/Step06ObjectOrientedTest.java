@@ -89,10 +89,10 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [do in park now!!!]
         //
-        // TODO umeyan 単純な間違いが [do in park now!!!] のスコープに一つ by jflute (2024/08/05)
+        // TODO done umeyan 単純な間違いが [do in park now!!!] のスコープに一つ by jflute (2024/08/05)
         // simulation: actually this process should be called by other trigger
         if (alreadyIn) {
-            throw new IllegalStateException("Already in park by this ticket: displayPrice=" + quantity);
+            throw new IllegalStateException("Already in park by this ticket: displayPrice=" + displayPrice);
         }
         alreadyIn = true;
 
@@ -204,8 +204,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     //　概念によっては、振る舞いをもっていたり、状態を持っていたりする。しかし、概念を完全にプログラムで表現しようとしたら、無数の状態・振る舞いを持たなければならない。
     //　そのため、オブジェクトは、その概念の中で仕様を必要十分に満たすように、状態と振る舞いを持つように設計される。べきだと思っている。
     // _/_/_/_/_/_/_/_/_/_/
-    // TODO umeyan [いいね] すごい、特に "概念の中で仕様を必要十分に満たすよう" というのが良いですね by jflute (2024/08/06)
+    // TODO done umeyan [いいね] すごい、特に "概念の中で仕様を必要十分に満たすよう" というのが良いですね by jflute (2024/08/06)
     // また、"それは概念のような物に集約されていく" というのも趣がありますね。設計アプローチを考えさせる言葉だと思います。
+    // 前、久保さんと話した時にこんな感じの事を言っていたので笑　by umeda-yusuke（2024/08/06）
     // TODO jflute 1on1にてこの辺、こう思った背景を聞かせてください (2024/08/06)
 
     // ===================================================================================
@@ -226,7 +227,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // landを間違えた。ちゃんとコードを読まず、getInitialHitPointの値を見てしまった。by umeda-yusuke（2024/07/31）
     // barkメソッドを実行すると、breatheIn, prepareAbdominalMuscle, doBarkの中でdownHitPointが呼ばれる。
     // その結果、hitPointが3回減少する。そのため、10 - 3 * 1 = 7 となる。
-    // TODO umeyan [いいね] 間違えた後のリカバリが素晴らしいです(^^ by jflute (2024/08/06)
+    // TODO done umeyan [いいね] 間違えた後のリカバリが素晴らしいです(^^ by jflute (2024/08/06)
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_objectOriented_polymorphism_2nd_asAbstract() {
@@ -308,7 +309,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // また、呼び出せるメソッドに制限をかける事が出来るため、プログラムの保守性が向上すると思っている。
         // ただ現在、メソッドの追跡が大変でAnimal型を使うメリットがあまり分からない。
         // _/_/_/_/_/_/_/_/_/_/
-        // TODO umeyan [いいね] "同じ種類のデータである" という言葉がポイントを得ていますね by jflute (2024/08/06)
+        // TODO done umeyan [いいね] "同じ種類のデータである" という言葉がポイントを得ていますね by jflute (2024/08/06)
         // "メソッドの追跡が大変" というのもこういった構造を考える上での実務的な問題の根本と言えます。
         // TODO jflute 1on1にて背景を聞かせてください (2024/08/06)
     }
@@ -382,7 +383,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // 参考サイト
         // https://qiita.com/yoshinori_hisakawa/items/cc094bef1caa011cb739
         // _/_/_/_/_/_/_/_/_/_/
-        // TODO umeyan [いいね] 素晴らしい、参考サイトも興味深いこと書いていますね by jflute (2024/08/06)
+        // TODO done umeyan [いいね] 素晴らしい、参考サイトも興味深いこと書いていますね by jflute (2024/08/06)
         // TODO jflute 1on1にてさらにお話聞かせてください (2024/08/06)
     }
 
@@ -509,7 +510,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // your confirmation code here
     }
     // barkingパッケージを作成した。by umeda-yusuke（2024/08/05）
-    // TODO umeyan [いいね] クラス階層がわかりやすくなりましたね by jflute (2024/08/06)
+    // TODO done umeyan [いいね] クラス階層がわかりやすくなりましたね by jflute (2024/08/06)
     // Javaはパッケージとディレクトリが一致しないといけない言語です。
     // つまり、Javaにおけるパッケージ分けというのは、普通にファイル管理のディレクトリ分けと同様のニュアンスが含まれます。
     // (個人差ありますが)ファイルがずらーっと並ぶで視認性が悪くなりますので、遠慮なくパッケージって分けて良いものということで。
@@ -528,7 +529,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // そのため、Animalクラスのサブクラスとして適切でないと思っている。
         // いや、↑のことは理由にならんな。しかし、ゾンビは動物じゃないから適切じゃないと思っている。理由は上手く言えない。
         // _/_/_/_/_/_/_/_/_/_/
-        // TODO umeyan [いいね] 考えてくれてありがとうございます。言葉にするの難しいですよね by jflute (2024/08/06)
+        // TODO done umeyan [いいね] 考えてくれてありがとうございます。言葉にするの難しいですよね by jflute (2024/08/06)
         // TODO jflute 1on1にてフォロー予定 (2024/08/06)
     }
 }
