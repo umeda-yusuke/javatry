@@ -320,7 +320,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // メソッドの追跡が大変の話、人類のトレードオフ:
         // o 多少リーディングの鍛錬は必要
         // o エディターの機能を駆使して追跡も必要
-        // TODO jflute 備忘録: 図を描いて頭の中に構造イメージを湧かせる話をし忘れたので次の1on1にて (2024/08/06)
+        // o 図を描いて頭の中に構造イメージを湧かせる
+        // done jflute 備忘録: 図を描いて頭の中に構造イメージを湧かせる話をし忘れたので次の1on1にて (2024/08/06)
+        
+        // TODO umeyan [読み物課題] ホワイトボードを買ってこよう by jflute (2024/08/08)
+        // https://jflute.hatenadiary.jp/entry/20110607/1307440686
+
+        // TODO umeyan [読み物課題] SIとスタートアップの違いを知ろう by jflute (2024/08/08)
+        // https://jflute.hatenadiary.jp/entry/20151007/sista
     }
 
     // ===================================================================================
@@ -431,7 +438,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // Flyableインターフェースを作ってみた。by umeda-yusuke（2024/08/04）
     // Flyableインターフェースは、flyメソッドを持っている。
     
-    // TODO jflute 1on1にて、インターフェースの名前どうする話をする予定 (-able? -er? or ?) (2024/08/06)
+    // done jflute 1on1にて、インターフェースの名前どうする話をする予定 (-able? -er? or ?) (2024/08/06)
 
     // ===================================================================================
     //                                                                           Challenge
@@ -524,12 +531,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // your confirmation code here
     }
     // barkingパッケージを作成した。by umeda-yusuke（2024/08/05）
-    // TODO done umeyan [いいね] クラス階層がわかりやすくなりましたね by jflute (2024/08/06)
+    // done umeyan [いいね] クラス階層がわかりやすくなりましたね by jflute (2024/08/06)
     // Javaはパッケージとディレクトリが一致しないといけない言語です。
     // つまり、Javaにおけるパッケージ分けというのは、普通にファイル管理のディレクトリ分けと同様のニュアンスが含まれます。
     // (個人差ありますが)ファイルがずらーっと並ぶで視認性が悪くなりますので、遠慮なくパッケージって分けて良いものということで。
     // ただ、どの単位で分けるか？なんて名前を付けるか？この辺はまた「デザイン」なんですよね。
-    // TODO jflute 1on1にて現場でのパッケージ理由のジレンマの話する (この話ブログでまとめたいなぁ) (2024/08/06)
+    // done jflute 1on1にて現場でのパッケージ理由のジレンマの話する (この話ブログでまとめたいなぁ) (2024/08/06)
 
     /**
      * Is Zombie correct as sub-class of Animal? Analyze it in thirty seconds. (thinking only) <br>
@@ -543,7 +550,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // そのため、Animalクラスのサブクラスとして適切でないと思っている。
         // いや、↑のことは理由にならんな。しかし、ゾンビは動物じゃないから適切じゃないと思っている。理由は上手く言えない。
         // _/_/_/_/_/_/_/_/_/_/
-        // TODO done umeyan [いいね] 考えてくれてありがとうございます。言葉にするの難しいですよね by jflute (2024/08/06)
-        // TODO jflute 1on1にてフォロー予定 (2024/08/06)
+        // done umeyan [いいね] 考えてくれてありがとうございます。言葉にするの難しいですよね by jflute (2024/08/06)
+        // done jflute 1on1にてフォロー予定 (2024/08/06)
+        // "ゾンビは動物じゃない" って素晴らしい言葉で「is-aの関係」をまずを確認してみる
     }
 }
