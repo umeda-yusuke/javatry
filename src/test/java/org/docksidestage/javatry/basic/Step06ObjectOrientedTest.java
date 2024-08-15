@@ -479,7 +479,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     }
     // St6OperationSystemクラスから、MacOperationSystem、WindowsOperationSystem、OldWindowsOperationSystemクラスを作ってみた。by umeda-yusuke（2024/08/04）
     // 共通部分をSt6OperationSystemクラスにまとめた。
-    // TODO jflute 1on1にて再利用の思考課題する (時間あれば) (2024/08/06)
+    // done jflute 1on1にて再利用の思考課題する (時間あれば) (2024/08/06)
+    // 意味が同じだから再利用する、たまたま同じ場合はしない
+    // 概念化(タイトル化)するってのが色々キーポイント
 
     // ===================================================================================
     //                                                                           Good Luck

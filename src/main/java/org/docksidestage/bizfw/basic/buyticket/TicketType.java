@@ -28,8 +28,8 @@ public enum TicketType {
         this.isNightOnly = isNightOnly;
     }
 
-    // TODO umeyan [いいね] 完璧なtoString() by jflute (2024/08/15)
-    // TODO jflute value的enumの場合のtoString()のお話をちょこっと (2024/08/15)
+    // done umeyan [いいね] 完璧なtoString() by jflute (2024/08/15)
+    // done jflute value的enumの場合のtoString()のお話をちょこっと (2024/08/15)
     public String toString() {
         return "TicketType: " + name() + " {enterableDays: " + enterableDays + ", displayPrice: " + displayPrice + ", isNightOnly: " + isNightOnly + "}";
     }
