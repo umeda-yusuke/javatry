@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  */
 public class BarkingProcess {
 
-    // TODO done umeyan Javaの慣習として、static変数(定数)は上で、インスタンス変数はその下ってのがあります by jflute (2024/08/06)
+    // done umeyan Javaの慣習として、static変数(定数)は上で、インスタンス変数はその下ってのがあります by jflute (2024/08/06)
     // TicketBoothを思い出してみてください。(static変数(定数), インスタンス変数, コンストラクター、メソッドたち)
     private static final Logger logger = LoggerFactory.getLogger(BarkingProcess.class);
     private final Animal animal;
@@ -34,14 +34,14 @@ public class BarkingProcess {
 
     private void prepareAbdominalMuscle() { // also actually depends on barking
         logger.debug("...Using my abdominal muscle for barking"); // dummy implementation
-        // TODO done umeyan ↓めちゃくちゃ細かいですが、インデントが少しズレてますね by jflute (2024/08/06)
+        // done umeyan ↓めちゃくちゃ細かいですが、インデントが少しズレてますね by jflute (2024/08/06)
         animal.downHitPoint();
     }
 
     private BarkedSound doBark(String barkWord) {
         animal.downHitPoint();
         return new BarkedSound(barkWord);
-    } // TODO done umeyan ↓細かいですが、他のクラスでは見かけない空行なので削除で (一貫性と体裁) by jflute (2024/08/06)
+    } // done umeyan ↓細かいですが、他のクラスでは見かけない空行なので削除で (一貫性と体裁) by jflute (2024/08/06)
 }
 
 // TODO done umeyan [読み物課題] 体裁も細かくレビューするコンセプトはこちらです↓ by jflute (2024/08/06)

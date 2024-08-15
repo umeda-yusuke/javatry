@@ -63,7 +63,7 @@ public class Ticket {
     // ただ、LocalDateTimeの引数は、チケットの利用者が日時 (現在日時) を指定するのは変なので、現在日時は中で取りたいですね。
     public void doInPark() {
         LocalDateTime jstDateTime = LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
-        // TODO done umeyan せっかくなのでticketTypeごと例外メッセージに載せてしまっても良いと思います by jflute (2024/07/31)
+        // done umeyan せっかくなのでticketTypeごと例外メッセージに載せてしまっても良いと思います by jflute (2024/07/31)
         if (alreadyIn) {
             throw new EnterParkException("Already in park by this ticket: " + ticketType.toString());
         }
@@ -114,7 +114,7 @@ public class Ticket {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    // TODO done umeyan インスタンス変数の順番に合わせましょう by jflute (2024/07/31)
+    // done umeyan インスタンス変数の順番に合わせましょう by jflute (2024/07/31)
     public TicketType getTicketType() {
         return ticketType;
     }

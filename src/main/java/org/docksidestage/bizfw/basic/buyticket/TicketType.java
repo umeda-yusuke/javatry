@@ -15,7 +15,7 @@ public enum TicketType {
 
     // done umeyan [思考課題] もし仮に、仕様追加で "xxxな日数、xxxDays" という別の意味の日数が追加となったら... by jflute (2024/07/31)
     // この元々のdays変数名はどうします？ daysのまま？それとも変数名を変える？
-    // TODO done umeyan 修正すると言ってくれたので期待しています by jflute (2024/07/31)
+    // done umeyan 修正すると言ってくれたので期待しています by jflute (2024/07/31)
     private final int enterableDays; // 入れる日数
     private final int displayPrice;
     private final boolean isNightOnly;
@@ -28,6 +28,8 @@ public enum TicketType {
         this.isNightOnly = isNightOnly;
     }
 
+    // TODO umeyan [いいね] 完璧なtoString() by jflute (2024/08/15)
+    // TODO jflute value的enumの場合のtoString()のお話をちょこっと (2024/08/15)
     public String toString() {
         return "TicketType: " + name() + " {enterableDays: " + enterableDays + ", displayPrice: " + displayPrice + ", isNightOnly: " + isNightOnly + "}";
     }

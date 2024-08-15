@@ -21,7 +21,7 @@ package org.docksidestage.javatry.basic.st6.os;
  */
 public abstract class St6OperationSystem {
 
-    // TODO done umeyan なんか Definition のアゴが外れてる？(^^。まあ、定数無くなっちゃったのでそもそも削除でもOKですね by jflute (2024/08/06)
+    // done umeyan なんか Definition のアゴが外れてる？(^^。まあ、定数無くなっちゃったのでそもそも削除でもOKですね by jflute (2024/08/06)
     // TODO jflute 1on1にて消しすぎ注意の話 (消しすぎたのかどうかわからないけど) (2024/08/06)
     // ===================================================================================
     //                                                                           Attribute
