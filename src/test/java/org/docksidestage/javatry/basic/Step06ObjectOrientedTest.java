@@ -560,7 +560,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // "ゾンビは動物じゃない" って素晴らしい言葉で「is-aの関係」をまずを確認してみる
     }
 
-    // TODO umeyan [読み物課題] ちょうど近くの先輩から学ぶ話があったので、こちらのブログも読んでみてください by jflute (2024/08/15)
+    // TODO done umeyan [読み物課題] ちょうど近くの先輩から学ぶ話があったので、こちらのブログも読んでみてください by jflute (2024/08/15)
     // こうはい extends せんぱい
     // https://jflute.hatenadiary.jp/entry/20131124/extendsmaster
 }
