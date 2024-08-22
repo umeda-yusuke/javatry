@@ -323,10 +323,10 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // o 図を描いて頭の中に構造イメージを湧かせる
         // done jflute 備忘録: 図を描いて頭の中に構造イメージを湧かせる話をし忘れたので次の1on1にて (2024/08/06)
         
-        // TODO umeyan [読み物課題] ホワイトボードを買ってこよう by jflute (2024/08/08)
+        // TODO done umeyan [読み物課題] ホワイトボードを買ってこよう by jflute (2024/08/08)
         // https://jflute.hatenadiary.jp/entry/20110607/1307440686
 
-        // TODO umeyan [読み物課題] SIとスタートアップの違いを知ろう by jflute (2024/08/08)
+        // TODO done umeyan [読み物課題] SIとスタートアップの違いを知ろう by jflute (2024/08/08)
         // https://jflute.hatenadiary.jp/entry/20151007/sista
     }
 
@@ -482,7 +482,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // done jflute 1on1にて再利用の思考課題する (時間あれば) (2024/08/06)
     // 意味が同じだから再利用する、たまたま同じ場合はしない
     // 概念化(タイトル化)するってのが色々キーポイント
-    // TODO umeyan [読み物課題] ちょうどboolean引数増える話したので、以下のブログも読んでみてください by jflute (2024/08/15)
+    // TODO done umeyan [読み物課題] ちょうどboolean引数増える話したので、以下のブログも読んでみてください by jflute (2024/08/15)
     // メンテ不能の強者、引数リモコンパターン
     // https://jflute.hatenadiary.jp/entry/20160905/argremocon
 
