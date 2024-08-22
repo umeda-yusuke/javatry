@@ -72,7 +72,7 @@ public class Ticket {
             throw new EnterParkException("Already cannot enter park by this ticket: availableEnterCount=" + ticketType.geteEnterableDays());
         }
         // [memo] 業務例外の話をちょこっとだけ by jflute
-        // TODO done umeyan 17という定義をできればハードコードしたくない... by jflute (2024/08/15)
+        // done umeyan 17という定義をできればハードコードしたくない... by jflute (2024/08/15)
         // というか、今後もっと色々な基準時刻のパターンのnightOnlyのチケットが増えた時、スムーズに追加できるようにしたい
         if (ticketType.isNightOnly() && jstDateTime.getHour() < ticketType.getEnterableHour()) {
             throw new EnterParkException("Night only ticket cannot enter park before " + ticketType.getEnterableHour() + ": Now=" + jstDateTime.getHour());

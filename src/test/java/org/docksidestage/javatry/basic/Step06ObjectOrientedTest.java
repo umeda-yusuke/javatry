@@ -323,10 +323,10 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // o 図を描いて頭の中に構造イメージを湧かせる
         // done jflute 備忘録: 図を描いて頭の中に構造イメージを湧かせる話をし忘れたので次の1on1にて (2024/08/06)
         
-        // TODO done umeyan [読み物課題] ホワイトボードを買ってこよう by jflute (2024/08/08)
+        // done umeyan [読み物課題] ホワイトボードを買ってこよう by jflute (2024/08/08)
         // https://jflute.hatenadiary.jp/entry/20110607/1307440686
 
-        // TODO done umeyan [読み物課題] SIとスタートアップの違いを知ろう by jflute (2024/08/08)
+        // done umeyan [読み物課題] SIとスタートアップの違いを知ろう by jflute (2024/08/08)
         // https://jflute.hatenadiary.jp/entry/20151007/sista
     }
 
@@ -482,9 +482,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // done jflute 1on1にて再利用の思考課題する (時間あれば) (2024/08/06)
     // 意味が同じだから再利用する、たまたま同じ場合はしない
     // 概念化(タイトル化)するってのが色々キーポイント
-    // TODO done umeyan [読み物課題] ちょうどboolean引数増える話したので、以下のブログも読んでみてください by jflute (2024/08/15)
+    // done umeyan [読み物課題] ちょうどboolean引数増える話したので、以下のブログも読んでみてください by jflute (2024/08/15)
     // メンテ不能の強者、引数リモコンパターン
     // https://jflute.hatenadiary.jp/entry/20160905/argremocon
+    // TODO umeyan [読み物課題] 関連してこちらも、1on1で少し話しましたが by jflute (2024/08/22)
+    // ルーズなDaoパターンなら見たくない
+    // https://jflute.hatenadiary.jp/entry/20160906/loosedao
 
     // ===================================================================================
     //                                                                           Good Luck
@@ -560,7 +563,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // "ゾンビは動物じゃない" って素晴らしい言葉で「is-aの関係」をまずを確認してみる
     }
 
-    // TODO done umeyan [読み物課題] ちょうど近くの先輩から学ぶ話があったので、こちらのブログも読んでみてください by jflute (2024/08/15)
+    // done umeyan [読み物課題] ちょうど近くの先輩から学ぶ話があったので、こちらのブログも読んでみてください by jflute (2024/08/15)
     // こうはい extends せんぱい
     // https://jflute.hatenadiary.jp/entry/20131124/extendsmaster
 }
