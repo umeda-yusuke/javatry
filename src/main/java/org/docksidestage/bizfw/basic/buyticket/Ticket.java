@@ -63,7 +63,7 @@ public class Ticket {
     // ただ、LocalDateTimeの引数は、チケットの利用者が日時 (現在日時) を指定するのは変なので、現在日時は中で取りたいですね。
     public void doInPark() {
         // TODO umeyan 修行++: テストのために現在日時を(内部的に)差し替えられる仕組みがあると良い by jflute (2024/08/15)
-        LocalDateTime jstDateTime = LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
+        LocalDateTime jstDateTime = getJstDateTime();
         // done umeyan せっかくなのでticketTypeごと例外メッセージに載せてしまっても良いと思います by jflute (2024/07/31)
         if (alreadyIn) {
             throw new EnterParkException("Already in park by this ticket: " + ticketType.toString());
@@ -72,10 +72,10 @@ public class Ticket {
             throw new EnterParkException("Already cannot enter park by this ticket: availableEnterCount=" + ticketType.geteEnterableDays());
         }
         // [memo] 業務例外の話をちょこっとだけ by jflute
-        // TODO umeyan 17という定義をできればハードコードしたくない... by jflute (2024/08/15)
+        // TODO done umeyan 17という定義をできればハードコードしたくない... by jflute (2024/08/15)
         // というか、今後もっと色々な基準時刻のパターンのnightOnlyのチケットが増えた時、スムーズに追加できるようにしたい
-        if (ticketType.isNightOnly() && jstDateTime.getHour() <= 17){
-            throw new EnterParkException("Night only ticket cannot enter park before 18:00: Now =" + jstDateTime);
+        if (ticketType.isNightOnly() && jstDateTime.getHour() < ticketType.getEnterableHour()) {
+            throw new EnterParkException("Night only ticket cannot enter park before " + ticketType.getEnterableHour() + ": Now=" + jstDateTime.getHour());
         }
         availableEnterCount--;
         alreadyIn = true;
@@ -95,6 +95,9 @@ public class Ticket {
     // done umeyan 配列の変数名の場合は最低限複数であることを示すのが慣習となっています。 by jflute (2024/07/11)
     // dates or dateArray (まあdatesが一般的かな)。そうすれば、for文の単一のLocalDateは素直にdateにできるかと。
 
+    public LocalDateTime getJstDateTime() {
+        return LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
+    }
 
     private static class EnterParkException extends RuntimeException {
 

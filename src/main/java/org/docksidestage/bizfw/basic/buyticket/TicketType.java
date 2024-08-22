@@ -8,10 +8,10 @@ package org.docksidestage.bizfw.basic.buyticket;
  */
 public enum TicketType {
 
-    ONE_DAY(1, 7400, false),
-    TWO_DAY(2, 13200, false),
-    FOUR_DAY(4, 22400, false),
-    NIGHT_ONLY_TWO_DAY(2, 7400, true);
+    ONE_DAY(1, 7400, false, 8),
+    TWO_DAY(2, 13200, false, 8),
+    FOUR_DAY(4, 22400, false, 8),
+    NIGHT_ONLY_TWO_DAY(2, 7400, true, 18);
 
     // done umeyan [思考課題] もし仮に、仕様追加で "xxxな日数、xxxDays" という別の意味の日数が追加となったら... by jflute (2024/07/31)
     // この元々のdays変数名はどうします？ daysのまま？それとも変数名を変える？
@@ -19,13 +19,15 @@ public enum TicketType {
     private final int enterableDays; // 入れる日数
     private final int displayPrice;
     private final boolean isNightOnly;
+    private final int enterableHour;  // 何時から入場可能か
 
     // done umeyan [よもやま補足] enumのコンストラクターは絶対にprivateなので、省略してもパッケージスコープにならずにprivateなのですが... by jflute (2024/07/31)
     // 結構わかってない人も多いので、わりと明示的にprivateを付ける人は多いです。(お任せします)
-    private TicketType(int enterableDays, int displayPrice, boolean isNightOnly) {
+    private TicketType(int enterableDays, int displayPrice, boolean isNightOnly, int enterableHour) {
         this.enterableDays = enterableDays;
         this.displayPrice = displayPrice;
         this.isNightOnly = isNightOnly;
+        this.enterableHour = enterableHour;
     }
 
     // done umeyan [いいね] 完璧なtoString() by jflute (2024/08/15)
@@ -46,4 +48,6 @@ public enum TicketType {
     public boolean isNightOnly() {
         return isNightOnly;
     }
+
+    public int getEnterableHour() { return enterableHour;}
 }
