@@ -23,9 +23,9 @@ import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
-import org.docksidestage.javatry.basic.st6.dbms.DatabaseSql;
-import org.docksidestage.javatry.basic.st6.dbms.St6MySql;
-import org.docksidestage.javatry.basic.st6.dbms.St6PostgreSql;
+import org.docksidestage.javatry.basic.st6.dbms.Database;
+import org.docksidestage.javatry.basic.st6.dbms.St6My;
+import org.docksidestage.javatry.basic.st6.dbms.St6Postgre;
 import org.docksidestage.javatry.basic.st6.os.MacOperationSystem;
 import org.docksidestage.javatry.basic.st6.os.OldWindowsOperationSystem;
 import org.docksidestage.javatry.basic.st6.os.St6OperationSystem;
@@ -63,16 +63,16 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [buy one-day passport]
         //
-        // TODO umeyan 業務的な間違いがこの [buy one-day passport] のスコープに一つ by jflute (2024/08/05)
+        // TODO done umeyan 業務的な間違いがこの [buy one-day passport] のスコープに一つ by jflute (2024/08/05)
         // simulation: actually this money should be from customer
         int handedMoney = 10000;
         if (quantity <= 0) {
             throw new IllegalStateException("Sold out");
         }
-        --quantity;
         if (handedMoney < oneDayPrice) {
             throw new IllegalStateException("Short money: handedMoney=" + handedMoney);
         }
+        --quantity;
         salesProceeds = oneDayPrice;
 
         //
@@ -99,8 +99,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [final process]
         //
-        // TODO umeyan 実行してもログの結果を見ても気づかない系の間違いが [final process] のスコープにひとつ by jflute (2024/08/05)
-        saveBuyingHistory(quantity, displayPrice, salesProceeds, alreadyIn);
+        // TODO done umeyan 実行してもログの結果を見ても気づかない系の間違いが [final process] のスコープにひとつ by jflute (2024/08/05)
+        saveBuyingHistory(quantity, salesProceeds, displayPrice, alreadyIn);
     }
 
     private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
@@ -449,15 +449,15 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_generalization_extractToAbstract() {
         // your confirmation code here
-        DatabaseSql mySql = new St6MySql();
-        DatabaseSql postgreSql = new St6PostgreSql();
+        Database mySql = new St6My();
+        Database postgreSql = new St6Postgre();
         log(mySql.buildPagingQuery(10, 1));
         log(postgreSql.buildPagingQuery(10, 1));
     }
     // DatabaseSqlクラスを作ってみた。by umeda-yusuke（2024/08/04）
-    // TODO umeyan "int offset = pageSize * (pageNumber - 1);" の処理を再利用したいところですね by jflute (2024/08/06)
+    // TODO done umeyan "int offset = pageSize * (pageNumber - 1);" の処理を再利用したいところですね by jflute (2024/08/06)
     // (MySQLでもPostgreSQLでも全く同じ意味合いの処理なので)
-    // TODO umeyan 抽象クラスの名前を考える時に、今存在しない新しいサブクラスを幾つか想像してみると良いです by jflute (2024/08/06)
+    // TODO done umeyan 抽象クラスの名前を考える時に、今存在しない新しいサブクラスを幾つか想像してみると良いです by jflute (2024/08/06)
     // 例えば、MySql, PostgreSql以外に何がありえるでしょうか？ (そもそもこいつら何だ？って感じかもですが、そこはググって調べてみて)
 
     /**
@@ -485,9 +485,10 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // done umeyan [読み物課題] ちょうどboolean引数増える話したので、以下のブログも読んでみてください by jflute (2024/08/15)
     // メンテ不能の強者、引数リモコンパターン
     // https://jflute.hatenadiary.jp/entry/20160905/argremocon
-    // TODO umeyan [読み物課題] 関連してこちらも、1on1で少し話しましたが by jflute (2024/08/22)
+    // TODO done umeyan [読み物課題] 関連してこちらも、1on1で少し話しましたが by jflute (2024/08/22)
     // ルーズなDaoパターンなら見たくない
     // https://jflute.hatenadiary.jp/entry/20160906/loosedao
+    // なぜそこに書くのか？そこに書いたらどんなメリットがあるのか？を意識し続けたいです　by umeda-yusuke（2024/08/27）
 
     // ===================================================================================
     //                                                                           Good Luck
