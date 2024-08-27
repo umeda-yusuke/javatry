@@ -15,8 +15,6 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 // done umeyan ↑一度指摘されたら、他にも似たところがないか確認する習慣を by jflute (2024/07/26)
 
@@ -55,68 +53,6 @@ public class Ticket {
         this.ticketType = ticketType;
         this.availableEnterCount = ticketType.geteEnterableDays();
     }
-
-    // ===================================================================================
-    //                                                                             In Park
-    //                                                                             =======
-    // done umeyan 元々のdoInPark()を修正してenterPark()の内容を実装してしまってOKです by jflute (2024/07/31)
-    // ただ、LocalDateTimeの引数は、チケットの利用者が日時 (現在日時) を指定するのは変なので、現在日時は中で取りたいですね。
-    public void doInPark() {
-        // TODO umeyan 修行++: テストのために現在日時を(内部的に)差し替えられる仕組みがあると良い by jflute (2024/08/15)
-        LocalDateTime jstDateTime = getJstDateTime();
-        // done umeyan せっかくなのでticketTypeごと例外メッセージに載せてしまっても良いと思います by jflute (2024/07/31)
-        if (alreadyIn) {
-            throw new EnterParkException("Already in park by this ticket: " + ticketType.toString());
-        }
-        if (availableEnterCount <= 0) {
-            throw new EnterParkException("Already cannot enter park by this ticket: availableEnterCount=" + ticketType.geteEnterableDays());
-        }
-        // [memo] 業務例外の話をちょこっとだけ by jflute
-        // done umeyan 17という定義をできればハードコードしたくない... by jflute (2024/08/15)
-        // というか、今後もっと色々な基準時刻のパターンのnightOnlyのチケットが増えた時、スムーズに追加できるようにしたい
-        if (ticketType.isNightOnly() && jstDateTime.getHour() < ticketType.getEnterableHour()) {
-            throw new EnterParkException("Night only ticket cannot enter park before " + ticketType.getEnterableHour() + ": Now=" + jstDateTime.getHour());
-        }
-        availableEnterCount--;
-        alreadyIn = true;
-        
-        // done umeyan [読み物課題] 思い出した、このブログを読んでみてください by jflute (2024/07/31)
-        // // 例外メッセージ、敬語で満足でもロスロスパターン
-        // https://jflute.hatenadiary.jp/entry/20170804/explossloss
-    }
-
-    public void doOutPark() {
-        if (!alreadyIn) {
-            throw new OutParkException("Already out park by this ticket: displayedPrice=" + ticketType.getDisplayPrice());
-        }
-        alreadyIn = false;
-    }
-
-    // done umeyan 配列の変数名の場合は最低限複数であることを示すのが慣習となっています。 by jflute (2024/07/11)
-    // dates or dateArray (まあdatesが一般的かな)。そうすれば、for文の単一のLocalDateは素直にdateにできるかと。
-
-    public LocalDateTime getJstDateTime() {
-        return LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
-    }
-
-    private static class EnterParkException extends RuntimeException {
-
-        private static final long serialVersionUID = 1L;
-
-        private EnterParkException(String msg) {
-            super(msg);
-        }
-    }
-
-    private static class OutParkException extends RuntimeException {
-
-        private static final long serialVersionUID = 1L;
-
-        private OutParkException(String msg) {
-            super(msg);
-        }
-    }
-
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
@@ -135,5 +71,16 @@ public class Ticket {
 
     public boolean isAlreadyIn() {
         return alreadyIn;
+    }
+
+    public void setAvailableEnterCount(int availableEnterCount) {
+        if (availableEnterCount < 0) {
+            throw new IllegalArgumentException("availableEnterCount should not be minus: " + availableEnterCount);
+        }
+        this.availableEnterCount = availableEnterCount;
+    }
+
+    public void setAlreadyIn(boolean alreadyIn) {
+        this.alreadyIn = alreadyIn;
     }
 }

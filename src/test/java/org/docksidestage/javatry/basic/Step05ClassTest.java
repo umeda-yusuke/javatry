@@ -15,12 +15,14 @@
  */
 package org.docksidestage.javatry.basic;
 
-import org.docksidestage.bizfw.basic.buyticket.Ticket;
-import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
+import java.time.LocalDateTime;
+
+import org.docksidestage.bizfw.basic.buyticket.*;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
-import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
-import org.docksidestage.bizfw.basic.buyticket.TicketType;
+import org.docksidestage.bizfw.basic.clock.Clock;
+import org.docksidestage.bizfw.basic.clock.ClockImpl;
 import org.docksidestage.unit.PlainTestCase;
+import org.mockito.Mockito;
 
 // done umeyan ↑unusedなimport by jflute (2024/07/11)
 
@@ -173,9 +175,10 @@ public class Step05ClassTest extends PlainTestCase {
         // uncomment out after modifying the method
         TicketBooth booth = new TicketBooth();
         Ticket oneDayPassport = booth.buyOneDayPassport(10000).getTicket();
+        TicketReader reader = new TicketReader(new ClockImpl());
         log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
         log(oneDayPassport.isAlreadyIn()); // should be false
-        oneDayPassport.doInPark();
+        reader.doInPark(oneDayPassport);
         log(oneDayPassport.isAlreadyIn()); // should be true
         // できた。alreadyInの初期値は未設定でもfalseだが、明示的にfalseを設定している。
     }
@@ -202,10 +205,11 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
         Ticket twoDayPassport = buyResult.getTicket();
+        TicketReader reader = new TicketReader(new ClockImpl());
         for (int i = 0; i <= 1; i++) {
             log("残り入園回数：" + twoDayPassport.getAvailableEnterCount());
-            twoDayPassport.doInPark();
-            twoDayPassport.doOutPark();
+            reader.doInPark(twoDayPassport);
+            reader.doOutPark(twoDayPassport);
         }
     }
     // TwoDayPassportをどう解釈するかで、実装はかなり変わると思う。
@@ -311,19 +315,18 @@ public class Step05ClassTest extends PlainTestCase {
      * (NightOnlyTwoDayPassport (金額は7400) のチケットも買えるようにしましょう。夜しか使えないようにしましょう)
      */
     public void test_class_moreFix_wonder_night() {
-        // your confirmation code here
-        TicketBooth booth = new TicketBooth();
-        TicketBuyResult buyResult = booth.buyNightOnlyTwoDayPassport(10000);
-        Ticket nightOnlyTwoDayPassport = buyResult.getTicket();
-        log(nightOnlyTwoDayPassport.getDisplayPrice() + buyResult.getChange()); // should be same as money
-        try {
-            nightOnlyTwoDayPassport.doInPark();
-            log("夜の時間帯です。");
-            log("入園可能回数：" + nightOnlyTwoDayPassport.getAvailableEnterCount());
-        } catch (Exception e) {
-            log("昼間の時間帯です。");
-            log(e.getMessage());
-        }
+        // given
+        Clock clock = Mockito.mock(Clock.class);
+        Mockito.when(clock.currentJstDateTime())
+                .thenReturn(LocalDateTime.of(2024, 7, 30, 19, 0));
+
+        Ticket nightOnlyTwoDayPassport = new Ticket(TicketType.NIGHT_ONLY_TWO_DAY);
+        TicketReader reader = new TicketReader(clock);
+
+        // when
+        reader.doInPark(nightOnlyTwoDayPassport);
+        // then
+        assertEquals(true, nightOnlyTwoDayPassport.isAlreadyIn());
     }
 
     // 18時以降を夜とする。
