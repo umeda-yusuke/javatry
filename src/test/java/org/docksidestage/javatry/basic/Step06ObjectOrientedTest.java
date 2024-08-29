@@ -99,7 +99,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [final process]
         //
-        // TODO done umeyan 実行してもログの結果を見ても気づかない系の間違いが [final process] のスコープにひとつ by jflute (2024/08/05)
+        // done umeyan 実行してもログの結果を見ても気づかない系の間違いが [final process] のスコープにひとつ by jflute (2024/08/05)
         saveBuyingHistory(quantity, salesProceeds, displayPrice, alreadyIn);
     }
 
@@ -485,7 +485,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // done umeyan [読み物課題] ちょうどboolean引数増える話したので、以下のブログも読んでみてください by jflute (2024/08/15)
     // メンテ不能の強者、引数リモコンパターン
     // https://jflute.hatenadiary.jp/entry/20160905/argremocon
-    // TODO done umeyan [読み物課題] 関連してこちらも、1on1で少し話しましたが by jflute (2024/08/22)
+    // done umeyan [読み物課題] 関連してこちらも、1on1で少し話しましたが by jflute (2024/08/22)
     // ルーズなDaoパターンなら見たくない
     // https://jflute.hatenadiary.jp/entry/20160906/loosedao
     // なぜそこに書くのか？そこに書いたらどんなメリットがあるのか？を意識し続けたいです　by umeda-yusuke（2024/08/27）

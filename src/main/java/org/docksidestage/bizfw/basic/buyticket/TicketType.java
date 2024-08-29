@@ -49,7 +49,7 @@ public enum TicketType {
         return isNightOnly;
     }
 
-    // TODO done umeyan 突然の一行スタイル by jflute (2024/08/22)
+    // done umeyan 突然の一行スタイル by jflute (2024/08/22)
     public int getEnterableHour() {
         return enterableHour;
     }
