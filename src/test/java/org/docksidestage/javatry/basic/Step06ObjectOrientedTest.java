@@ -567,4 +567,40 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // done umeyan [読み物課題] ちょうど近くの先輩から学ぶ話があったので、こちらのブログも読んでみてください by jflute (2024/08/15)
     // こうはい extends せんぱい
     // https://jflute.hatenadiary.jp/entry/20131124/extendsmaster
+    
+    // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+    // [1on1ふぉろー] コンセプトのないレイヤ by jflute
+    // pp 呼び出し元に依存の種類
+    // o 潜在的に依存: e.g. 取得対象の関連テーブルとかソート条件とか
+    // o コンパイル的に依存: e.g. 引数でA画面のFormクラス入れちゃう
+    //
+    // pp 詰め替えジレンマ
+    // o 律儀に詰め替え実装
+    // o リフレクションで名前詰め替え (現場エピソードあり)
+    // o A画面のForm突っ込んで詰め替えしないけど逆参照
+    // o (名前詰め替えのコードをエディターで生成してその後は手メンテ)
+    //
+    // pp コンセプトのないレイヤなら？
+    // o 要らないと思っちゃうという意見もある
+    // o マシ論につながる: https://twitter.com/jflute/status/1826564008125636866
+    //
+    //
+    // [1on1ふぉろー] 軽量DDDとは？ by jflute
+    // o 境界づけられたコンテキストの話
+    // o 世の中の軽量DDDの話
+    //
+    //
+    // [1on1ふぉろー] スーパー業務エンジニア by jflute
+    // o 機関車と客車
+    // o 客車のスーパーな人もいるし大事
+    // TODO umeyan [読み物課題] プログラマー多様化の時代に教える難しさ by jflute (2024/08/29)
+    // https://jflute.hatenadiary.jp/entry/20140909/diversity
+    //
+    //
+    // [1on1ふぉろー] スーパーな人同士 by jflute
+    // o コラボレーションがなかなか難しいこともある
+    // o 優秀な人をただ集めれば良いわけでもない
+    // TODO umeyan [読み物課題] 仲の良いチームじゃないと成り立たない技術がある by jflute (2024/08/29)
+    // https://jflute.hatenadiary.jp/entry/20170805/friendlytech
+    // _/_/_/_/_/_/_/_/_/_/
 }
