@@ -72,6 +72,12 @@ public class Ticket {
         return alreadyIn;
     }
 
+    // TODO umeyan [提案] Ticketに問答無用で何でもcountをいじれるメソッドを作るよりも... by jflute (2024/09/03)
+    // 業務的なメソッドとして例えば decrementEnterCount() とか markAsOneEnter() とかで、
+    // 「1減らす」というメソッドを提供して、TicketReaderはそれを呼ぶようにするとか。
+    // 業務的な振る舞いを無くしてReaderに移動したわけですが、最低限のチケットとしての振る舞いという感じで、
+    // チケットが持つ属性(インスタンス変数)を守る振る舞い(メソッド)があった方が良いと思いました。
+    // ただ、設計思想としてTicketは単なる入れ物に徹するとかであればこのままでOKです。
     public void setAvailableEnterCount(int availableEnterCount) {
         if (availableEnterCount < 0) {
             throw new IllegalArgumentException("availableEnterCount should not be minus: " + availableEnterCount);
