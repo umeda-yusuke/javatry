@@ -130,7 +130,12 @@ public class TicketBooth {
         this.quantity -= ticketType.geteEnterableDays();
         processSalesProceeds(ticketType.getDisplayPrice());
         Integer change = calculateChange(handedMoney, ticketType.getDisplayPrice());
-        return new TicketBuyResult(new Ticket(ticketType), change);
+        Ticket ticket = createTicket(ticketType);
+        return new TicketBuyResult(ticket, change);
+    }
+
+    protected Ticket createTicket(TicketType ticketType) {
+        return new Ticket(ticketType);
     }
 
     // done umeyan [よもやま話]このメソッド名でも全然OKですが、よくcheckという言葉を避けようという話もあります。 by jflute (2024/07/11)

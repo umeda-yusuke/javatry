@@ -15,7 +15,6 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-
 // done umeyan ↑一度指摘されたら、他にも似たところがないか確認する習慣を by jflute (2024/07/26)
 
 // done umeyan こちらもTicketBoothのJavaDocでの指摘と同じようにauthorお願いします by jflute (2024/07/25)

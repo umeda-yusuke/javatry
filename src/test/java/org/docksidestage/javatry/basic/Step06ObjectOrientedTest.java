@@ -63,7 +63,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [buy one-day passport]
         //
-        // TODO done umeyan 業務的な間違いがこの [buy one-day passport] のスコープに一つ by jflute (2024/08/05)
+        // done umeyan 業務的な間違いがこの [buy one-day passport] のスコープに一つ by jflute (2024/08/05)
         // simulation: actually this money should be from customer
         int handedMoney = 10000;
         if (quantity <= 0) {
@@ -455,10 +455,16 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         log(postgreSql.buildPagingQuery(10, 1));
     }
     // DatabaseSqlクラスを作ってみた。by umeda-yusuke（2024/08/04）
-    // TODO done umeyan "int offset = pageSize * (pageNumber - 1);" の処理を再利用したいところですね by jflute (2024/08/06)
+    // done umeyan "int offset = pageSize * (pageNumber - 1);" の処理を再利用したいところですね by jflute (2024/08/06)
     // (MySQLでもPostgreSQLでも全く同じ意味合いの処理なので)
-    // TODO done umeyan 抽象クラスの名前を考える時に、今存在しない新しいサブクラスを幾つか想像してみると良いです by jflute (2024/08/06)
+    // TODO umeyan buildPagingQuery()の真ん中で新しい(共通的な)業務処理が追加されたら？ by jflute (2024/09/03)
+    //  e.g. System.out.println("@@@ 何かしらの業務処理: " + offset + ", " + pageNumber);
+    // 現時点だと、サブクラスごとに追加しないといけないが、できれば一箇所修正で済むような形にしたい。
+    // (つまり、流れが冗長してしまっているので、流れを再利用したい)
+    // done umeyan 抽象クラスの名前を考える時に、今存在しない新しいサブクラスを幾つか想像してみると良いです by jflute (2024/08/06)
     // 例えば、MySql, PostgreSql以外に何がありえるでしょうか？ (そもそもこいつら何だ？って感じかもですが、そこはググって調べてみて)
+    // (Oracle, SQLServer, DB2, SQLite, ...) by jflute
+    // いぽうで、Database Management System, DBMSと呼ばれることが多いです。
 
     /**
      * Extract St6OperationSystem (basic.st6.os)'s process to concrete classes (as super class and sub-class) <br>

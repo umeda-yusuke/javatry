@@ -320,6 +320,26 @@ public class Step05ClassTest extends PlainTestCase {
         Mockito.when(clock.currentJstDateTime())
                 .thenReturn(LocalDateTime.of(2024, 7, 30, 19, 0));
 
+        // [ふぉろー] Mockitoを使わないとしたら(Javaの文法だけでやるとしたら)、こんな感じでできる
+        //Clock clock = new Clock() {
+        //    public LocalDateTime currentJstDateTime() {
+        //        return LocalDateTime.of(2024, 7, 30, 19, 0);
+        //    }
+        //};
+        //Clock clock = () -> LocalDateTime.of(2024, 7, 30, 19, 0);
+        //
+        //TicketBooth booth = new TicketBooth() {
+        //    @Override
+        //    protected Ticket createTicket(TicketType ticketType) {
+        //        return new Ticket(ticketType) {
+        //            @Override
+        //            public LocalDateTime currentTime() {
+        //                return 2024/01...;
+        //            }
+        //        };
+        //    }
+        //};
+        
         Ticket nightOnlyTwoDayPassport = new Ticket(TicketType.NIGHT_ONLY_TWO_DAY);
         TicketReader reader = new TicketReader(clock);
 
@@ -328,11 +348,19 @@ public class Step05ClassTest extends PlainTestCase {
         // then
         assertEquals(true, nightOnlyTwoDayPassport.isAlreadyIn());
     }
-
+    
     // 18時以降を夜とする。
     // done umeyan ↑とありますが、実装を見ると localDateTime.getHour() < 17 となっていて、17時も夜になってる？ by jflute (2024/07/31)
     // ミスです by umeda (2024/07/31)
 
+    // TODO umeyan <scope>test</scope>を入れないと、mainコードからも参照できてしまう by jflute (2024/09/03)
+    // (mavenだとデフォルトのscopeはcompileになって、mainコードでも本番実行でも参照できちゃう)
+    //    <dependency>
+    //        <groupId>org.mockito</groupId>
+    //        <artifactId>mockito-core</artifactId>
+    //        <version>4.0.0</version>
+    //    </dependency>
+    
     /**
      * Refactor if you want to fix (e.g. is it well-balanced name of method and variable?). <br>
      * (その他、気になるところがあったらリファクタリングしてみましょう (例えば、バランスの良いメソッド名や変数名になっていますか？))
