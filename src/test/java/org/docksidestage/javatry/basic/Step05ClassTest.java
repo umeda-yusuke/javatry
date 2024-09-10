@@ -353,7 +353,7 @@ public class Step05ClassTest extends PlainTestCase {
     // done umeyan ↑とありますが、実装を見ると localDateTime.getHour() < 17 となっていて、17時も夜になってる？ by jflute (2024/07/31)
     // ミスです by umeda (2024/07/31)
 
-    // TODO umeyan <scope>test</scope>を入れないと、mainコードからも参照できてしまう by jflute (2024/09/03)
+    // TODO done umeyan <scope>test</scope>を入れないと、mainコードからも参照できてしまう by jflute (2024/09/03)
     // (mavenだとデフォルトのscopeはcompileになって、mainコードでも本番実行でも参照できちゃう)
     //    <dependency>
     //        <groupId>org.mockito</groupId>

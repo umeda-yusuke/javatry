@@ -1,10 +1,13 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
-import java.time.LocalDateTime;
-
 import org.docksidestage.bizfw.basic.clock.Clock;
 
-// TODO umeyan javadocお願いします〜 by jflute (2024/09/03)
+// TODO done umeyan javadocお願いします〜 by jflute (2024/09/03)
+
+/**
+ *  チケットリーダー
+ *  チケットの読み取りを行い、入園、退園を利用回数、利用可能時間に基づいて管理する
+ */
 public class TicketReader {
     private final Clock clock;
 
@@ -14,10 +17,9 @@ public class TicketReader {
 
     public void doInPark(Ticket ticket) {
         // done umeyan 修行++: テストのために現在日時を(内部的に)差し替えられる仕組みがあると良い by jflute (2024/08/15)
-        // TODO umeyan unusedが残ってるよん by jflute (2024/09/03)
-        LocalDateTime jstDateTime = clock.currentJstDateTime();
+        // TODO done umeyan unusedが残ってるよん by jflute (2024/09/03)
         assertOutPark(ticket);
-        assertUseCount(ticket);
+        assertAvailableEnterCountUpperZero(ticket);
         assertAvailableTime(ticket);
         ticket.setAvailableEnterCount(ticket.getAvailableEnterCount() - 1);
         ticket.setAlreadyIn(true);
@@ -28,32 +30,34 @@ public class TicketReader {
         ticket.setAlreadyIn(false);
     }
 
-    // TODO umeyan assertInPark()の定義位置、少し工夫が欲しい by jflute (2024/09/03)
-    private void assertInPark(Ticket ticket) {
-        if (!ticket.isAlreadyIn()) {
-            throw new OutParkException("Already out park by this ticket: displayedPrice=" + ticket.getTicketType().getDisplayPrice());
-        }
-    }
 
-    // TODO umeyan [いいね] privateメソッドの定義順がわかりやすい (呼び出し順と一緒になっている) by jflute (2024/09/03)
+    // TODO done umeyan [いいね] privateメソッドの定義順がわかりやすい (呼び出し順と一緒になっている) by jflute (2024/09/03)
     private void assertOutPark(Ticket ticket) {
         if (ticket.isAlreadyIn()) {
             throw new EnterParkException("Already in park by this ticket: " + ticket.getTicketType().toString());
         }
     }
 
-    // TODO umeyan assertはassert thatのニュアンスで、UseCountがどうなるはずなのか？を示すと良い by jflute (2024/09/03)
-    private void assertUseCount(Ticket ticket) {
+    // TODO done umeyan assertはassert thatのニュアンスで、UseCountがどうなるはずなのか？を示すと良い by jflute (2024/09/03)
+    private void assertAvailableEnterCountUpperZero(Ticket ticket) {
         if (ticket.getAvailableEnterCount() <= 0) {
             throw new EnterParkException("Already cannot enter park by this ticket: availableEnterCount=" + ticket.getTicketType().geteEnterableDays());
         }
     }
 
     private void assertAvailableTime(Ticket ticket) {
-        // TODO umeyan ここは変数抽出してくれると読み手としては嬉しいところ by jflute (2024/09/03)
-        // (一番コアなロジックの部分は、シンプルな行にしたい)
-        if (ticket.getTicketType().isNightOnly() && clock.currentJstDateTime().getHour() < ticket.getTicketType().getEnterableHour()) {
-            throw new EnterParkException("Night only ticket cannot enter park before " + ticket.getTicketType().getEnterableHour() + ": Now=" + clock.currentJstDateTime().getHour());
+        // TODO done  umeyan ここは変数抽出してくれると読み手としては嬉しいところ by jflute (2024/09/03)
+        int currentHour = clock.currentJstDateTime().getHour();
+        int enterableHour = ticket.getTicketType().getEnterableHour();
+        if (ticket.getTicketType().isNightOnly() && currentHour < enterableHour) {
+            throw new EnterParkException("Night only ticket cannot enter park before " + enterableHour + ": Now=" + currentHour);
+        }
+    }
+
+    // TODO done umeyan assertInPark()の定義位置、少し工夫が欲しい by jflute (2024/09/03)
+    private void assertInPark(Ticket ticket) {
+        if (!ticket.isAlreadyIn()) {
+            throw new OutParkException("Already out park by this ticket: displayedPrice=" + ticket.getTicketType().getDisplayPrice());
         }
     }
 
