@@ -27,18 +27,18 @@ public class BarkingProcess {
         return barkedSound;
     }
 
-    private void breatheIn() { // actually depends on barking
+    protected void breatheIn() { // actually depends on barking
         logger.debug("...Breathing in for barking"); // dummy implementation
         animal.downHitPoint();
     }
 
-    private void prepareAbdominalMuscle() { // also actually depends on barking
+    protected void prepareAbdominalMuscle() { // also actually depends on barking
         logger.debug("...Using my abdominal muscle for barking"); // dummy implementation
         // done umeyan ↓めちゃくちゃ細かいですが、インデントが少しズレてますね by jflute (2024/08/06)
         animal.downHitPoint();
     }
 
-    private BarkedSound doBark(String barkWord) {
+    protected BarkedSound doBark(String barkWord) {
         animal.downHitPoint();
         return new BarkedSound(barkWord);
     } // done umeyan ↓細かいですが、他のクラスでは見かけない空行なので削除で (一貫性と体裁) by jflute (2024/08/06)

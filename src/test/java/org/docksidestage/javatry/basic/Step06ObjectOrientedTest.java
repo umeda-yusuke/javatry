@@ -599,14 +599,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // [1on1ふぉろー] スーパー業務エンジニア by jflute
     // o 機関車と客車
     // o 客車のスーパーな人もいるし大事
-    // TODO done umeyan [読み物課題] プログラマー多様化の時代に教える難しさ by jflute (2024/08/29)
+    // done umeyan [読み物課題] プログラマー多様化の時代に教える難しさ by jflute (2024/08/29)
     // https://jflute.hatenadiary.jp/entry/20140909/diversity
     //
     //
     // [1on1ふぉろー] スーパーな人同士 by jflute
     // o コラボレーションがなかなか難しいこともある
     // o 優秀な人をただ集めれば良いわけでもない
-    // TODO done umeyan [読み物課題] 仲の良いチームじゃないと成り立たない技術がある by jflute (2024/08/29)
+    // done umeyan [読み物課題] 仲の良いチームじゃないと成り立たない技術がある by jflute (2024/08/29)
     // https://jflute.hatenadiary.jp/entry/20170805/friendlytech
     // _/_/_/_/_/_/_/_/_/_/
 }

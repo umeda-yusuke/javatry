@@ -27,17 +27,14 @@ import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 public abstract class Animal implements Loudable {
 
     // ===================================================================================
-    //                                                                          Definition
-    //                                                                          ==========
-    // done umeyan [いいね] this突っ込んでるのオシャレ（＾＾ by jflute (2024/08/06)
-    // これが正解かどうかは置いておいて、インスタンスという概念を理解している証拠ですね！
-    protected final BarkingProcess barkingProcess = new BarkingProcess(this);
-
-    // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
     protected int hitPoint; // is HP
 
+    // done umeyan [いいね] this突っ込んでるのオシャレ（＾＾ by jflute (2024/08/06)
+    // これが正解かどうかは置いておいて、インスタンスという概念を理解している証拠ですね！
+    protected final BarkingProcess barkingProcess = new BarkingProcess(this);
+    
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
@@ -53,11 +50,12 @@ public abstract class Animal implements Loudable {
     //                                                                               Bark
     //                                                                              ======
     // done umeyan [いいね] すっきりしてしっかり委譲(delegate)されていますね by jflute (2024/08/06)
-    // TODO jflute 委譲とかdelegateとかの言葉の意味についてフォロー (2024/08/06)
+    // done jflute 委譲とかdelegateとかの言葉の意味についてフォロー (2024/08/06)
+    // (一応、転送と委譲の話も、すごく軽く触れた。とりあえず移譲でいいです)
     public BarkedSound bark() {
+        BarkingProcess barkingProcess = new BarkingProcess(this);
         return barkingProcess.bark();
     }
-
 
     public abstract String getBarkWord();
 
