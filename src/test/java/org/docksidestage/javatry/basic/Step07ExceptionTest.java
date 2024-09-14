@@ -15,6 +15,9 @@
  */
 package org.docksidestage.javatry.basic;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.docksidestage.bizfw.basic.supercar.SupercarClient;
 import org.docksidestage.javatry.basic.st7.St7BasicExceptionThrower;
 import org.docksidestage.javatry.basic.st7.St7ConstructorChallengeException;
@@ -25,7 +28,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りに実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author yusuke umeda
  */
 public class Step07ExceptionTest extends PlainTestCase {
 
@@ -47,8 +50,12 @@ public class Step07ExceptionTest extends PlainTestCase {
         } finally {
             sea.append("broadway");
         }
-        log(sea); // your answer? =>
+        log(sea); // your answer? => hangerbroadway
     }
+
+    // あってた。
+    // thrower.land();でIllegalStateExceptionが発生するのでcatch節が実行され、"hangar"が追加される。
+    // その後、finally節が実行され、"broadway"が追加される。
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_basic_message() {
@@ -75,8 +82,9 @@ public class Step07ExceptionTest extends PlainTestCase {
         } catch (IllegalStateException e) {
             log(e);
         }
-        // your answer? => 
+        // your answer? => St7BasicExceptionThrowerのonemanメソッドの40行目
     }
+    // あってた。
 
     // ===================================================================================
     //                                                                           Hierarchy
@@ -88,8 +96,10 @@ public class Step07ExceptionTest extends PlainTestCase {
     public void test_exception_hierarchy_Runtime_instanceof_RuntimeException() {
         Object exp = new IllegalStateException("mystic");
         boolean sea = exp instanceof RuntimeException;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => true
     }
+    // あってた。
+    // IllegalStateExceptionはRuntimeExceptionを継承しているので、expはRuntimeExceptionのインスタンスでもある。
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_hierarchy_Runtime_instanceof_Exception() {
@@ -102,22 +112,27 @@ public class Step07ExceptionTest extends PlainTestCase {
     public void test_exception_hierarchy_Runtime_instanceof_Error() {
         Object exp = new IllegalStateException("mystic");
         boolean sea = exp instanceof Error;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => false
     }
+    // あってた。
+    // IllegalStateException　←　RuntimeException　←　Exception　←　Throwable
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_hierarchy_Runtime_instanceof_Throwable() {
         Object exp = new IllegalStateException("mystic");
         boolean sea = exp instanceof Throwable;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => true
     }
+    // あってた。
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_hierarchy_Throwable_instanceof_Exception() {
         Object exp = new Throwable("mystic");
         boolean sea = exp instanceof Exception;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => false
     }
+    // あってた。
+    // Exception ← Throwableであり、ExceptionはThrowableを継承しているが、ThrowableはExceptionを継承していない。
 
     // ===================================================================================
     //                                                                         NullPointer
@@ -135,8 +150,9 @@ public class Step07ExceptionTest extends PlainTestCase {
         } catch (NullPointerException e) {
             log(e);
         }
-        // your answer? => 
+        // your answer? => land, toLowerCaseメソッドの2563行目
     }
+    // あってる？145行目と書いた方がよかった？
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_nullpointer_headache() {
@@ -149,8 +165,9 @@ public class Step07ExceptionTest extends PlainTestCase {
         } catch (NullPointerException e) {
             log(e);
         }
-        // your answer? => 
+        // your answer? => piari, 160行目
     }
+    // あってた。
 
     /**
      * Refactor to immediately understand what variable (is null) causes the NullPointerException by row number in stack trace. <br>
@@ -161,12 +178,16 @@ public class Step07ExceptionTest extends PlainTestCase {
             String sea = "mystic";
             String land = !!!sea.equals("mystic") ? null : "oneman";
             String piari = !!!sea.equals("mystic") ? "plaza" : null;
-            int sum = land.length() + piari.length();
+
+            int landLength = land.length();
+            int piariLength = piari.length();
+            int sum = landLength + piariLength;
             log(sum);
         } catch (NullPointerException e) {
             log(e);
         }
     }
+    // こういうこと？？
 
     // ===================================================================================
     //                                                                   Checked Exception
@@ -176,6 +197,13 @@ public class Step07ExceptionTest extends PlainTestCase {
      * (new java.io.File(".") の canonical path を取得してログに表示、I/Oエラーの時はメッセージとスタックトレースを代わりに表示)
      */
     public void test_exception_checkedException_basic() {
+        try {
+            String canonicalPath = new File(".").getCanonicalPath();
+            log(canonicalPath);
+        } catch (IOException e) {
+            log("I/O error occurred: " + e.getMessage());
+            log(e);
+        }
     }
 
     // ===================================================================================
@@ -196,11 +224,15 @@ public class Step07ExceptionTest extends PlainTestCase {
             Throwable cause = e.getCause();
             sea = cause.getMessage();
             land = cause.getClass().getSimpleName();
-            log(sea); // your answer? => 
-            log(land); // your answer? => 
-            log(e); // your answer? => 
+            log(sea); // your answer? =>  Failed to call the second help method: symbol=-1
+            log(land); // your answer? => IllegalArgumentException
+            log(e); // your answer? => IllegalStateException
         }
     }
+    // 間違ってる
+    // throwCauseThirdLevelメソッドでNumberFormatExceptionが発生しているので、それが原因となっている。
+    // symbolは最初１で、その後に2回-1されているので、-1になっている。
+
 
     private void throwCauseFirstLevel() {
         int symbol = Integer.MAX_VALUE - 0x7ffffffe;
