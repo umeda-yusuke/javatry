@@ -33,8 +33,7 @@ public abstract class Animal implements Loudable {
 
     // done umeyan [いいね] this突っ込んでるのオシャレ（＾＾ by jflute (2024/08/06)
     // これが正解かどうかは置いておいて、インスタンスという概念を理解している証拠ですね！
-    protected final BarkingProcess barkingProcess = new BarkingProcess(this);
-    
+    protected final BarkingProcess barkingProcess = createBarkingProcess();
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
@@ -52,8 +51,12 @@ public abstract class Animal implements Loudable {
     // done umeyan [いいね] すっきりしてしっかり委譲(delegate)されていますね by jflute (2024/08/06)
     // done jflute 委譲とかdelegateとかの言葉の意味についてフォロー (2024/08/06)
     // (一応、転送と委譲の話も、すごく軽く触れた。とりあえず移譲でいいです)
+
+    public BarkingProcess createBarkingProcess() {
+        return new BarkingProcess(this);
+    }
+
     public BarkedSound bark() {
-        BarkingProcess barkingProcess = new BarkingProcess(this);
         return barkingProcess.bark();
     }
 
