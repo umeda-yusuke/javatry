@@ -67,7 +67,8 @@ public class Step07ExceptionTest extends PlainTestCase {
         } catch (IllegalStateException e) {
             sea = e.getMessage();
         }
-        log(sea); // your answer? =>
+        log(sea); // your answer? => "oneman at showbase"
+        // 1on1で一緒にやった by jflute
     }
 
     /**
@@ -105,7 +106,8 @@ public class Step07ExceptionTest extends PlainTestCase {
     public void test_exception_hierarchy_Runtime_instanceof_Exception() {
         Object exp = new IllegalStateException("mystic");
         boolean sea = exp instanceof Exception;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => true
+        // [ふぉろー] 1on1で一緒にやった by jflute
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -153,6 +155,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         // your answer? => land, toLowerCaseメソッドの2563行目
     }
     // あってる？145行目と書いた方がよかった？
+    // [ふぉろー] そもそも toLowerCase() が呼べてない、呼ぶ前に land. で NullPointer
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_nullpointer_headache() {
@@ -188,6 +191,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         }
     }
     // こういうこと？？
+    // [ふぉろー] yes, good. 一方で、Java14以降は例外メッセージでわかるようになっている話もした
 
     // ===================================================================================
     //                                                                   Checked Exception
@@ -201,6 +205,8 @@ public class Step07ExceptionTest extends PlainTestCase {
             String canonicalPath = new File(".").getCanonicalPath();
             log(canonicalPath);
         } catch (IOException e) {
+            // TODO umeyan 例外メッセージが重複して表示されるので... by jflute (2024/09/19)
+            //  e.g. log("I/O error occurred", e);
             log("I/O error occurred: " + e.getMessage());
             log(e);
         }
@@ -232,6 +238,8 @@ public class Step07ExceptionTest extends PlainTestCase {
     // 間違ってる
     // throwCauseThirdLevelメソッドでNumberFormatExceptionが発生しているので、それが原因となっている。
     // symbolは最初１で、その後に2回-1されているので、-1になっている。
+    // [ふぉろー] メッセージのところが third でした。
+    // でも、例外クラスは合ってるから、階層自体は頭の中でちゃんとわかっていたかなと。
 
 
     private void throwCauseFirstLevel() {
@@ -260,6 +268,9 @@ public class Step07ExceptionTest extends PlainTestCase {
             Integer.valueOf("piari");
         }
     }
+    
+    // [ふぉろー] 例外は例外を持つことができる、何階層もつなげて保持できる
+    // TODO jflute 1on1にて、なんで例外は例外を持つことができるのか？(持つ必要があるのか？)を聞きます (2024/09/19)
 
     // ===================================================================================
     //                                                                         Translation
