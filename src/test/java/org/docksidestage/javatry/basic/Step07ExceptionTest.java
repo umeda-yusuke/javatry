@@ -270,7 +270,9 @@ public class Step07ExceptionTest extends PlainTestCase {
     }
     
     // [ふぉろー] 例外は例外を持つことができる、何階層もつなげて保持できる
-    // TODO jflute 1on1にて、なんで例外は例外を持つことができるのか？(持つ必要があるのか？)を聞きます (2024/09/19)
+    // jflute 1on1にて、なんで例外は例外を持つことができるのか？(持つ必要があるのか？)を聞きます (2024/09/19)
+    // この図を使ってとっくり説明 (スーパーカー)
+    // https://dbflute.seasar.org/ja/manual/topic/programming/java/exception.html
 
     // ===================================================================================
     //                                                                         Translation

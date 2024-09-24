@@ -58,7 +58,7 @@ public class Zombie extends Animal {
     //                                                                               Bark
     //                                                                              ======
     @Override
-    public BarkingProcess createBarkingProcess() {
+    protected BarkingProcess createBarkingProcess() {
         return new ZombieBarkingProcess(this);
     }
 

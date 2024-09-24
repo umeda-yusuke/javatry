@@ -7,6 +7,7 @@ import org.docksidestage.bizfw.basic.objanimal.Zombie;
  * @author umeda-yusuke
  */
 public class ZombieBarkingProcess extends BarkingProcess {
+    // TODO umeyan private finalくらい欲しい by jflute (2024/09/24)
     Zombie zombie;
 
     public ZombieBarkingProcess(Zombie zombie) {
