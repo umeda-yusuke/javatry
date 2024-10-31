@@ -33,7 +33,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りに実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author umeda-yusuke
  */
 public class Step08Java8FunctionTest extends PlainTestCase {
 
@@ -68,11 +68,12 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         log("...Executing lambda expression style callback");
         helpCallbackConsumer(stage -> log(stage + ": " + title));
 
-        // your answer? => 
+        // your answer? => yes
 
         // cannot reassign because it is used at callback process
         //title = "wave";
     }
+    // St8BasicConsumerクラスのacceptメソッドで「log(stage + ": " + title)」が呼び出されているため、他のコールバック処理でも同じ文字列が出力される。
 
     /**
      * What is order of strings by log(). (write answer as comma-separated) <br>
@@ -84,8 +85,9 @@ public class Step08Java8FunctionTest extends PlainTestCase {
             log(stage);
         });
         log("lost river");
-        // your answer? => 
+        // your answer? => harbor, broadway, dockside, hangar, lost river
     }
+    // 合ってたけど、よくわからない。解説欲しい
 
     private class St8BasicConsumer implements Consumer<String> {
 
@@ -116,8 +118,9 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         String sea = helpCallbackFunction(number -> {
             return label + ": " + number;
         });
-        log(sea); // your answer? => 
+        log(sea); // your answer? => number: 7
     }
+    // 合ってたけど、numberに7が入っていく流れがわからない。解説欲しい
 
     private String helpCallbackFunction(Function<Integer, String> oneArgLambda) {
         return oneArgLambda.apply(7);
@@ -176,8 +179,10 @@ public class Step08Java8FunctionTest extends PlainTestCase {
             St8Member member = optMember.get();
             log(member.getMemberId(), member.getMemberName());
         }
-        // your answer? => 
+        // your answer? => yes
     }
+    // 合ってた。isPresent()がnullチェックをしている
+    // selectMemberは、oldselectMemberをOptionalでラップしている
 
     /**
      * Are the strings by two log() methods same? (yes or no) <br>
@@ -192,8 +197,9 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         optMember.ifPresent(member -> {
             log(member.getMemberId(), member.getMemberName());
         });
-        // your answer? => 
+        // your answer? => yes
     }
+    // 合ってたけど、menberにoptMemberが入っていく流れがわからない。解説欲しい
 
     /**
      * What string is sea, land, piari, bonvo, dstore, amba variables at the method end? <br>
