@@ -294,7 +294,7 @@ public class Step07ExceptionTest extends PlainTestCase {
             //
             //
             // _/_/_/_/_/_/_/_/_/_/
-            // TODO done umeyan [いいね] 簡潔にありがとうございます。全体のストーリーに触れていてわかりやすいです。 by jflute (2024/10/14)
+            // done umeyan [いいね] 簡潔にありがとうございます。全体のストーリーに触れていてわかりやすいです。 by jflute (2024/10/14)
             //
             // 以前1on1で例外の翻訳の話をしましたが、この時点のスーパーカーは翻訳が全く無いので、
             // 例外メッセージだけだと末端の事情しかわからなくて事象の全体像を把握するのがとても難しいです。
@@ -307,6 +307,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         }
     }
 
+    // TODO umeyan ここからまだ途中 by jflute (2024/11/01)
     /**
      * Improve exception handling in supercar's classes to understand the situation
      * by only exception information as far as possible. <br>

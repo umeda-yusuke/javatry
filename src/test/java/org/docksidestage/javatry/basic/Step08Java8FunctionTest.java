@@ -37,6 +37,11 @@ import org.docksidestage.unit.PlainTestCase;
  */
 public class Step08Java8FunctionTest extends PlainTestCase {
 
+    // Javaよもやま:
+    // java8, java11, java17, java21 だけが LTS (長いサポート) されているもの
+    // Javaを作ってる人はOracle社 (昔はSun MicroSystemsでOracleが買収)
+    // ちなみに、元々MySQLを作ってた会社MySQL AB社をSun Microsystemsが買収
+
     // ===================================================================================
     //                                                                              Lambda
     //                                                                              ======
@@ -54,12 +59,15 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         helpCallbackConsumer(new St8BasicConsumer(title));
 
         log("...Executing anonymous class callback");
-        helpCallbackConsumer(new Consumer<String>() {
+        helpCallbackConsumer(new Consumer<String>() { // 無名クラスと呼ぶ
             public void accept(String stage) {
                 log(stage + ": " + title);
             }
         });
 
+        // ここからJava8
+        // Lambda式が書ける条件としては、interfaceのメソッドが一個であること
+        // [memo] 言語の特徴の違いの話も (省略の話)
         log("...Executing lambda block style callback");
         helpCallbackConsumer(stage -> {
             log(stage + ": " + title);
@@ -88,6 +96,7 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         // your answer? => harbor, broadway, dockside, hangar, lost river
     }
     // 合ってたけど、よくわからない。解説欲しい
+    // 1on1にてフォローdone by jflute
 
     private class St8BasicConsumer implements Consumer<String> {
 
@@ -121,6 +130,9 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         log(sea); // your answer? => number: 7
     }
     // 合ってたけど、numberに7が入っていく流れがわからない。解説欲しい
+    // 1on1フォローdone by jflute (2024/11/01)
+    // コールバックは厳密には難しい、でも定型的な書き方で提供して意識させずに書いてもらうってのが多い by jflute (2024/11/01)
+    // (DBFluteのConditionBeanの例で説明)
 
     private String helpCallbackFunction(Function<Integer, String> oneArgLambda) {
         return oneArgLambda.apply(7);
@@ -144,12 +156,13 @@ public class Step08Java8FunctionTest extends PlainTestCase {
      * </pre>
      */
     public void test_java8_lambda_convertStyle_basic() {
+        // TODO umeyan 後でやってもらえればと by jflute (2024/11/01)
         helpCallbackSupplier(new Supplier<String>() { // sea
             public String get() {
                 return "broadway";
             }
         });
-
+        
         helpCallbackSupplier(() -> { // land
             return "dockside";
         });
@@ -162,6 +175,9 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         log(supplied);
     }
 
+    // JavaのOptionalは単なるクラスであって文法ではない。
+    // なので、Optionalの変数にnullは入ってしまうけど、世界的なマナーで入れない！でなんとか成り立ってる。
+    // TODO jflute 次回1on1ここから (2024/11/01)
     // ===================================================================================
     //                                                                            Optional
     //                                                                            ========
