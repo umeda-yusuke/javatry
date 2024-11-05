@@ -156,18 +156,16 @@ public class Step08Java8FunctionTest extends PlainTestCase {
      * </pre>
      */
     public void test_java8_lambda_convertStyle_basic() {
-        // TODO umeyan 後でやってもらえればと by jflute (2024/11/01)
-        helpCallbackSupplier(new Supplier<String>() { // sea
-            public String get() {
-                return "broadway";
-            }
+        // TODO done umeyan 後でやってもらえればと by jflute (2024/11/01)
+        helpCallbackSupplier(() -> { // sea
+            return "broadway";
         });
         
-        helpCallbackSupplier(() -> { // land
-            return "dockside";
-        });
+        helpCallbackSupplier(() -> "dockside"); // land
 
-        helpCallbackSupplier(() -> "hangar"); // piari
+        helpCallbackSupplier(() -> {
+            return "hangar";
+        }); // piari
     }
 
     private void helpCallbackSupplier(Supplier<String> oneArgLambda) {
@@ -274,14 +272,16 @@ public class Step08Java8FunctionTest extends PlainTestCase {
                 .map(wdl -> wdl.getWithdrawalId()) // ID here
                 .orElse(defaultWithdrawalId);
 
-        log(sea); // your answer? => 
-        log(land); // your answer? => 
-        log(piari); // your answer? => 
-        log(bonvo); // your answer? => 
-        log(dstore); // your answer? => 
-        log(amba); // your answer? => 
-        log(miraco); // your answer? => 
+        log(sea); // your answer? => music
+        log(land); // your answer? => music
+        log(piari); // your answer? => music
+        log(bonvo); // your answer? => music
+        log(dstore); // your answer? => *no reason: someone was not present
+        log(amba); // your answer? => *no reason: someone was not present
+        log(miraco); // your answer? => -1
     }
+
+    // getWithdrawalIdである事を見落とした。12である
 
     /**
      * What string is sea variables at the method end? <br>
@@ -299,8 +299,10 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         } catch (IllegalStateException e) {
             sea = e.getMessage();
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wave
     }
+
+    // あってた
 
     // ===================================================================================
     //                                                                          Stream API
@@ -318,15 +320,16 @@ public class Step08Java8FunctionTest extends PlainTestCase {
             }
         }
         String sea = oldfilteredNameList.toString();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => [broadway, dockside]
 
         List<String> filteredNameList = memberList.stream() //
                 .filter(mb -> mb.getWithdrawal().isPresent()) //
                 .map(mb -> mb.getMemberName()) //
                 .collect(Collectors.toList());
         String land = filteredNameList.toString();
-        log(land); // your answer? => 
+        log(land); // your answer? => [broadway, dockside]
     }
+    // あってた
 
     /**
      * What string is sea, variables at the method end? <br>
