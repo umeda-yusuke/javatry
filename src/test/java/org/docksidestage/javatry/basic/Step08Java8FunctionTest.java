@@ -156,11 +156,12 @@ public class Step08Java8FunctionTest extends PlainTestCase {
      * </pre>
      */
     public void test_java8_lambda_convertStyle_basic() {
-        // TODO done umeyan 後でやってもらえればと by jflute (2024/11/01)
+        // done umeyan 後でやってもらえればと by jflute (2024/11/01)
         helpCallbackSupplier(() -> { // sea
             return "broadway";
         });
         
+        // [よもやま] 括弧のありなしで、フォーマッターのすれ違いを微調整できたりする by jflute (2024/11/05)
         helpCallbackSupplier(() -> "dockside"); // land
 
         helpCallbackSupplier(() -> {
@@ -197,6 +198,10 @@ public class Step08Java8FunctionTest extends PlainTestCase {
     }
     // 合ってた。isPresent()がnullチェックをしている
     // selectMemberは、oldselectMemberをOptionalでラップしている
+
+    // [よもやま] Optionalの原始的なコンセプト。
+    // Optionalの導入のタイミングの話。(Lambda式と一緒というのがポイント)
+    // Javaだと、Optionalの利用は若干中途半端にならざるを得ない。(両方のパターンありえる)
 
     /**
      * Are the strings by two log() methods same? (yes or no) <br>
@@ -283,6 +288,31 @@ public class Step08Java8FunctionTest extends PlainTestCase {
 
     // getWithdrawalIdである事を見落とした。12である
 
+    // [よもやま] Optional@get()問題
+    // isPresent()せずにget()するパターンの是非が議論されることが多かった。
+    // もちろん、ないかもしれないのに問答無用get()したらOUTなのは当然だけど...
+    // 例えば、引数で1を入れた場合、業務的には絶対に存在すると言い切れるような場面...
+    // (つまり、戻り値のありなしが引数に寄って変わるような場面)
+    //
+    // このとき、ifPresent()するか？ => 万が一なかった場合(バグとか勘違い)、素通りする
+    // もしくは問答無用get()するか？ => 万が一なかった場合(バグとか勘違い)、しょぼい例外
+    // もしくはorElseThrow(...new)するか？ => 万が一なかった場合(バグとか勘違い)、ちゃんとした例外
+    //    (ちゃんとした例外というのは、例外メッセージにデバッグ情報がしっかり入っている例外のこと)
+    //    (しょぼい例外をthrowするのであれば、それはget()するのと情報が何も変わらない)
+    //    (あと費用対効果の問題...)
+    //
+    // その後、Java10から引数のない orElseThrow() というメソッドが追加された。
+    // 実装の中身は get() と100%同じ。(メソッド名が違うだけ)
+    // これが問答無用get()の代わり？ (ここはjfluteの感想)
+    //
+    // (Kotlin)
+    // int? Entity?で受け取ったときで、でも入れた引数からすると業務的には絶対に存在するって場合、
+    // Entity? select(...) {
+    // }
+    // var entity = select(1); // 1は絶対存在する (varの型は?になっている)
+    // var memberName = entity?.memberName // Javaだと => orElse(null)
+    // var memberName = entity!!.memberName // Javaだと => 恐らくget()に近い？
+    //
     /**
      * What string is sea variables at the method end? <br>
      * (メソッド終了時の変数 sea の中身は？)
