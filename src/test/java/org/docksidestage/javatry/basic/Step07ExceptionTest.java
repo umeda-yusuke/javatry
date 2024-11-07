@@ -341,6 +341,11 @@ public class Step07ExceptionTest extends PlainTestCase {
         try {
             helpThrowIllegalState();
         } catch (IllegalStateException e) {
+            // TODO umeyan ネストの例外メッセージを引き継いでいるというのは良いことですね by jflute (2024/11/07)
+            // ただ、これだとネストの例外のスタックトレースが引き継がれていないので、デバッグ情報としてはロスが発生しています。
+            // ここは、test_exception_cause_basic() のエクササイズを思い出してみましょう。
+            // ネストの例外の例外メッセージとスタックトレース、翻訳例外の例外メッセージとスタックトレース、
+            // すべてが (try/catchしてる箇所での) ログで表示できるようにしましょう。
             throw new St7ConstructorChallengeException(e.getMessage());
         }
     }
@@ -368,5 +373,8 @@ public class Step07ExceptionTest extends PlainTestCase {
         //
         //
         // _/_/_/_/_/_/_/_/_/_/
+        // [1on1でのふぉろー] ↑おおよそGood, step7の最初の方で話したこと理解されていますね！
+        // 予期の解釈は若干曖昧ではありますが、準正常というニュアンスは素晴らしいです。
+        // throwする瞬間はあくまで準正常系、catchして判断するときにエラーと解釈するかそのまま準正常か決められる。
     }
 }
