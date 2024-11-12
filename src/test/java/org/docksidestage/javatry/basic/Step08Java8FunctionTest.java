@@ -176,7 +176,7 @@ public class Step08Java8FunctionTest extends PlainTestCase {
 
     // JavaのOptionalは単なるクラスであって文法ではない。
     // なので、Optionalの変数にnullは入ってしまうけど、世界的なマナーで入れない！でなんとか成り立ってる。
-    // TODO jflute 次回1on1ここから (2024/11/01)
+    // done jflute 次回1on1ここから (2024/11/01)
     // ===================================================================================
     //                                                                            Optional
     //                                                                            ========
